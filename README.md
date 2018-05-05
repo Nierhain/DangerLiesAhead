@@ -1,2 +1,2 @@
 # DangerLiesAhead
-Minecraft Mod making the world more dangerous
+Minecraft mod making the world more dangerous
