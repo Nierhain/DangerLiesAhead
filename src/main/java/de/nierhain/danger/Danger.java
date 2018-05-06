@@ -1,7 +1,6 @@
 package de.nierhain.danger;
 
 import de.nierhain.danger.gui.RenderGuiHandler;
-import de.nierhain.danger.level.EventHandlerLevelUp;
 import de.nierhain.danger.proxy.CommonProxy;
 import de.nierhain.danger.util.Reference;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,7 +28,6 @@ public class Danger {
 	
 	@EventHandler
 	public static void init(FMLInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(new EventHandlerLevelUp());
 	}
 	
 	@EventHandler

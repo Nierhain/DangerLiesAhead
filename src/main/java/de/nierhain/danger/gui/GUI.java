@@ -12,7 +12,7 @@ public class GUI extends Gui{
 		int width = scaled.getScaledWidth();
 		int height = scaled.getScaledHeight();
 		
-		String text = "Current Health: " + Float.toString(mc.player.getHealth());
+		String text = "Current Health: " + Float.toString(mc.player.getMaxHealth());
 		
 		drawCenteredString(mc.fontRenderer, text, width / 2, (height / 2) - 4, Integer.parseInt("FFAA00", 16));
 	}
