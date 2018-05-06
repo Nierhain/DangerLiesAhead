@@ -12,7 +12,6 @@ public class IncreaseHealth {
 	
 	
 	final UUID MODIFIER_ID = UUID.fromString("Health");
-	
 	final String MODIFIER_NAME = "Increase Health";
 	
 	final float HEALTH_INCREMENT = 0.2f;

@@ -1,5 +1,7 @@
 package de.nierhain.danger.gui;
 
+import de.nierhain.danger.capabilities.level.ILevel;
+import de.nierhain.danger.capabilities.level.LevelProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -14,6 +16,6 @@ public class GUI extends Gui{
 		
 		String text = "Current Health: " + Float.toString(mc.player.getMaxHealth());
 		
-		drawCenteredString(mc.fontRenderer, text, width / 2, (height / 2) - 4, Integer.parseInt("FFAA00", 16));
+		drawCenteredString(mc.fontRenderer, text, 0, 0, Integer.parseInt("FFAA00", 16));
 	}
 }

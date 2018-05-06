@@ -4,9 +4,11 @@ public interface ILevel {
 	
 	public int getCurrentLevel();
 	public int getCurrentXP();
-	public int getNeededXP();
+	public int getNeededXP(int index);
+	public int[] getNeededArr();
+	public boolean isLevelUp(int xp);
 	
 	public void setCurrentXP(int xp);
 	public void setCurrentLevel(int level);
-	public void setNeededXP(int needed);
+	public void setNeededXP(int[] needed);
 }

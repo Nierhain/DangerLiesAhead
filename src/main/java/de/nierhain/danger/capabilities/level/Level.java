@@ -12,18 +12,30 @@ public class Level implements ILevel, INBTSerializable<NBTTagCompound> {
 	
 	private int currentXP;
 	private int currentLevel;
-	private int neededXP;
+	private int[] neededXP = new int[10];
+	
+	private final double CONSTANT_A = 1 + 2/3;
+	private final double CONSTANT_B = 8 + 1/3;
+	
 	private EntityLivingBase entity;
 	public static final EnumFacing DEFAULT_FACING = null;
 	
 	public Level(@Nullable EntityLivingBase entity) {
 		deserializeNBT(entity.getEntityData());
+		this.initNeededXP();
 	}
 
 	public Level() {
 		this.currentXP = 0;
 		this.currentLevel = 0;
-		this.neededXP = 10;
+		this.initNeededXP();
+	}
+
+	private void initNeededXP() {
+		for (int i = 0; i < neededXP.length; i++) {
+			neededXP[i] = (int) Math.ceil((CONSTANT_A * Math.pow(i, 2) + CONSTANT_B * i));
+		}
+		
 	}
 
 	@Override
@@ -31,7 +43,7 @@ public class Level implements ILevel, INBTSerializable<NBTTagCompound> {
 		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setInteger("currentXP", this.currentXP);
 		nbt.setInteger("currentLevel", this.currentLevel);
-		nbt.setInteger("neededXP", this.neededXP);
+		nbt.setIntArray("neededXP", this.neededXP);
 		return nbt;
 	}
 
@@ -39,7 +51,7 @@ public class Level implements ILevel, INBTSerializable<NBTTagCompound> {
 	public void deserializeNBT(NBTTagCompound nbt) {
 		this.currentXP = nbt.getInteger("currentXP");
 		this.currentLevel = nbt.getInteger("currentLevel");
-		this.neededXP = nbt.getInteger("neededXP");
+		this.neededXP = nbt.getIntArray("neededXP");
 		
 	}
 
@@ -54,8 +66,8 @@ public class Level implements ILevel, INBTSerializable<NBTTagCompound> {
 	}
 
 	@Override
-	public int getNeededXP() {
-		return this.neededXP;
+	public int getNeededXP(int index) {
+		return this.neededXP[index];
 	}
 
 	@Override
@@ -70,9 +82,22 @@ public class Level implements ILevel, INBTSerializable<NBTTagCompound> {
 	}
 
 	@Override
-	public void setNeededXP(int needed) {
+	public void setNeededXP(int[] needed) {
 		this.neededXP = needed;
 		
+	}
+
+	@Override
+	public int[] getNeededArr() {
+		return this.neededXP;
+	}
+	
+	@Override
+	public boolean isLevelUp(int xp) {
+		if (this.getCurrentXP() + xp >= this.neededXP[this.getCurrentLevel()]) {
+			return true;
+		}
+		return false;
 	}
 
 }
