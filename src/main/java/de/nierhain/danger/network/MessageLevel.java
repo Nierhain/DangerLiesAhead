@@ -1,7 +1,10 @@
 package de.nierhain.danger.network;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageLevel implements IMessage{
 	
@@ -20,4 +23,16 @@ public class MessageLevel implements IMessage{
 		buf.writeInt(currentLevel);
 	}
 	
+	
+	public static class MessageHandler implements IMessageHandler<MessageLevel, IMessage>{
+
+		@Override
+		public IMessage onMessage(MessageLevel message, MessageContext ctx) {
+			EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
+			
+			return null;
+		}
+		
+	}
+
 }

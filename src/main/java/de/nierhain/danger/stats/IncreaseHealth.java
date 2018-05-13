@@ -3,6 +3,7 @@ package de.nierhain.danger.stats;
 import java.util.UUID;
 
 import de.nierhain.danger.util.Constants;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -16,10 +17,10 @@ public class IncreaseHealth {
 	
 	final float HEALTH_INCREMENT = 0.2f;
 	
-	final EntityPlayer entity;
+	final EntityLivingBase entity;
 	
-	public IncreaseHealth(EntityPlayer entity) {
-		this.entity = entity;
+	public IncreaseHealth(EntityLivingBase player) {
+		this.entity = player;
 	}
 	
 	public void increaseHealth() {
