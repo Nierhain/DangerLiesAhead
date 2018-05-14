@@ -5,14 +5,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 
-public class Storage implements Capability.IStorage<ILevelHandler>{
+public class StorageLevel implements Capability.IStorage<ILevelHandler>{
 
 	@Override
 	public NBTBase writeNBT(Capability<ILevelHandler> capability, ILevelHandler instance, EnumFacing side) {
 		
 		final NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("dangerlevel", instance.getLevel());
-		tag.setInteger("dangerxp", instance.getXP());
+		tag.setInteger("level", instance.getLevel());
+		tag.setInteger("xp", instance.getXP());
 		return tag;
 	}
 
@@ -20,8 +20,8 @@ public class Storage implements Capability.IStorage<ILevelHandler>{
 	public void readNBT(Capability<ILevelHandler> capability, ILevelHandler instance, EnumFacing side, NBTBase nbt) {
 		
 		final NBTTagCompound tag = (NBTTagCompound) nbt;
-		instance.setLevel(tag.getInteger("dangerlevel"));
-		instance.setXP(tag.getInteger("dangerxp"));
+		instance.setLevel(tag.getInteger("level"));
+		instance.setXP(tag.getInteger("xp"));
 		
 	}
 	

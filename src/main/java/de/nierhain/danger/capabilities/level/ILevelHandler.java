@@ -11,4 +11,11 @@ public interface ILevelHandler {
 	void setXP(int xp);
 	
 	void setLevel(int level);
+	int[] getNeededXP();
+	void printMaxLevel();
+	
+	void purgeLevel();
+	
+	boolean hadLevelUp();
+	void setHadLevelUp(boolean state);
 }

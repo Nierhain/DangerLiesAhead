@@ -8,27 +8,35 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageLevel implements IMessage{
 	
-	private int currentXP;
-	private int currentLevel;
+	private int xp;
+	private int level;
+	
+	public MessageLevel(int xp, int level) {
+		this.xp = xp;
+		this.level = level;
+	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		currentXP = buf.readInt();
-		currentLevel = buf.readInt();
+		xp = buf.readInt();
+		level = buf.readInt();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(currentXP);
-		buf.writeInt(currentLevel);
+		buf.writeInt(xp);
+		buf.writeInt(level);
 	}
 	
 	
-	public static class MessageHandler implements IMessageHandler<MessageLevel, IMessage>{
+	public class MessageHandler implements IMessageHandler<MessageLevel, IMessage>{
 
 		@Override
 		public IMessage onMessage(MessageLevel message, MessageContext ctx) {
 			EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
+			
+			int xp = message.xp;
+			int level = message.level;
 			
 			return null;
 		}

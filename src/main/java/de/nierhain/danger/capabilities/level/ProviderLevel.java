@@ -7,7 +7,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-public class Provider implements ICapabilitySerializable<NBTTagCompound>{
+public class ProviderLevel implements ICapabilitySerializable<NBTTagCompound>{
 	
     @CapabilityInject(ILevelHandler.class)
     public static final Capability<ILevelHandler> CAPABILITY_LEVEL = null;
