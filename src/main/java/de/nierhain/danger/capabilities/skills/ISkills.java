@@ -1,6 +1,6 @@
-package de.nierhain.danger.capabilities.skilling;
+package de.nierhain.danger.capabilities.skills;
 
-public interface ISkilling {
+public interface ISkills {
 
     int getHealth();
     void setHealth(int health);

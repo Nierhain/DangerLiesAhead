@@ -1,4 +1,4 @@
-package de.nierhain.danger.capabilities.skilling;
+package de.nierhain.danger.capabilities.skills;
 
 import de.nierhain.danger.capabilities.level.ILevel;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,9 +10,9 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ProviderSkilling implements ICapabilitySerializable<NBTTagCompound> {
+public class ProviderSkills implements ICapabilitySerializable<NBTTagCompound> {
 
-    @CapabilityInject(ISkilling.class)
+    @CapabilityInject(ISkills.class)
     public static final Capability<ILevel> CAPABILITY_SKILL = null;
 
     ILevel instance = CAPABILITY_SKILL.getDefaultInstance();

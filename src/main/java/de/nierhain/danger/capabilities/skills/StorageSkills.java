@@ -1,4 +1,4 @@
-package de.nierhain.danger.capabilities.skilling;
+package de.nierhain.danger.capabilities.skills;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -7,11 +7,11 @@ import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
-public class StorageSkilling implements Capability.IStorage<ISkilling> {
+public class StorageSkills implements Capability.IStorage<ISkills> {
 
     @Nullable
     @Override
-    public NBTBase writeNBT(Capability<ISkilling> capability, ISkilling instance, EnumFacing side) {
+    public NBTBase writeNBT(Capability<ISkills> capability, ISkills instance, EnumFacing side) {
         final NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("health", instance.getHealth());
         tag.setInteger("hunger", instance.getHunger());
@@ -23,7 +23,7 @@ public class StorageSkilling implements Capability.IStorage<ISkilling> {
     }
 
     @Override
-    public void readNBT(Capability<ISkilling> capability, ISkilling instance, EnumFacing side, NBTBase nbt) {
+    public void readNBT(Capability<ISkills> capability, ISkills instance, EnumFacing side, NBTBase nbt) {
         final NBTTagCompound tag = (NBTTagCompound) nbt;
         instance.setHealth(tag.getInteger("health"));
         instance.setHunger(tag.getInteger("hunger"));

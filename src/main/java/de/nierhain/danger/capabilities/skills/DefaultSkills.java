@@ -1,11 +1,7 @@
-package de.nierhain.danger.capabilities.skilling;
-
-import net.minecraft.nbt.NBTTagCompound;
-
-import java.util.HashMap;
+package de.nierhain.danger.capabilities.skills;
 
 
-public class DefaultSkilling implements ISkilling {
+public class DefaultSkills implements ISkills {
 
 
     private int health;
