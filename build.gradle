@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -12,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 
 version = "1.0"
-group = "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "de.nierhain.danger" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "modid"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -54,7 +55,6 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
 }
 
 processResources {
