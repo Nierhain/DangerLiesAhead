@@ -57,7 +57,7 @@ public class SkillsHandler {
 
     }
 
-    private void skillHealth(EntityPlayer player){
+    public static void skillHealth(EntityPlayer player){
         IAttributeInstance healthAttribute = player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
         float oldHealth = player.getMaxHealth() - 20;
         AttributeModifier healthMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Health Modifier", oldHealth + 2, 0);
@@ -65,10 +65,10 @@ public class SkillsHandler {
         healthAttribute.applyModifier(healthMod);
     }
 
-    public void skillHunger(EntityPlayer player){
+    public static void skillHunger(EntityPlayer player){
     }
 
-    public void skillMovementSpeed(EntityPlayer player){
+    public static void skillMovementSpeed(EntityPlayer player){
          IAttributeInstance movementSpeed = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
          double oldSpeed = movementSpeed.getBaseValue();
          AttributeModifier moveMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Movement Speed Modifier", oldSpeed + 0.1, 0 );
@@ -76,7 +76,7 @@ public class SkillsHandler {
          movementSpeed.applyModifier(moveMod);
     }
 
-    public void skillAttackDamage(EntityPlayer player){
+    public static void skillAttackDamage(EntityPlayer player){
         IAttributeInstance dmgAttribute = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
         double oldDamage = dmgAttribute.getBaseValue();
         AttributeModifier dmgMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Attack Damage Modifier", oldDamage + 1, 0);
@@ -84,7 +84,7 @@ public class SkillsHandler {
         dmgAttribute.applyModifier(dmgMod);
     }
 
-    public void skillAttackSpeed(EntityPlayer player){
+    public static void skillAttackSpeed(EntityPlayer player){
         IAttributeInstance asAttribute = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED);
         double oldAS = asAttribute.getBaseValue();
         AttributeModifier asMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Attack Speed Modifier", oldAS + 1, 0);
@@ -92,7 +92,7 @@ public class SkillsHandler {
         asAttribute.applyModifier(asMod);
     }
 
-    public void skillLuck(EntityPlayer player){
+    public static void skillLuck(EntityPlayer player){
         IAttributeInstance luckAttribute = player.getEntityAttribute(SharedMonsterAttributes.LUCK);
         double oldLuck = luckAttribute.getBaseValue();
         AttributeModifier luckMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Luck Modifier", oldLuck + 1, 0);
