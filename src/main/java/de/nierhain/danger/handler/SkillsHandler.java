@@ -7,7 +7,9 @@ import de.nierhain.danger.utils.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -20,7 +22,20 @@ import static de.nierhain.danger.capabilities.skills.ProviderSkills.CAPABILITY_S
 
 public class SkillsHandler {
 
+    private static final double MODIFIER_HEALTH = 2;
+    private static final double MODIFIER_SPEED = 0.1;
+    private static final double MODIFIER_DMG = 1;
+    private static final double MODIFIER_AS = 1;
+    private static final double MODIFIER_LUCK = 1;
+
+    private static final double DEFAULT_HEALTH = 20;
+    private static final double DEFAULT_SPEED = 0.1;
+    private static final double DEFAULT_DMG = 2;
+    private static final double DEFAULT_AS = 4;
+    private static final double DEFAULT_LUCK = 0;
+
     private static ISkills getHandler(Entity entity) {
+
         if(entity.hasCapability(CAPABILITY_SKILL, null))
             return entity.getCapability(CAPABILITY_SKILL, null);
 
@@ -39,7 +54,7 @@ public class SkillsHandler {
     public void clonePlayer(PlayerEvent.Clone event) {
 
         final ISkills original = getHandler(event.getOriginal());
-        final ISkills clone = getHandler(event.getEntity());
+        final ISkills clone = getHandler(event.getEntityPlayer());
 
         clone.setHealth(original.getHealth());
         clone.setHunger(original.getHunger());
@@ -47,6 +62,7 @@ public class SkillsHandler {
         clone.setAttackDamage(original.getAttackDamage());
         clone.setAttackSpeed(original.getAttackSpeed());
         clone.setLuck(original.getLuck());
+
     }
 
     @SubscribeEvent
@@ -54,50 +70,66 @@ public class SkillsHandler {
         EntityPlayer player = event.getPlayer();
         ISkills skills = getHandler(player);
         skills.setSkillpoints(skills.getSkillpoints() + 1);
+    }
 
+    public static void removeSkillpoint(EntityPlayer player){
+        player.getCapability(CAPABILITY_SKILL, null).removeSkillpoint();
+    }
+
+    public static void addAttribute(IAttribute attribute, AttributeModifier mod, EntityPlayer player){
+        IAttributeInstance attrInstance = player.getEntityAttribute(attribute);
+        attrInstance.removeAllModifiers();
+        attrInstance.applyModifier(mod);
     }
 
     public static void skillHealth(EntityPlayer player){
-        IAttributeInstance healthAttribute = player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-        float oldHealth = player.getMaxHealth() - 20;
-        AttributeModifier healthMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Health Modifier", oldHealth + 2, 0);
-        healthAttribute.removeAllModifiers();
-        healthAttribute.applyModifier(healthMod);
+        int newSkill = getHandler(player).getHealth() + 1;
+        getHandler(player).setHealth(newSkill);
+
+        double newHealth = getHandler(player).getHealth() * MODIFIER_HEALTH + DEFAULT_HEALTH;
+        AttributeModifier healthMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Health Modifier", newHealth, 0);
+
+        addAttribute(SharedMonsterAttributes.MAX_HEALTH, healthMod, player);
     }
 
     public static void skillHunger(EntityPlayer player){
+
     }
 
     public static void skillMovementSpeed(EntityPlayer player){
-         IAttributeInstance movementSpeed = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-         double oldSpeed = movementSpeed.getBaseValue();
-         AttributeModifier moveMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Movement Speed Modifier", oldSpeed + 0.1, 0 );
-         movementSpeed.removeAllModifiers();
-         movementSpeed.applyModifier(moveMod);
+        int newSkill = getHandler(player).getMovementSpeed() + 1;
+        getHandler(player).setMovementSpeed(newSkill);
+
+         double newSpeed = getHandler(player).getMovementSpeed() * MODIFIER_SPEED + DEFAULT_SPEED;
+         AttributeModifier moveMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Movement Speed Modifier", newSpeed, 0 );
+         addAttribute(SharedMonsterAttributes.MOVEMENT_SPEED, moveMod, player);
     }
 
     public static void skillAttackDamage(EntityPlayer player){
-        IAttributeInstance dmgAttribute = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-        double oldDamage = dmgAttribute.getBaseValue();
-        AttributeModifier dmgMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Attack Damage Modifier", oldDamage + 1, 0);
-        dmgAttribute.removeAllModifiers();
-        dmgAttribute.applyModifier(dmgMod);
+        int newSkill = getHandler(player).getAttackDamage() + 1;
+        getHandler(player).setAttackDamage(newSkill);
+
+        double newDmg = getHandler(player).getAttackDamage() * MODIFIER_DMG + DEFAULT_DMG;
+        AttributeModifier dmgMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Attack Damage Modifier", newDmg, 0);
+        addAttribute(SharedMonsterAttributes.ATTACK_DAMAGE, dmgMod, player);
     }
 
     public static void skillAttackSpeed(EntityPlayer player){
-        IAttributeInstance asAttribute = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED);
-        double oldAS = asAttribute.getBaseValue();
-        AttributeModifier asMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Attack Speed Modifier", oldAS + 1, 0);
-        asAttribute.removeAllModifiers();
-        asAttribute.applyModifier(asMod);
+        int newSkill = getHandler(player).getAttackSpeed() + 1;
+        getHandler(player).setAttackSpeed(newSkill);
+
+        double newAS = getHandler(player).getAttackSpeed() * MODIFIER_AS + DEFAULT_AS;
+        AttributeModifier asMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Attack Speed Modifier", newAS, 0);
+        addAttribute(SharedMonsterAttributes.ATTACK_SPEED, asMod, player);
     }
 
     public static void skillLuck(EntityPlayer player){
-        IAttributeInstance luckAttribute = player.getEntityAttribute(SharedMonsterAttributes.LUCK);
-        double oldLuck = luckAttribute.getBaseValue();
-        AttributeModifier luckMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Luck Modifier", oldLuck + 1, 0);
-        luckAttribute.removeAllModifiers();
-        luckAttribute.applyModifier(luckMod);
+        int newSkill = getHandler(player).getLuck() + 1;
+        getHandler(player).setLuck(newSkill);
+
+        double newLuck = getHandler(player).getLuck() * MODIFIER_LUCK + DEFAULT_LUCK;
+        AttributeModifier luckMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Luck Modifier", newLuck, 0);
+        addAttribute(SharedMonsterAttributes.LUCK, luckMod, player);
     }
 
 }

@@ -3,10 +3,10 @@ package de.nierhain.danger.capabilities.level;
 
 public class DefaultLevel implements ILevel {
 
-    private int level;
-    private int xp;
-    private int skillpointsAvailable;
-    private int skillpointsMax;
+    private int level = 0;
+    private int xp = 0;
+    private int skillpointsAvailable = 0;
+    private int skillpointsMax = 0;
 
     @Override
     public int getLevel() {
@@ -40,7 +40,7 @@ public class DefaultLevel implements ILevel {
 
     @Override
     public void setSkillpointsAvailable(int amount) {
-        this.setSkillpointsAvailable(amount);
+        this.skillpointsAvailable = amount;
     }
 
     @Override
@@ -75,5 +75,13 @@ public class DefaultLevel implements ILevel {
 
     public boolean hasSkillpointsAvailable() {
         return skillpointsAvailable > 0;
+    }
+
+    @Override
+    public void reset(){
+        level = 0;
+        xp = 0;
+        skillpointsAvailable = 0;
+        skillpointsMax = 0;
     }
 }

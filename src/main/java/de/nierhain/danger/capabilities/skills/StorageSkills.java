@@ -13,6 +13,7 @@ public class StorageSkills implements Capability.IStorage<ISkills> {
     @Override
     public NBTBase writeNBT(Capability<ISkills> capability, ISkills instance, EnumFacing side) {
         final NBTTagCompound tag = new NBTTagCompound();
+        tag.setInteger("skillpoints", instance.getSkillpoints());
         tag.setInteger("health", instance.getHealth());
         tag.setInteger("hunger", instance.getHunger());
         tag.setInteger("movementSpeed", instance.getMovementSpeed());
@@ -25,6 +26,7 @@ public class StorageSkills implements Capability.IStorage<ISkills> {
     @Override
     public void readNBT(Capability<ISkills> capability, ISkills instance, EnumFacing side, NBTBase nbt) {
         final NBTTagCompound tag = (NBTTagCompound) nbt;
+        instance.setSkillpoints(tag.getInteger("skillpoints"));
         instance.setHealth(tag.getInteger("health"));
         instance.setHunger(tag.getInteger("hunger"));
         instance.setMovementSpeed(tag.getInteger("movementSpeed"));

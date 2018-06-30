@@ -8,9 +8,10 @@ public class MapLevels {
     private static final double constA = 1;
     private static final double constB = 1;
 
-    private static HashMap<Integer, Integer> map = new HashMap<>();
+    static final HashMap<Integer, Integer> map;
 
-    {
+    static {
+        map = new HashMap<>();
         for(int i = 1; i < MAX_LVL; i++) map.put(i, (int) Math.ceil(constA * i * i + constB * i));
     }
 

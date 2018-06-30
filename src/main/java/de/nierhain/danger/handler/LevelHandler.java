@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.UUID;
 
 import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
+import static sun.misc.Version.print;
 
 public class LevelHandler {
 
@@ -54,17 +55,20 @@ public class LevelHandler {
     @SubscribeEvent
     public void onXPPickup(PlayerPickupXpEvent e){
         EntityPlayer player = e.getEntityPlayer();
+        if(!e.isCanceled()){
+            int xp = e.getOrb().getXpValue();
+            xpPickUp(player, xp);
+        }
+    }
 
+    private void xpPickUp(EntityPlayer player, int xp){
         ILevel cap = player.getCapability(CAPABILITY_LEVEL, null);
         int currentLevel = cap.getLevel();
-        int nextLevel = currentLevel++;
+        int nextLevel = currentLevel + 1;
 
-        cap.addXP(e.getOrb().getXpValue());
-
+        cap.addXP(xp);
         if(MapLevels.isLevelUp(nextLevel, cap.getXP())) {
             cap.addLevel(1);
-            cap.setXP(cap.getXP() - MapLevels.getNeededXP(nextLevel));
-
             MinecraftForge.EVENT_BUS.post(new EventLevelUp(player));
         }
     }

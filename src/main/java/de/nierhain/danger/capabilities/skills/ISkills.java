@@ -4,6 +4,7 @@ public interface ISkills {
 
     int getSkillpoints();
     void setSkillpoints(int skillpoints);
+    void removeSkillpoint();
 
     int getHealth();
     void setHealth(int health);

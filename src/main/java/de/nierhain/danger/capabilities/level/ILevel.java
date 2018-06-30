@@ -19,5 +19,7 @@ public interface ILevel {
     public void setSkillpointsMax(int amount);
     public void addSkillpointsMax(int amount);
 
+    public void reset();
+
 
 }
