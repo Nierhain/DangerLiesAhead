@@ -13,8 +13,8 @@ public class EventHandler {
     @SubscribeEvent
     public void onXPPickup(PlayerPickupXpEvent e){
         EntityPlayer player = e.getEntityPlayer();
-        float oldHealth = player.getMaxHealth();
-        AttributeModifier healthMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Health Modifier", oldHealth + 1, 0);
+        float oldHealth = player.getMaxHealth() - 20;
+        AttributeModifier healthMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Health Modifier", oldHealth + 2, 0);
         player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeAllModifiers();
         player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(healthMod);
 
