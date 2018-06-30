@@ -14,16 +14,17 @@ import static de.nierhain.danger.capabilities.skills.ProviderSkills.CAPABILITY_S
 public class SkillsHandler {
 
     private static ISkills getHandler(Entity entity) {
-        if(entity.hasCapability(CAPABILITY_SKILL, null)){
+        if(entity.hasCapability(CAPABILITY_SKILL, null))
             return entity.getCapability(CAPABILITY_SKILL, null);
-        }
+
+        return null;
     }
 
     @SubscribeEvent
     public void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
         if (event.getObject() instanceof EntityPlayer) {
-            event.addCapability(new ResourceLocation("danger", "level"), new ProviderSkills());
+            event.addCapability(new ResourceLocation("danger", "skills"), new ProviderSkills());
         }
     }
 
@@ -40,4 +41,6 @@ public class SkillsHandler {
         clone.setAttackSpeed(original.getAttackSpeed());
         clone.setLuck(original.getLuck());
     }
+
+
 }

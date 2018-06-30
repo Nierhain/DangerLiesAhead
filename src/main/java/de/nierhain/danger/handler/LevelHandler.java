@@ -3,7 +3,6 @@ package de.nierhain.danger.handler;
 import de.nierhain.danger.capabilities.level.ILevel;
 import de.nierhain.danger.capabilities.level.MapLevels;
 import de.nierhain.danger.capabilities.level.ProviderLevel;
-import de.nierhain.danger.capabilities.skills.ProviderSkills;
 import de.nierhain.danger.utils.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
