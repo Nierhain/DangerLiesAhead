@@ -1,10 +1,13 @@
 package de.nierhain.danger.proxy;
 
+import de.nierhain.danger.commands.CommandPurge;
+import de.nierhain.danger.commands.CommandPurgeHealth;
 import de.nierhain.danger.handler.EventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 public class CommonProxy {
 
@@ -18,5 +21,10 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent event){
 
+    }
+
+    public void serverLoad(FMLServerStartingEvent event){
+        event.registerServerCommand(new CommandPurge());
+        event.registerServerCommand(new CommandPurgeHealth());
     }
 }

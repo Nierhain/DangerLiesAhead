@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Danger {
@@ -28,5 +29,10 @@ public class Danger {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event){
         proxy.postInit(event);
+    }
+
+    @EventHandler
+    public void serverLoad(FMLServerStartingEvent event){
+        proxy.serverLoad(event);
     }
 }
