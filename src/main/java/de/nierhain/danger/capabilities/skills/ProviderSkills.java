@@ -1,6 +1,5 @@
 package de.nierhain.danger.capabilities.skills;
 
-import de.nierhain.danger.capabilities.level.ILevel;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -13,9 +12,9 @@ import javax.annotation.Nullable;
 public class ProviderSkills implements ICapabilitySerializable<NBTTagCompound> {
 
     @CapabilityInject(ISkills.class)
-    public static final Capability<ILevel> CAPABILITY_SKILL = null;
+    public static final Capability<ISkills> CAPABILITY_SKILL = null;
 
-    ILevel instance = CAPABILITY_SKILL.getDefaultInstance();
+    ISkills instance = CAPABILITY_SKILL.getDefaultInstance();
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
