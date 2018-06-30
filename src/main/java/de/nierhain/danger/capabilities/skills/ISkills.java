@@ -2,6 +2,9 @@ package de.nierhain.danger.capabilities.skills;
 
 public interface ISkills {
 
+    int getSkillpoints();
+    void setSkillpoints(int skillpoints);
+
     int getHealth();
     void setHealth(int health);
 

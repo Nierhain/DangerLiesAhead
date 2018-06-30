@@ -3,7 +3,7 @@ package de.nierhain.danger.capabilities.skills;
 
 public class DefaultSkills implements ISkills {
 
-
+    private int skillpoints;
     private int health;
     private int hunger;
     private int movementSpeed;
@@ -11,6 +11,15 @@ public class DefaultSkills implements ISkills {
     private int attackSpeed;
     private int luck;
 
+    @Override
+    public int getSkillpoints(){
+        return skillpoints;
+    }
+
+    @Override
+    public void setSkillpoints(int skillpoints){
+        this.skillpoints = skillpoints;
+    }
     @Override
     public int getHealth() {
         return health;
