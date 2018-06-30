@@ -72,4 +72,8 @@ public class DefaultLevel implements ILevel {
     public void removeSkillpointsAvailable(int amount) {
         this.skillpointsAvailable -= amount;
     }
+
+    public boolean hasSkillpointsAvailable() {
+        return skillpointsAvailable > 0;
+    }
 }
