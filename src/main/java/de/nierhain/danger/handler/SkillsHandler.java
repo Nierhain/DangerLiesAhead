@@ -91,6 +91,9 @@ public class SkillsHandler {
         AttributeModifier healthMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Health Modifier", newHealth, 0);
 
         addAttribute(SharedMonsterAttributes.MAX_HEALTH, healthMod, player);
+
+        // player does not get healed when his max health changes, therefore we have to do it manually
+        player.setHealth(player.getMaxHealth());
     }
 
     public static void skillHunger(EntityPlayer player){
