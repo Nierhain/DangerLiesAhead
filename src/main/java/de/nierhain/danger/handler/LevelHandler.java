@@ -68,7 +68,9 @@ public class LevelHandler {
 
         cap.addXP(xp);
         if(MapLevels.isLevelUp(nextLevel, cap.getXP())) {
+            System.out.println(MapLevels.getNeededXP(nextLevel) + " " + cap.getXP() + " " + cap.getLevel());
             cap.addLevel(1);
+            cap.setXP(cap.getXP() - MapLevels.getNeededXP(nextLevel));
             MinecraftForge.EVENT_BUS.post(new EventLevelUp(player));
         }
     }

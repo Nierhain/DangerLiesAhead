@@ -23,4 +23,6 @@ public interface ISkills {
 
     int getLuck();
     void setLuck(int luck);
+
+    void reset();
 }

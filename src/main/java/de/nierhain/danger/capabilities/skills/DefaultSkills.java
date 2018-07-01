@@ -86,4 +86,15 @@ public class DefaultSkills implements ISkills {
     public void setLuck(int luck) {
         this.luck = luck;
     }
+
+    @Override
+    public void reset() {
+        skillpoints = 0;
+        health = 0;
+        hunger = 0;
+        movementSpeed = 0;
+        attackDamage = 0;
+        attackSpeed = 0;
+        luck = 0;
+    }
 }

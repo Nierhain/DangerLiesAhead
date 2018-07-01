@@ -9,9 +9,9 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -70,6 +70,7 @@ public class SkillsHandler {
         EntityPlayer player = event.getPlayer();
         ISkills skills = getHandler(player);
         skills.setSkillpoints(skills.getSkillpoints() + 1);
+        event.getPlayer().sendMessage(new TextComponentString("Level up! New skillpoint available"));
     }
 
     public static void removeSkillpoint(EntityPlayer player){
@@ -86,7 +87,7 @@ public class SkillsHandler {
         int newSkill = getHandler(player).getHealth() + 1;
         getHandler(player).setHealth(newSkill);
 
-        double newHealth = getHandler(player).getHealth() * MODIFIER_HEALTH + DEFAULT_HEALTH;
+        double newHealth = (getHandler(player).getHealth() * MODIFIER_HEALTH ) + DEFAULT_HEALTH;
         AttributeModifier healthMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Health Modifier", newHealth, 0);
 
         addAttribute(SharedMonsterAttributes.MAX_HEALTH, healthMod, player);
