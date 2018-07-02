@@ -2,7 +2,6 @@ package de.nierhain.danger.proxy;
 
 import de.nierhain.danger.capabilities.level.DefaultLevel;
 import de.nierhain.danger.capabilities.level.ILevel;
-import de.nierhain.danger.capabilities.level.MapLevels;
 import de.nierhain.danger.capabilities.level.StorageLevel;
 import de.nierhain.danger.capabilities.skills.DefaultSkills;
 import de.nierhain.danger.capabilities.skills.ISkills;
