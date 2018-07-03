@@ -2,7 +2,6 @@ package de.nierhain.danger.proxy;
 
 import de.nierhain.danger.capabilities.level.DefaultLevel;
 import de.nierhain.danger.capabilities.level.ILevel;
-import de.nierhain.danger.capabilities.level.MapLevels;
 import de.nierhain.danger.capabilities.level.StorageLevel;
 import de.nierhain.danger.capabilities.skills.DefaultSkills;
 import de.nierhain.danger.capabilities.skills.ISkills;
@@ -12,6 +11,7 @@ import de.nierhain.danger.commands.CommandPurgeHealth;
 import de.nierhain.danger.commands.CommandSkill;
 import de.nierhain.danger.handler.EventHandler;
 import de.nierhain.danger.handler.LevelHandler;
+import de.nierhain.danger.handler.MobSpawnHandler;
 import de.nierhain.danger.handler.SkillsHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -31,6 +31,7 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new LevelHandler());
         MinecraftForge.EVENT_BUS.register(new SkillsHandler());
+        MinecraftForge.EVENT_BUS.register(new MobSpawnHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event){
