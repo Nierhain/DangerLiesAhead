@@ -1,20 +1,8 @@
 package de.nierhain.danger.proxy;
 
-import de.nierhain.danger.capabilities.level.DefaultLevel;
-import de.nierhain.danger.capabilities.level.ILevel;
-import de.nierhain.danger.capabilities.level.StorageLevel;
-import de.nierhain.danger.capabilities.skills.DefaultSkills;
-import de.nierhain.danger.capabilities.skills.ISkills;
-import de.nierhain.danger.capabilities.skills.StorageSkills;
-import de.nierhain.danger.commands.CommandPurge;
-import de.nierhain.danger.commands.CommandPurgeHealth;
-import de.nierhain.danger.commands.CommandSkill;
-import de.nierhain.danger.handler.EventHandler;
-import de.nierhain.danger.handler.LevelHandler;
-import de.nierhain.danger.handler.MobSpawnHandler;
-import de.nierhain.danger.handler.SkillsHandler;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
+import de.nierhain.danger.registries.ModCapabilities;
+import de.nierhain.danger.registries.ModCommands;
+import de.nierhain.danger.registries.ModHandlers;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -23,15 +11,12 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event){
-        CapabilityManager.INSTANCE.register(ILevel.class, new StorageLevel(), DefaultLevel::new);
-        CapabilityManager.INSTANCE.register(ISkills.class, new StorageSkills(), DefaultSkills::new);
+        ModCapabilities.registerCapabilities();
+        ModHandlers.registerHandlers();
     }
 
     public void init(FMLInitializationEvent event){
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
-        MinecraftForge.EVENT_BUS.register(new LevelHandler());
-        MinecraftForge.EVENT_BUS.register(new SkillsHandler());
-        MinecraftForge.EVENT_BUS.register(new MobSpawnHandler());
+
     }
 
     public void postInit(FMLPostInitializationEvent event){
@@ -39,8 +24,6 @@ public class CommonProxy {
     }
 
     public void serverLoad(FMLServerStartingEvent event){
-        event.registerServerCommand(new CommandPurge());
-        event.registerServerCommand(new CommandPurgeHealth());
-        event.registerServerCommand(new CommandSkill());
+        ModCommands.registerCommands(event);
     }
 }

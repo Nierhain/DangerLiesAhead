@@ -9,14 +9,20 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
+import static de.nierhain.danger.utils.Reference.MODID;
+
+@Mod(modid = MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Danger {
+
+    public static Logger logger = LogManager.getLogger(MODID);
 
     @SidedProxy(serverSide = Reference.SERVER_PROXY_CLASS, clientSide = Reference.CLIENT_PROXY_CLASS)
     public static CommonProxy proxy;
 
-    @Mod.Instance(Reference.MODID)
+    @Mod.Instance(MODID)
     public static Danger instance;
 
     @EventHandler
