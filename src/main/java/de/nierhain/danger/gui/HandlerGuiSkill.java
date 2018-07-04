@@ -19,7 +19,7 @@ public class HandlerGuiSkill implements IGuiHandler {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 
         if(ID == GUI_SKILL){
-            return new
+
         }
 
         return null;
