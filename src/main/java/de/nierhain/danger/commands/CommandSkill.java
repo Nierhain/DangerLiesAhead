@@ -37,10 +37,6 @@ public class CommandSkill extends CommandBase {
                         SkillsHandler.skillHealth(player);
                         SkillsHandler.removeSkillpoint(player);
                         break;
-                    case "hunger":
-                        SkillsHandler.skillHunger(player);
-                        SkillsHandler.removeSkillpoint(player);
-                        break;
                     case "moveSpeed":
                         SkillsHandler.skillMovementSpeed(player);
                         SkillsHandler.removeSkillpoint(player);

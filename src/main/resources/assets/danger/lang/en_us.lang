@@ -1,0 +1,14 @@
+# Keybindings
+key.danger.category=Danger Lies Ahead
+key.gui.desc=Open GUI
+
+# GUI
+danger.health=Health
+danger.luck=Luck
+danger.movement.speed=Movement Speed
+danger.attack.damage=Attack Damage
+danger.attack.speed=Attack Speed
+
+# Buttons
+danger.button.close=close
+danger.button.skill=skill
