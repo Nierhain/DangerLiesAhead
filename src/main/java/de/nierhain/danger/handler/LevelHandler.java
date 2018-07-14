@@ -63,12 +63,12 @@ public class LevelHandler {
 
     private void xpPickUp(EntityPlayer player, int xp){
         ILevel cap = player.getCapability(CAPABILITY_LEVEL, null);
+        cap.addXP(xp);
+
         int currentLevel = cap.getLevel();
         int nextLevel = currentLevel + 1;
 
-        cap.addXP(xp);
         if(MapLevels.isLevelUp(nextLevel, cap.getXP())) {
-            System.out.println(MapLevels.getNeededXP(nextLevel) + " " + cap.getXP() + " " + cap.getLevel());
             cap.addLevel(1);
             cap.setXP(cap.getXP() - MapLevels.getNeededXP(nextLevel));
             MinecraftForge.EVENT_BUS.post(new EventLevelUp(player));
