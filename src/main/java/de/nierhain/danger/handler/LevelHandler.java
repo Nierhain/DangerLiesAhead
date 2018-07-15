@@ -55,7 +55,7 @@ public class LevelHandler {
     @SubscribeEvent
     public void onXPPickup(PlayerPickupXpEvent e){
         EntityPlayer player = e.getEntityPlayer();
-        if(!e.isCanceled()){
+        if(!e.isCanceled() && !player.getEntityWorld().isRemote){
             int xp = e.getOrb().getXpValue();
             xpPickUp(player, xp);
         }
