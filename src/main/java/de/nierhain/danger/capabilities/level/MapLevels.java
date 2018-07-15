@@ -5,8 +5,8 @@ import java.util.HashMap;
 public class MapLevels {
 
     private static final int MAX_LVL = 20;
-    private static final double constA = 1;
-    private static final double constB = 1;
+    private static final double constA = 1 / 8;
+    private static final double constB = 9 + (7 / 8);
 
     static final HashMap<Integer, Integer> map;
 

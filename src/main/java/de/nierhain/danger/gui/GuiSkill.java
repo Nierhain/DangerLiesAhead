@@ -15,6 +15,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.io.IOException;
 
@@ -22,16 +23,15 @@ import static de.nierhain.danger.capabilities.skills.ProviderSkills.CAPABILITY_S
 
 public class GuiSkill extends GuiScreen {
 
-    private final ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/gui/texture.png");
     private final ResourceLocation skills = new ResourceLocation(Reference.MODID, "textures/gui/skills.png");
+    private final ResourceLocation skillButtonTexture = new ResourceLocation(Reference.MODID, "textures/gui/skill_button.png");
 
     private int fontColor = 0xFFFFFF;
 
     private FontRenderer fontRenderer;
-    private EntityPlayer player;
     private ISkills skillsObj;
 
-    private int titleOffset = 10;
+    private int titleOffset;
     private int skillStringOffset = 20;
     private int skillButtonOffset;
 
@@ -54,9 +54,8 @@ public class GuiSkill extends GuiScreen {
     private int centerOnAttackDamage;
     private int centerOnAttackSpeed;
 
-
-    private GuiButton close,
-    skill_health,
+    private GuiButtonExt close;
+    private GuiButtonSkill skill_health,
     skill_luck,
     skill_movement_speed,
     skill_attack_damage,
@@ -68,14 +67,13 @@ public class GuiSkill extends GuiScreen {
     BUTTON_SKILL_MOVEMENT_SPEED = 3,
     BUTTON_SKILL_ATTACK_DAMAGE = 4,
     BUTTON_SKILL_ATTACK_SPEED = 5;
-
+  
     public GuiSkill() {
         this.initGui();
     }
 
     @Override
     public void initGui() {
-
         this.setVariables();
         this.setButtons();
 
@@ -86,9 +84,7 @@ public class GuiSkill extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         fontRenderer = mc.getRenderManager().getFontRenderer();
-        player = mc.player;
-        skillsObj = player.getCapability(CAPABILITY_SKILL, null);
-
+        skillsObj = mc.player.getCapability(CAPABILITY_SKILL, null);
 
         this.setVariables();
         this.drawSkillTextures();
@@ -96,6 +92,7 @@ public class GuiSkill extends GuiScreen {
         this.drawSkillOverview();
 
         super.drawScreen(mouseX, mouseY, partialTicks);
+        skill_health.drawButton(mc, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -125,20 +122,19 @@ public class GuiSkill extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        if(skillsObj.getSkillpoints() < 1){
-            skill_health.enabled = false;
-            skill_luck.enabled = false;
-            skill_movement_speed.enabled = false;
-            skill_attack_damage.enabled = false;
-            skill_attack_speed.enabled = false;
+        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() == 0){
+            skill_health.visible = false;
+            skill_luck.visible = false;
+            skill_movement_speed.visible = false;
+            skill_attack_damage.visible = false;
+            skill_attack_speed.visible = false;
         } else {
-            skill_health.enabled = true;
+            skill_health.visible = true;
             skill_luck.enabled = true;
             skill_movement_speed.enabled = true;
             skill_attack_damage.enabled = true;
             skill_attack_speed.enabled = true;
         }
-        super.updateScreen();
     }
 
     @Override
@@ -151,6 +147,8 @@ public class GuiSkill extends GuiScreen {
         centerX = width / 2 - allSkillsWidth / 2;
         centerY = height / 2 - skillHeight / 2;
 
+        titleOffset = centerY + 10;
+        skillStringOffset = centerY + 20;
         skillButtonOffset = height / 2 + skillHeight / 4;
 
         centerOnHealth = centerX + skillWidth / 2;
@@ -170,30 +168,33 @@ public class GuiSkill extends GuiScreen {
     }
 
     private void drawSkillTitles(){
-        drawCenteredString(fontRenderer, I18n.format("danger.health"), centerOnHealth, centerY + titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.luck"), centerOnLuck, centerY + titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.movement.speed"), centerOnMovement, centerY + titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.attack.damage"), centerOnAttackDamage, centerY + titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.attack.speed"), centerOnAttackSpeed, centerY + titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.health"), centerOnHealth, titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.luck"), centerOnLuck,  titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.movement.speed"), centerOnMovement,  titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.attack.damage"), centerOnAttackDamage, titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.attack.speed"), centerOnAttackSpeed,  titleOffset, fontColor);
     }
 
     private void drawSkillOverview(){
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getHealth()), centerOnHealth, centerY + skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getLuck()), centerOnLuck, centerY + skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getMovementSpeed()), centerOnMovement, centerY + skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttackDamage()), centerOnAttackDamage, centerY + skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttackSpeed()), centerOnAttackSpeed, centerY + skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getHealth()), centerOnHealth, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getLuck()), centerOnLuck, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getMovementSpeed()), centerOnMovement, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttackDamage()), centerOnAttackDamage, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttackSpeed()), centerOnAttackSpeed, skillStringOffset, fontColor );
 
     }
 
     private void setButtons() {
         buttonList.clear();
-        buttonList.add(close = new GuiButton(BUTTON_CLOSE, centerX, centerY, 100, 20, I18n.format("danger.button.close")));
-        buttonList.add(skill_health = new GuiButton(BUTTON_SKILL_HEALTH, centerOnHealth, skillButtonOffset,100,20,I18n.format("danger.button.skill")));
-        buttonList.add(skill_luck = new GuiButton(BUTTON_SKILL_LUCK, centerOnLuck, skillButtonOffset,100,20,I18n.format("danger.button.skill")));
-        buttonList.add(skill_movement_speed = new GuiButton(BUTTON_SKILL_MOVEMENT_SPEED, centerOnMovement, skillButtonOffset,100,20,I18n.format("danger.button.skill")));
-        buttonList.add(skill_attack_damage = new GuiButton(BUTTON_SKILL_ATTACK_DAMAGE, centerOnAttackDamage, skillButtonOffset,100,20,I18n.format("danger.button.skill")));
-        buttonList.add(skill_attack_speed = new GuiButton(BUTTON_SKILL_ATTACK_SPEED, centerOnAttackSpeed, skillButtonOffset,100,20,I18n.format("danger.button.skill")));
+        buttonList.add(close = new GuiButtonExt(BUTTON_CLOSE, width / 2 - 25, height - 40, 50, 20, I18n.format("danger.button.close")));
+        buttonList.add(skill_health = new GuiButtonSkill(this, BUTTON_SKILL_HEALTH, centerOnHealth, skillButtonOffset));
+        buttonList.add(skill_luck = new GuiButtonSkill(this, BUTTON_SKILL_LUCK, centerOnLuck, skillButtonOffset));
+        buttonList.add(skill_movement_speed = new GuiButtonSkill(this, BUTTON_SKILL_MOVEMENT_SPEED, centerOnMovement, skillButtonOffset));
+        buttonList.add(skill_attack_damage = new GuiButtonSkill(this, BUTTON_SKILL_ATTACK_DAMAGE, centerOnAttackDamage, skillButtonOffset));
+        buttonList.add(skill_attack_speed = new GuiButtonSkill(this, BUTTON_SKILL_ATTACK_SPEED, centerOnAttackSpeed, skillButtonOffset));
     }
 
+    public ResourceLocation getSkillButtonTexture(){
+        return this.skillButtonTexture;
+    }
 }
