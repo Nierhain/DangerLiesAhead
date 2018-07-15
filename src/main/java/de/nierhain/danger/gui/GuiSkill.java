@@ -25,7 +25,6 @@ public class GuiSkill extends GuiScreen {
     private int fontColor = 0xFFFFFF;
 
     private FontRenderer fontRenderer;
-    private EntityPlayer player;
     private ISkills skillsObj;
 
     private int titleOffset;
@@ -68,7 +67,6 @@ public class GuiSkill extends GuiScreen {
     private final String SKILL_STRING= "danger.button.skill";
 
     public GuiSkill() {
-
         this.initGui();
     }
 
@@ -122,8 +120,12 @@ public class GuiSkill extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        if(false){
+        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() == 0){
             skill_health.visible = false;
+            skill_luck.visible = false;
+            skill_movement_speed.visible = false;
+            skill_attack_damage.visible = false;
+            skill_attack_speed.visible = false;
         } else {
             skill_health.visible = true;
             skill_luck.enabled = true;
