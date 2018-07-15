@@ -1,7 +1,11 @@
 package de.nierhain.danger.gui;
 
 import de.nierhain.danger.capabilities.skills.ISkills;
+import de.nierhain.danger.enums.Ability;
 import de.nierhain.danger.handler.SkillsHandler;
+import de.nierhain.danger.network.PacketAbilitySkill;
+import de.nierhain.danger.network.PacketGetAbilities;
+import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.utils.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -63,9 +67,7 @@ public class GuiSkill extends GuiScreen {
     BUTTON_SKILL_MOVEMENT_SPEED = 3,
     BUTTON_SKILL_ATTACK_DAMAGE = 4,
     BUTTON_SKILL_ATTACK_SPEED = 5;
-
-    private final String SKILL_STRING= "danger.button.skill";
-
+  
     public GuiSkill() {
         this.initGui();
     }
@@ -100,19 +102,19 @@ public class GuiSkill extends GuiScreen {
                 mc.displayGuiScreen(null);
                 break;
             case BUTTON_SKILL_HEALTH:
-                SkillsHandler.skillHealth(mc.player);
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.HEALTH));
                 break;
             case BUTTON_SKILL_LUCK:
-                SkillsHandler.skillLuck(mc.player);
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.LUCK));
                 break;
             case BUTTON_SKILL_MOVEMENT_SPEED:
-                SkillsHandler.skillMovementSpeed(mc.player);
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.MOVEMENT_SPEED));
                 break;
             case BUTTON_SKILL_ATTACK_DAMAGE:
-                SkillsHandler.skillAttackDamage(mc.player);
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.ATTACK_DAMAGE));
                 break;
             case BUTTON_SKILL_ATTACK_SPEED:
-                SkillsHandler.skillAttackSpeed(mc.player);
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.ATTACK_SPEED));
                 break;
         }
         super.actionPerformed(button);
