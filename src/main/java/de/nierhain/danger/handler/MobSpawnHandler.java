@@ -44,6 +44,7 @@ public class MobSpawnHandler {
         setAttribute(healthAttribute, healthAmount);
 
         IAttributeInstance dmgAttribute = mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+
         //slimes and shulkers do not have attack damage. throws error if left unchecked
         if(dmgAttribute != null){
             double dmgAmount = getLevel() * MODIFIER_ATTACK_DAMAGE;
@@ -59,7 +60,7 @@ public class MobSpawnHandler {
         attribute.removeAllModifiers();
         attribute.applyModifier(attrMod);
 
-        // Heal to full health as the mobs current health does not get changed
+        // Heal to full health as the mobs current health does not get changed; even on full health
         if(attribute.getAttribute().equals(SharedMonsterAttributes.MAX_HEALTH)){
             mob.setHealth(mob.getMaxHealth());
         }

@@ -1,6 +1,6 @@
 package de.nierhain.danger.commands;
 
-import de.nierhain.danger.handler.SkillsHandler;
+import de.nierhain.danger.handler.AttributesHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 
-import static de.nierhain.danger.capabilities.skills.ProviderSkills.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
 
 public class CommandSkill extends CommandBase {
 
@@ -34,24 +34,24 @@ public class CommandSkill extends CommandBase {
             if(player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() > 0){
                 switch(s){
                     case "hp":
-                        SkillsHandler.skillHealth(player);
-                        SkillsHandler.removeSkillpoint(player);
+                        AttributesHandler.skillHealth(player);
+                        AttributesHandler.removeSkillpoint(player);
                         break;
                     case "moveSpeed":
-                        SkillsHandler.skillMovementSpeed(player);
-                        SkillsHandler.removeSkillpoint(player);
+                        AttributesHandler.skillMovementSpeed(player);
+                        AttributesHandler.removeSkillpoint(player);
                         break;
                     case "attackDamage":
-                        SkillsHandler.skillAttackDamage(player);
-                        SkillsHandler.removeSkillpoint(player);
+                        AttributesHandler.skillAttackDamage(player);
+                        AttributesHandler.removeSkillpoint(player);
                         break;
                     case "attackSpeed":
-                        SkillsHandler.skillAttackSpeed(player);
-                        SkillsHandler.removeSkillpoint(player);
+                        AttributesHandler.skillAttackSpeed(player);
+                        AttributesHandler.removeSkillpoint(player);
                         break;
                     case "luck":
-                        SkillsHandler.skillLuck(player);
-                        SkillsHandler.removeSkillpoint(player);
+                        AttributesHandler.skillLuck(player);
+                        AttributesHandler.removeSkillpoint(player);
                         break;
                     default:
                         return;

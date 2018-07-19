@@ -3,7 +3,7 @@ package de.nierhain.danger.enums;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Ability {
+public enum Attribute {
     HEALTH(0),
     LUCK(1),
     MOVEMENT_SPEED(2),
@@ -13,18 +13,18 @@ public enum Ability {
     private int value;
     private static Map map = new HashMap<>();
 
-    private Ability(int value){
+    Attribute(int value){
         this.value = value;
     }
 
     static {
-        for (Ability ability : Ability.values()){
-            map.put(ability.value, ability);
+        for (Attribute attribute : Attribute.values()){
+            map.put(attribute.value, attribute);
         }
     }
 
-    public static Ability valueOf(int ability){
-        return (Ability) map.get(ability);
+    public static Attribute valueOf(int ability){
+        return (Attribute) map.get(ability);
     }
 
     public int getValue(){

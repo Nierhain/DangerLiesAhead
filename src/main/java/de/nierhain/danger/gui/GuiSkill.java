@@ -1,25 +1,21 @@
 package de.nierhain.danger.gui;
 
-import de.nierhain.danger.capabilities.skills.ISkills;
-import de.nierhain.danger.enums.Ability;
-import de.nierhain.danger.handler.SkillsHandler;
+import de.nierhain.danger.capabilities.skills.IAttributes;
+import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.network.PacketAbilitySkill;
-import de.nierhain.danger.network.PacketGetAbilities;
 import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.utils.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.io.IOException;
 
-import static de.nierhain.danger.capabilities.skills.ProviderSkills.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
 
 public class GuiSkill extends GuiScreen {
 
@@ -29,7 +25,7 @@ public class GuiSkill extends GuiScreen {
     private int fontColor = 0xFFFFFF;
 
     private FontRenderer fontRenderer;
-    private ISkills skillsObj;
+    private IAttributes skillsObj;
 
     private int titleOffset;
     private int skillStringOffset = 20;
@@ -102,19 +98,19 @@ public class GuiSkill extends GuiScreen {
                 mc.displayGuiScreen(null);
                 break;
             case BUTTON_SKILL_HEALTH:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.HEALTH));
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.HEALTH));
                 break;
             case BUTTON_SKILL_LUCK:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.LUCK));
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.LUCK));
                 break;
             case BUTTON_SKILL_MOVEMENT_SPEED:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.MOVEMENT_SPEED));
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.MOVEMENT_SPEED));
                 break;
             case BUTTON_SKILL_ATTACK_DAMAGE:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.ATTACK_DAMAGE));
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.ATTACK_DAMAGE));
                 break;
             case BUTTON_SKILL_ATTACK_SPEED:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Ability.ATTACK_SPEED));
+                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.ATTACK_SPEED));
                 break;
         }
         super.actionPerformed(button);
@@ -122,18 +118,18 @@ public class GuiSkill extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() == 0){
-            skill_health.visible = false;
-            skill_luck.visible = false;
-            skill_movement_speed.visible = false;
-            skill_attack_damage.visible = false;
-            skill_attack_speed.visible = false;
-        } else {
+        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() > 0){
             skill_health.visible = true;
-            skill_luck.enabled = true;
-            skill_movement_speed.enabled = true;
-            skill_attack_damage.enabled = true;
-            skill_attack_speed.enabled = true;
+            skill_luck.visible = true;
+            skill_movement_speed.visible = true;
+            skill_attack_damage.visible = true;
+            skill_attack_speed.visible = true;
+        } else {
+            skill_health.visible = false;
+            skill_luck.enabled = false;
+            skill_movement_speed.enabled = false;
+            skill_attack_damage.enabled = false;
+            skill_attack_speed.enabled = false;
         }
     }
 

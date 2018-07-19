@@ -7,11 +7,11 @@ import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
-public class StorageSkills implements Capability.IStorage<ISkills> {
+public class StorageAttributes implements Capability.IStorage<IAttributes> {
 
     @Nullable
     @Override
-    public NBTBase writeNBT(Capability<ISkills> capability, ISkills instance, EnumFacing side) {
+    public NBTBase writeNBT(Capability<IAttributes> capability, IAttributes instance, EnumFacing side) {
         final NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("skillpoints", instance.getSkillpoints());
         tag.setInteger("health", instance.getHealth());
@@ -24,7 +24,7 @@ public class StorageSkills implements Capability.IStorage<ISkills> {
     }
 
     @Override
-    public void readNBT(Capability<ISkills> capability, ISkills instance, EnumFacing side, NBTBase nbt) {
+    public void readNBT(Capability<IAttributes> capability, IAttributes instance, EnumFacing side, NBTBase nbt) {
         final NBTTagCompound tag = (NBTTagCompound) nbt;
         instance.setSkillpoints(tag.getInteger("skillpoints"));
         instance.setHealth(tag.getInteger("health"));

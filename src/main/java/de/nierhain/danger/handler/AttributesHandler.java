@@ -1,14 +1,11 @@
 package de.nierhain.danger.handler;
 
-import de.nierhain.danger.capabilities.skills.ISkills;
-import de.nierhain.danger.capabilities.skills.ProviderSkills;
+import de.nierhain.danger.capabilities.skills.IAttributes;
+import de.nierhain.danger.capabilities.skills.ProviderAttributes;
 import de.nierhain.danger.event.EventLevelUp;
-import de.nierhain.danger.utils.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
@@ -16,11 +13,9 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.UUID;
+import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
 
-import static de.nierhain.danger.capabilities.skills.ProviderSkills.CAPABILITY_SKILL;
-
-public class SkillsHandler {
+public class AttributesHandler {
 
     private static final double MODIFIER_HEALTH = 2;
     private static final double MODIFIER_SPEED = 0.1;
@@ -34,7 +29,7 @@ public class SkillsHandler {
     private static final double DEFAULT_AS = 4;
     private static final double DEFAULT_LUCK = 0;
 
-    private static ISkills getHandler(Entity entity) {
+    private static IAttributes getHandler(Entity entity) {
 
         if(entity.hasCapability(CAPABILITY_SKILL, null))
             return entity.getCapability(CAPABILITY_SKILL, null);
@@ -43,7 +38,7 @@ public class SkillsHandler {
     }
 
     private static boolean canSkill(EntityPlayer player){
-        ISkills skills = getHandler(player);
+        IAttributes skills = getHandler(player);
         if(skills.getSkillpoints() > 0){
             return true;
         }
@@ -54,15 +49,15 @@ public class SkillsHandler {
     public void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
         if (event.getObject() instanceof EntityPlayer) {
-            event.addCapability(new ResourceLocation("danger", "skills"), new ProviderSkills());
+            event.addCapability(new ResourceLocation("danger", "skills"), new ProviderAttributes());
         }
     }
 
     @SubscribeEvent
     public void clonePlayer(PlayerEvent.Clone event) {
 
-        final ISkills original = getHandler(event.getOriginal());
-        final ISkills clone = getHandler(event.getEntityPlayer());
+        final IAttributes original = getHandler(event.getOriginal());
+        final IAttributes clone = getHandler(event.getEntityPlayer());
 
         clone.setHealth(original.getHealth());
         clone.setHunger(original.getHunger());
@@ -76,7 +71,7 @@ public class SkillsHandler {
     @SubscribeEvent
     public void onPlayerLevelUp(EventLevelUp event){
         EntityPlayer player = event.getPlayer();
-        ISkills skills = getHandler(player);
+        IAttributes skills = getHandler(player);
         skills.setSkillpoints(skills.getSkillpoints() + 1);
         event.getPlayer().sendMessage(new TextComponentString("Level up! New skillpoint available"));
     }
@@ -85,10 +80,8 @@ public class SkillsHandler {
         player.getCapability(CAPABILITY_SKILL, null).removeSkillpoint();
     }
 
-    public static void addAttribute(IAttribute attribute, AttributeModifier mod, EntityPlayer player){
-        IAttributeInstance attrInstance = player.getEntityAttribute(attribute);
-        attrInstance.removeAllModifiers();
-        attrInstance.applyModifier(mod);
+    public static void addAttribute(IAttribute attribute, double newValue, EntityPlayer player){
+        player.getEntityAttribute(attribute).setBaseValue(newValue);
     }
 
     public static void skillHealth(EntityPlayer player){
@@ -98,9 +91,7 @@ public class SkillsHandler {
             getHandler(player).setHealth(newSkill);
 
             double newHealth = (getHandler(player).getHealth() * MODIFIER_HEALTH ) + DEFAULT_HEALTH;
-            AttributeModifier healthMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Health Modifier", newHealth, 0);
-
-            addAttribute(SharedMonsterAttributes.MAX_HEALTH, healthMod, player);
+            addAttribute(SharedMonsterAttributes.MAX_HEALTH, newHealth, player);
 
             // player does not get healed when his max health changes, therefore we have to do it manually
             player.setHealth(player.getMaxHealth());
@@ -114,8 +105,7 @@ public class SkillsHandler {
             getHandler(player).setMovementSpeed(newSkill);
 
             double newSpeed = getHandler(player).getMovementSpeed() * MODIFIER_SPEED + DEFAULT_SPEED;
-            AttributeModifier moveMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Movement Speed Modifier", newSpeed, 0 );
-            addAttribute(SharedMonsterAttributes.MOVEMENT_SPEED, moveMod, player);
+            addAttribute(SharedMonsterAttributes.MOVEMENT_SPEED, newSpeed, player);
         }
     }
 
@@ -125,8 +115,7 @@ public class SkillsHandler {
             getHandler(player).setAttackDamage(newSkill);
 
             double newDmg = getHandler(player).getAttackDamage() * MODIFIER_DMG + DEFAULT_DMG;
-            AttributeModifier dmgMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Attack Damage Modifier", newDmg, 0);
-            addAttribute(SharedMonsterAttributes.ATTACK_DAMAGE, dmgMod, player);
+            addAttribute(SharedMonsterAttributes.ATTACK_DAMAGE, newDmg, player);
         }
     }
 
@@ -135,9 +124,9 @@ public class SkillsHandler {
             int newSkill = getHandler(player).getAttackSpeed() + 1;
             getHandler(player).setAttackSpeed(newSkill);
 
+
             double newAS = getHandler(player).getAttackSpeed() * MODIFIER_AS + DEFAULT_AS;
-            AttributeModifier asMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Attack Speed Modifier", newAS, 0);
-            addAttribute(SharedMonsterAttributes.ATTACK_SPEED, asMod, player);
+            addAttribute(SharedMonsterAttributes.ATTACK_SPEED, newAS, player);
         }
     }
 
@@ -147,8 +136,7 @@ public class SkillsHandler {
             getHandler(player).setLuck(newSkill);
 
             double newLuck = getHandler(player).getLuck() * MODIFIER_LUCK + DEFAULT_LUCK;
-            AttributeModifier luckMod = new AttributeModifier(UUID.fromString(Reference.UUID), "Luck Modifier", newLuck, 0);
-            addAttribute(SharedMonsterAttributes.LUCK, luckMod, player);
+            addAttribute(SharedMonsterAttributes.LUCK, newLuck, player);
         }
     }
 
