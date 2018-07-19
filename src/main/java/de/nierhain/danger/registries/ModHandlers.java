@@ -11,7 +11,7 @@ public class ModHandlers {
         PacketHandler.registerMessages();
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new LevelHandler());
-        MinecraftForge.EVENT_BUS.register(new SkillsHandler());
+        MinecraftForge.EVENT_BUS.register(new AttributesHandler());
         MinecraftForge.EVENT_BUS.register(new MobSpawnHandler());
     }
 

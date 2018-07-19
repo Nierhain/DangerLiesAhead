@@ -1,4 +1,4 @@
-package de.nierhain.danger.capabilities.skills;
+package de.nierhain.danger.capabilities.attributes;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -9,12 +9,12 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ProviderSkills implements ICapabilitySerializable<NBTTagCompound> {
+public class ProviderAttributes implements ICapabilitySerializable<NBTTagCompound> {
 
-    @CapabilityInject(ISkills.class)
-    public static final Capability<ISkills> CAPABILITY_SKILL = null;
+    @CapabilityInject(IAttributes.class)
+    public static final Capability<IAttributes> CAPABILITY_SKILL = null;
 
-    ISkills instance = CAPABILITY_SKILL.getDefaultInstance();
+    IAttributes instance = CAPABILITY_SKILL.getDefaultInstance();
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {

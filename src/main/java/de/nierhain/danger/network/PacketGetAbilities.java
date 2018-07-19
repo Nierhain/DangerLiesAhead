@@ -1,15 +1,14 @@
 package de.nierhain.danger.network;
 
-import de.nierhain.danger.capabilities.skills.ISkills;
+import de.nierhain.danger.capabilities.attributes.IAttributes;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import static de.nierhain.danger.capabilities.skills.ProviderSkills.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
 
 public class PacketGetAbilities implements IMessage {
     public PacketGetAbilities(){}
@@ -42,7 +41,7 @@ public class PacketGetAbilities implements IMessage {
         @Override
         public IMessage onMessage(PacketGetAbilities message, MessageContext ctx) {
             EntityPlayer player = Minecraft.getMinecraft().player;
-            ISkills skillsObj = player.getCapability(CAPABILITY_SKILL, null);
+            IAttributes skillsObj = player.getCapability(CAPABILITY_SKILL, null);
 
             skillsObj.setHealth(message.abilityLevels[0]);
             skillsObj.setLuck(message.abilityLevels[1]);

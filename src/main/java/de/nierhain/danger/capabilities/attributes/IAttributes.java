@@ -1,6 +1,6 @@
-package de.nierhain.danger.capabilities.skills;
+package de.nierhain.danger.capabilities.attributes;
 
-public interface ISkills {
+public interface IAttributes {
 
     int getSkillpoints();
     void setSkillpoints(int skillpoints);

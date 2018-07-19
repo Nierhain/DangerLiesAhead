@@ -1,7 +1,7 @@
-package de.nierhain.danger.capabilities.skills;
+package de.nierhain.danger.capabilities.attributes;
 
 
-public class DefaultSkills implements ISkills {
+public class DefaultAttributes implements IAttributes {
 
     private int skillpoints = 0;
     private int health = 0;

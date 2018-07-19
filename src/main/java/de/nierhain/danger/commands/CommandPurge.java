@@ -3,12 +3,11 @@ package de.nierhain.danger.commands;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 
 import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
-import static de.nierhain.danger.capabilities.skills.ProviderSkills.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
 
 public class CommandPurge extends CommandBase {
 
