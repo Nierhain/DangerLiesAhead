@@ -1,6 +1,10 @@
 package de.nierhain.danger.gui;
 
+<<<<<<< HEAD
 import de.nierhain.danger.capabilities.attributes.IAttributes;
+=======
+import de.nierhain.danger.capabilities.skills.IAttributes;
+>>>>>>> master
 import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.network.PacketAbilitySkill;
 import de.nierhain.danger.network.PacketHandler;
@@ -15,7 +19,11 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.io.IOException;
 
+<<<<<<< HEAD
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
+=======
+import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
+>>>>>>> master
 
 public class GuiSkill extends GuiScreen {
 
@@ -118,18 +126,21 @@ public class GuiSkill extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() == 0){
-            skill_health.visible = false;
-            skill_luck.visible = false;
-            skill_movement_speed.visible = false;
-            skill_attack_damage.visible = false;
-            skill_attack_speed.visible = false;
-        } else {
+        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() > 0){
             skill_health.visible = true;
             skill_luck.visible = true;
             skill_movement_speed.visible = true;
             skill_attack_damage.visible = true;
             skill_attack_speed.visible = true;
+<<<<<<< HEAD
+=======
+        } else {
+            skill_health.visible = false;
+            skill_luck.enabled = false;
+            skill_movement_speed.enabled = false;
+            skill_attack_damage.enabled = false;
+            skill_attack_speed.enabled = false;
+>>>>>>> master
         }
     }
 

@@ -7,7 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 
 import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
+<<<<<<< HEAD
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
+=======
+import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
+>>>>>>> master
 
 public class CommandPurge extends CommandBase {
 

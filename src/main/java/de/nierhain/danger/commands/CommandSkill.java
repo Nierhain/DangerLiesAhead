@@ -8,7 +8,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 
+<<<<<<< HEAD
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
+=======
+import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
+>>>>>>> master
 
 public class CommandSkill extends CommandBase {
 
