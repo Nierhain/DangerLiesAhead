@@ -12,12 +12,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.UUID;
 
+import static de.nierhain.danger.config.Configuration.DISTANCE_PER_LEVEL;
+import static de.nierhain.danger.config.Configuration.MOB_MODIFIER_ATTACK_DAMAGE;
+import static de.nierhain.danger.config.Configuration.MOB_MODIFIER_HEALTH;
+
 public class MobSpawnHandler {
 
-    private final int DISTANCE_PER_LEVEL = 50;
-
-    private final int MODIFIER_HEALTH = 5;
-    private final int MODIFIER_ATTACK_DAMAGE = 1;
 
     private static BlockPos spawn;
     private BlockPos mobSpawn;
@@ -31,7 +31,6 @@ public class MobSpawnHandler {
 
         mob = (EntityLiving) event.getEntity();
         spawn = event.getWorld().getSpawnPoint();
-        mobSpawn = mob.getPosition();
 
         if(hasLevelUp()){
             levelStats();
@@ -40,14 +39,14 @@ public class MobSpawnHandler {
 
     private void levelStats(){
         IAttributeInstance healthAttribute = mob.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-        double healthAmount = getLevel() * MODIFIER_HEALTH;
+        double healthAmount = getLevel() * MOB_MODIFIER_HEALTH;
         setAttribute(healthAttribute, healthAmount);
 
         IAttributeInstance dmgAttribute = mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 
         //slimes and shulkers do not have attack damage. throws error if left unchecked
         if(dmgAttribute != null){
-            double dmgAmount = getLevel() * MODIFIER_ATTACK_DAMAGE;
+            double dmgAmount = getLevel() * MOB_MODIFIER_ATTACK_DAMAGE;
             setAttribute(dmgAttribute, dmgAmount);
         }
     }
@@ -75,6 +74,6 @@ public class MobSpawnHandler {
     }
 
     private double getDistance(){
-        return spawn.getDistance(mobSpawn.getX(), mobSpawn.getY(), mobSpawn.getZ());
+        return spawn.getDistance(mob.chunkCoordX, mob.chunkCoordY, mob.chunkCoordZ);
     }
 }

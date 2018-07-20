@@ -2,17 +2,18 @@ package de.nierhain.danger.capabilities.level;
 
 import java.util.HashMap;
 
+import static de.nierhain.danger.config.Configuration.CONST_A;
+import static de.nierhain.danger.config.Configuration.CONST_B;
+import static de.nierhain.danger.config.Configuration.PLAYER_MAX_LVL;
+
 public class MapLevels {
 
-    private static final int MAX_LVL = 20;
-    private static final double constA = 1 / 8;
-    private static final double constB = 9 + (7 / 8);
 
     static final HashMap<Integer, Integer> map;
 
     static {
         map = new HashMap<>();
-        for(int i = 1; i < MAX_LVL; i++) map.put(i, (int) Math.ceil(constA * i * i + constB * i));
+        for(int i = 1; i < PLAYER_MAX_LVL; i++) map.put(i, (int) Math.ceil(CONST_A * i * i + CONST_B * i));
     }
 
     public static int getNeededXP(int level){

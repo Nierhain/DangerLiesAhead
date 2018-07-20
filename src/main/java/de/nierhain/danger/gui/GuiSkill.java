@@ -1,12 +1,9 @@
 package de.nierhain.danger.gui;
 
-<<<<<<< HEAD
+
 import de.nierhain.danger.capabilities.attributes.IAttributes;
-=======
-import de.nierhain.danger.capabilities.skills.IAttributes;
->>>>>>> master
 import de.nierhain.danger.enums.Attribute;
-import de.nierhain.danger.network.PacketAbilitySkill;
+import de.nierhain.danger.network.PacketAttributeToServer;
 import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.utils.Reference;
 import net.minecraft.client.Minecraft;
@@ -19,11 +16,9 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.io.IOException;
 
-<<<<<<< HEAD
+
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
-=======
-import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
->>>>>>> master
+
 
 public class GuiSkill extends GuiScreen {
 
@@ -80,7 +75,6 @@ public class GuiSkill extends GuiScreen {
     public void initGui() {
         this.setVariables();
         this.setButtons();
-
         super.initGui();
     }
 
@@ -90,13 +84,12 @@ public class GuiSkill extends GuiScreen {
         fontRenderer = mc.getRenderManager().getFontRenderer();
         skillsObj = mc.player.getCapability(CAPABILITY_SKILL, null);
 
-        this.setVariables();
         this.drawSkillTextures();
         this.drawSkillTitles();
         this.drawSkillOverview();
+        this.updateButtons();
 
         super.drawScreen(mouseX, mouseY, partialTicks);
-        skill_health.drawButton(mc, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -106,19 +99,19 @@ public class GuiSkill extends GuiScreen {
                 mc.displayGuiScreen(null);
                 break;
             case BUTTON_SKILL_HEALTH:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.HEALTH));
+                PacketHandler.INSTANCE.sendToServer(new PacketAttributeToServer(Attribute.HEALTH));
                 break;
             case BUTTON_SKILL_LUCK:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.LUCK));
+                PacketHandler.INSTANCE.sendToServer(new PacketAttributeToServer(Attribute.LUCK));
                 break;
             case BUTTON_SKILL_MOVEMENT_SPEED:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.MOVEMENT_SPEED));
+                PacketHandler.INSTANCE.sendToServer(new PacketAttributeToServer(Attribute.MOVEMENT_SPEED));
                 break;
             case BUTTON_SKILL_ATTACK_DAMAGE:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.ATTACK_DAMAGE));
+                PacketHandler.INSTANCE.sendToServer(new PacketAttributeToServer(Attribute.ATTACK_DAMAGE));
                 break;
             case BUTTON_SKILL_ATTACK_SPEED:
-                PacketHandler.INSTANCE.sendToServer(new PacketAbilitySkill(Attribute.ATTACK_SPEED));
+                PacketHandler.INSTANCE.sendToServer(new PacketAttributeToServer(Attribute.ATTACK_SPEED));
                 break;
         }
         super.actionPerformed(button);
@@ -126,21 +119,24 @@ public class GuiSkill extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() > 0){
+        this.updateButtons();
+        super.updateScreen();
+    }
+
+    public void updateButtons() {
+        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() <= 0){
+            skill_health.visible = false;
+            skill_luck.visible = false;
+            skill_movement_speed.visible = false;
+            skill_attack_damage.visible = false;
+            skill_attack_speed.visible = false;
+        } else {
             skill_health.visible = true;
             skill_luck.visible = true;
             skill_movement_speed.visible = true;
             skill_attack_damage.visible = true;
             skill_attack_speed.visible = true;
-<<<<<<< HEAD
-=======
-        } else {
-            skill_health.visible = false;
-            skill_luck.enabled = false;
-            skill_movement_speed.enabled = false;
-            skill_attack_damage.enabled = false;
-            skill_attack_speed.enabled = false;
->>>>>>> master
+
         }
     }
 

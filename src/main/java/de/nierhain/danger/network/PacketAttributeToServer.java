@@ -1,10 +1,7 @@
 package de.nierhain.danger.network;
 
-<<<<<<< HEAD
+
 import de.nierhain.danger.capabilities.attributes.IAttributes;
-=======
-import de.nierhain.danger.capabilities.skills.IAttributes;
->>>>>>> master
 import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.handler.AttributesHandler;
 import io.netty.buffer.ByteBuf;
@@ -13,19 +10,16 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-<<<<<<< HEAD
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
-=======
-import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
->>>>>>> master
 
 
-public class PacketAbilitySkill implements IMessage {
-    public PacketAbilitySkill(){}
+
+public class PacketAttributeToServer implements IMessage {
+    public PacketAttributeToServer(){}
 
     private Attribute attribute;
 
-    public PacketAbilitySkill(Attribute attribute){
+    public PacketAttributeToServer(Attribute attribute){
         this.attribute = attribute;
     }
 
@@ -39,10 +33,10 @@ public class PacketAbilitySkill implements IMessage {
         buf.writeInt(attribute.getValue());
     }
 
-    public static class Handler implements IMessageHandler<PacketAbilitySkill, IMessage> {
+    public static class Handler implements IMessageHandler<PacketAttributeToServer, IMessage> {
 
         @Override
-        public IMessage onMessage(PacketAbilitySkill message, MessageContext ctx) {
+        public IMessage onMessage(PacketAttributeToServer message, MessageContext ctx) {
             EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
             IAttributes skillsObj = serverPlayer.getCapability(CAPABILITY_SKILL, null);
 
@@ -67,7 +61,7 @@ public class PacketAbilitySkill implements IMessage {
                 }
                 int[] abilityLevels = {skillsObj.getHealth(), skillsObj.getLuck(), skillsObj.getMovementSpeed(), skillsObj.getAttackDamage(), skillsObj.getAttackSpeed()};
                 int skillPoints = skillsObj.getSkillpoints();
-                PacketHandler.INSTANCE.sendTo(new PacketGetAbilities(abilityLevels, skillPoints), serverPlayer);
+                PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(abilityLevels, skillPoints), serverPlayer);
             });
 
             return null;

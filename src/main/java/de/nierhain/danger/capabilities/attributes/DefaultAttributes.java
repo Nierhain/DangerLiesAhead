@@ -21,6 +21,8 @@ public class DefaultAttributes implements IAttributes {
         this.skillpoints = skillpoints;
     }
 
+    public void addSkillpoints(int skillpoints) { this.skillpoints += skillpoints; }
+
     @Override
     public void removeSkillpoint(){
         if(this.skillpoints > 0) {

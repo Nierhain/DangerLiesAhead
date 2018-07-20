@@ -3,6 +3,7 @@ package de.nierhain.danger.capabilities.attributes;
 public interface IAttributes {
 
     int getSkillpoints();
+    void addSkillpoints(int skillpoints);
     void setSkillpoints(int skillpoints);
     void removeSkillpoint();
 

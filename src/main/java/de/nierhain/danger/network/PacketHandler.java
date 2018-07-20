@@ -17,8 +17,9 @@ public class PacketHandler{
     }
 
     public static void registerMessages(){
-        INSTANCE.registerMessage(PacketAbilitySkill.Handler.class, PacketAbilitySkill.class, nextID(), Side.SERVER);
-        INSTANCE.registerMessage(PacketGetAbilities.Handler.class, PacketGetAbilities.class, nextID(), Side.CLIENT);
+        INSTANCE.registerMessage(PacketAttributeToServer.Handler.class, PacketAttributeToServer.class, nextID(), Side.SERVER);
+        INSTANCE.registerMessage(PacketAttributesToClient.Handler.class, PacketAttributesToClient.class, nextID(), Side.CLIENT);
+        INSTANCE.registerMessage(PacketSkillpointsToClient.Handler.class, PacketSkillpointsToClient.class, nextID(), Side.CLIENT);
     }
 
 }

@@ -1,10 +1,8 @@
 package de.nierhain.danger.network;
 
-<<<<<<< HEAD
+
 import de.nierhain.danger.capabilities.attributes.IAttributes;
-=======
-import de.nierhain.danger.capabilities.skills.IAttributes;
->>>>>>> master
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,11 +10,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-<<<<<<< HEAD
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
-=======
-import static de.nierhain.danger.capabilities.skills.ProviderAttributes.CAPABILITY_SKILL;
->>>>>>> master
+
 
 public class PacketGetAbilities implements IMessage {
     public PacketGetAbilities(){}
