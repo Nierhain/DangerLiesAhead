@@ -13,8 +13,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
 
 
-public class PacketGetAbilities implements IMessage {
-    public PacketGetAbilities(){}
+public class PacketAttributesToClient implements IMessage {
+    public PacketAttributesToClient(){}
     private int[] abilityLevels = new int[5];
     private int skillPoints;
 
@@ -34,15 +34,17 @@ public class PacketGetAbilities implements IMessage {
         buf.writeInt(skillPoints);
     }
 
-    public PacketGetAbilities(int[] abilityLevels, int skillPoints){
+    public PacketAttributesToClient(int[] abilityLevels, int skillPoints){
         this.abilityLevels = abilityLevels;
         this.skillPoints = skillPoints;
     }
 
-    public static class Handler implements IMessageHandler<PacketGetAbilities, IMessage>{
+    public static class Handler implements IMessageHandler<PacketAttributesToClient, IMessage>{
 
         @Override
-        public IMessage onMessage(PacketGetAbilities message, MessageContext ctx) {
+        public IMessage onMessage(PacketAttributesToClient message, MessageContext ctx) {
+
+            ctx.getClientHandler();
             EntityPlayer player = Minecraft.getMinecraft().player;
             IAttributes skillsObj = player.getCapability(CAPABILITY_SKILL, null);
 
@@ -51,6 +53,7 @@ public class PacketGetAbilities implements IMessage {
             skillsObj.setMovementSpeed(message.abilityLevels[2]);
             skillsObj.setAttackDamage(message.abilityLevels[3]);
             skillsObj.setAttackSpeed(message.abilityLevels[4]);
+            skillsObj.setSkillpoints(message.skillPoints);
 
             return null;
         }

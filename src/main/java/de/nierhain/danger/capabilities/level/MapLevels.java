@@ -6,6 +6,7 @@ import static de.nierhain.danger.config.Configuration.CONST_A;
 import static de.nierhain.danger.config.Configuration.CONST_B;
 import static de.nierhain.danger.config.Configuration.PLAYER_MAX_LVL;
 
+
 public class MapLevels {
 
 

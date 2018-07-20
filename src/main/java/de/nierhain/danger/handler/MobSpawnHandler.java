@@ -12,9 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.UUID;
 
-import static de.nierhain.danger.config.Configuration.DISTANCE_PER_LEVEL;
-import static de.nierhain.danger.config.Configuration.MOB_MODIFIER_ATTACK_DAMAGE;
-import static de.nierhain.danger.config.Configuration.MOB_MODIFIER_HEALTH;
+import static de.nierhain.danger.config.Configuration.*;
 
 public class MobSpawnHandler {
 
@@ -26,7 +24,7 @@ public class MobSpawnHandler {
     @SubscribeEvent
     public void onMobSpawn(EntityJoinWorldEvent event){
 
-        if(!(event.getEntity() instanceof IMob))
+        if(!(event.getEntity() instanceof IMob) || DISABLE_MOB_LEVELING)
             return;
 
         mob = (EntityLiving) event.getEntity();
