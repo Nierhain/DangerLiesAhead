@@ -8,7 +8,6 @@ import net.minecraftforge.common.MinecraftForge;
 public class ModHandlers {
 
     public static void registerHandlers(){
-        PacketHandler.registerMessages();
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new LevelHandler());
         MinecraftForge.EVENT_BUS.register(new AttributesHandler());

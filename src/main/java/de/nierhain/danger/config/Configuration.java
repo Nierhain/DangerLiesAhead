@@ -56,4 +56,8 @@ public class Configuration {
         @Name("Mob Attack Damage Modifier")
         public static double MOB_MODIFIER_ATTACK_DAMAGE = 0.3;
 
+//    @Comment("Disable CustomNPCs Integration")
+//    @Name("Disable CustomNPCs")
+//    public static boolean DISABLE_CUSTOM_NPC = false;
+
 }

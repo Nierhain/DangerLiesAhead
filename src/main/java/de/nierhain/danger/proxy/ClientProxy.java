@@ -1,5 +1,6 @@
 package de.nierhain.danger.proxy;
 
+import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.registries.ModHandlers;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -19,7 +20,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void init(FMLInitializationEvent event){
-
+        PacketHandler.registerClientMessages();
         super.init(event);
     }
 

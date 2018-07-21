@@ -10,16 +10,20 @@ public class PacketHandler{
 
     public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MODID);
 
-    private static int id = 0;
+    private static final byte ATTRIBUTES_TO_CLIENT_ID = 0,
+                              ATTRIBUTES_TO_SERVER_ID = 1,
+                              SKILLPOINTS_TO_CLIENT_ID = 2;
 
-    private static int nextID(){
-        return id++;
+    public static void registerServerMessages(){
+        INSTANCE.registerMessage(PacketAttributeToServer.Handler.class, PacketAttributeToServer.class, ATTRIBUTES_TO_SERVER_ID, Side.SERVER);
+        INSTANCE.registerMessage(PacketHandlerOnServerDummy.Attributes.class, PacketAttributesToClient.class, ATTRIBUTES_TO_CLIENT_ID, Side.SERVER);
+        INSTANCE.registerMessage(PacketHandlerOnServerDummy.Skillpoints.class, PacketSkillpointsToClient.class, SKILLPOINTS_TO_CLIENT_ID, Side.SERVER);
+
     }
 
-    public static void registerMessages(){
-        INSTANCE.registerMessage(PacketAttributeToServer.Handler.class, PacketAttributeToServer.class, nextID(), Side.SERVER);
-        INSTANCE.registerMessage(PacketAttributesToClient.Handler.class, PacketAttributesToClient.class, nextID(), Side.CLIENT);
-        INSTANCE.registerMessage(PacketSkillpointsToClient.Handler.class, PacketSkillpointsToClient.class, nextID(), Side.CLIENT);
+    public static void registerClientMessages(){
+        INSTANCE.registerMessage(PacketAttributesToClient.Handler.class, PacketAttributesToClient.class, ATTRIBUTES_TO_CLIENT_ID, Side.CLIENT);
+        INSTANCE.registerMessage(PacketSkillpointsToClient.Handler.class, PacketSkillpointsToClient.class, SKILLPOINTS_TO_CLIENT_ID, Side.CLIENT);
     }
 
 }

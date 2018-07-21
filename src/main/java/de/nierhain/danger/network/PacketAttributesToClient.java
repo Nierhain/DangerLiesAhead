@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.security.cert.X509Certificate;
+
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
 
 
@@ -44,17 +46,18 @@ public class PacketAttributesToClient implements IMessage {
         @Override
         public IMessage onMessage(PacketAttributesToClient message, MessageContext ctx) {
 
-            ctx.getClientHandler();
-            EntityPlayer player = Minecraft.getMinecraft().player;
-            IAttributes skillsObj = player.getCapability(CAPABILITY_SKILL, null);
+            Minecraft minecraft = Minecraft.getMinecraft();
+            minecraft.addScheduledTask(() -> {
+                    EntityPlayer player = Minecraft.getMinecraft().player;
+                    IAttributes skillsObj = player.getCapability(CAPABILITY_SKILL, null);
 
-            skillsObj.setHealth(message.abilityLevels[0]);
-            skillsObj.setLuck(message.abilityLevels[1]);
-            skillsObj.setMovementSpeed(message.abilityLevels[2]);
-            skillsObj.setAttackDamage(message.abilityLevels[3]);
-            skillsObj.setAttackSpeed(message.abilityLevels[4]);
-            skillsObj.setSkillpoints(message.skillPoints);
-
+                    skillsObj.setHealth(message.abilityLevels[0]);
+                    skillsObj.setLuck(message.abilityLevels[1]);
+                    skillsObj.setMovementSpeed(message.abilityLevels[2]);
+                    skillsObj.setAttackDamage(message.abilityLevels[3]);
+                    skillsObj.setAttackSpeed(message.abilityLevels[4]);
+                    skillsObj.setSkillpoints(message.skillPoints);
+            });
             return null;
         }
     }
