@@ -4,10 +4,7 @@ import de.nierhain.danger.capabilities.level.ILevel;
 import de.nierhain.danger.capabilities.level.MapLevels;
 import de.nierhain.danger.capabilities.level.ProviderLevel;
 import de.nierhain.danger.event.EventLevelUp;
-import de.nierhain.danger.utils.Reference;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -17,10 +14,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.UUID;
-
 import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
-import static sun.misc.Version.print;
 
 public class LevelHandler {
 

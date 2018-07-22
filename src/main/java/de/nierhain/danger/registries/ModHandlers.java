@@ -1,7 +1,6 @@
 package de.nierhain.danger.registries;
 
 import de.nierhain.danger.handler.*;
-import de.nierhain.danger.network.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
