@@ -3,7 +3,7 @@ package de.nierhain.danger.utils;
 public class Reference {
     public static final String MODID = "danger";
     public static final String NAME = "Danger Lies Ahead";
-    public static final String VERSION = "v0.2";
+    public static final String VERSION = "v0.2.1";
 
     public static final String SERVER_PROXY_CLASS = "de.nierhain.danger.proxy.CommonProxy";
     public static final String CLIENT_PROXY_CLASS = "de.nierhain.danger.proxy.ClientProxy";
