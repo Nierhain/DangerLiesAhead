@@ -3,8 +3,8 @@ package de.nierhain.danger.config;
 import de.nierhain.danger.utils.Reference;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.Comment;
-import net.minecraftforge.common.config.Config.RangeInt;
 import net.minecraftforge.common.config.Config.Name;
+import net.minecraftforge.common.config.Config.RangeInt;
 
 @Config(modid = Reference.MODID, name =  "dangerliesahead" ,type = Config.Type.INSTANCE, category = "general")
 public class Configuration {
@@ -35,9 +35,9 @@ public class Configuration {
 
         @Comment({"As the amount of experienced needed per level is internally calculated by", "using a quadratic equation ( a * x^2 + b * x)", "you have to set the two coefficients a and b", "the equation is using. "})
         @Name("Coefficient a")
-        public static double CONST_A = 1 / 8;
+        public static double CONST_A = (1 / 8);
         @Name("Coefficient b")
-        public static double CONST_B = 9 + (7 / 8);
+        public static double CONST_B = (9 + (7 / 8));
 
         @Comment("Disables leveling of mobs | default: false")
         @Name("Disable Leveling")

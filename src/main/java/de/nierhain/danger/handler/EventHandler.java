@@ -2,12 +2,9 @@ package de.nierhain.danger.handler;
 
 
 import de.nierhain.danger.capabilities.attributes.IAttributes;
-
-import de.nierhain.danger.gui.GuiSkill;
 import de.nierhain.danger.network.PacketAttributesToClient;
 import de.nierhain.danger.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 

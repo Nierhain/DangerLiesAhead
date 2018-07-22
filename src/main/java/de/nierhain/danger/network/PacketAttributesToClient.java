@@ -2,15 +2,12 @@ package de.nierhain.danger.network;
 
 
 import de.nierhain.danger.capabilities.attributes.IAttributes;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-
-import java.security.cert.X509Certificate;
 
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
 

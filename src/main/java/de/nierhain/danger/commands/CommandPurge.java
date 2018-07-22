@@ -6,8 +6,8 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 
-import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
 
 
 public class CommandPurge extends CommandBase {
