@@ -1,14 +1,21 @@
 package de.nierhain.danger.handler;
 
+import de.nierhain.danger.capabilities.attributes.ProviderAttributes;
+import de.nierhain.danger.capabilities.spawned.ISpawned;
+import de.nierhain.danger.capabilities.spawned.ProviderSpawned;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static de.nierhain.danger.capabilities.spawned.ProviderSpawned.CAPABILITY_SPAWNED;
 import static de.nierhain.danger.config.Configuration.*;
 
 public class MobSpawnHandler {
@@ -16,6 +23,14 @@ public class MobSpawnHandler {
 
     private static BlockPos spawn;
     private EntityLiving mob;
+
+    @SubscribeEvent
+    public void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+
+        if (event.getObject() instanceof IMob) {
+            event.addCapability(new ResourceLocation("danger", "spawned"), new ProviderSpawned());
+        }
+    }
 
     @SubscribeEvent
     public void onMobSpawn(EntityJoinWorldEvent event){
@@ -29,8 +44,10 @@ public class MobSpawnHandler {
         mob = (EntityLiving) event.getEntity();
         spawn = event.getWorld().getSpawnPoint();
 
-        if(hasLevelUp()){
+        ISpawned isSpawned = mob.getCapability(CAPABILITY_SPAWNED, null);
+        if(hasLevelUp() && !isSpawned.isSpawned()){
             levelStats();
+            isSpawned.setSpawned(true);
         }
     }
 
