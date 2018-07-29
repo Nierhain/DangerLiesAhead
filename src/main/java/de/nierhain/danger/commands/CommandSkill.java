@@ -1,5 +1,6 @@
 package de.nierhain.danger.commands;
 
+import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.handler.AttributesHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -35,24 +36,19 @@ public class CommandSkill extends CommandBase {
             if(player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() > 0){
                 switch(s){
                     case "hp":
-                        AttributesHandler.skillHealth(player);
-                        AttributesHandler.removeSkillpoint(player);
-                        break;
-                    case "moveSpeed":
-                        AttributesHandler.skillMovementSpeed(player);
-                        AttributesHandler.removeSkillpoint(player);
-                        break;
-                    case "attackDamage":
-                        AttributesHandler.skillAttackDamage(player);
-                        AttributesHandler.removeSkillpoint(player);
-                        break;
-                    case "attackSpeed":
-                        AttributesHandler.skillAttackSpeed(player);
-                        AttributesHandler.removeSkillpoint(player);
+                        AttributesHandler.skill(Attribute.HEALTH, player);
                         break;
                     case "luck":
-                        AttributesHandler.skillLuck(player);
-                        AttributesHandler.removeSkillpoint(player);
+                        AttributesHandler.skill(Attribute.LUCK, player);
+                        break;
+                    case "moveSpeed":
+                        AttributesHandler.skill(Attribute.MOVEMENT_SPEED, player);
+                        break;
+                    case "attackDamage":
+                        AttributesHandler.skill(Attribute.ATTACK_DAMAGE, player);
+                        break;
+                    case "attackSpeed":
+                        AttributesHandler.skill(Attribute.ATTACK_SPEED, player);
                         break;
                     default:
                         return;

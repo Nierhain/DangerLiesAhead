@@ -1,15 +1,12 @@
 package de.nierhain.danger.capabilities.attributes;
 
 
+import de.nierhain.danger.enums.Attribute;
+
 public class DefaultAttributes implements IAttributes {
 
     private int skillpoints = 0;
-    private int health = 0;
-    private int hunger = 0;
-    private int movementSpeed = 0;
-    private int attackDamage = 0;
-    private int attackSpeed = 0;
-    private int luck = 0;
+    private int[] attributes = new int[5];
 
     @Override
     public int getSkillpoints(){
@@ -29,74 +26,28 @@ public class DefaultAttributes implements IAttributes {
             skillpoints -= 1;
         }
     }
-    @Override
-    public int getHealth() {
-        return health;
+
+    public int getAttribute(Attribute attr){
+        return attributes[attr.getValue()];
     }
 
-    @Override
-    public void setHealth(int health) {
-        this.health = health;
+    public void setAttribute(Attribute attr, int amount){
+        this.attributes[attr.getValue()] = amount;
     }
 
-    @Override
-    public int getHunger() {
-        return hunger;
+    public int[] getAllAttributes(){
+        return attributes;
     }
 
-    @Override
-    public void setHunger(int hunger) {
-        this.hunger = hunger;
-    }
-
-    @Override
-    public int getMovementSpeed() {
-        return movementSpeed;
-    }
-
-    @Override
-    public void setMovementSpeed(int movementSpeed) {
-        this.movementSpeed = movementSpeed;
-    }
-
-    @Override
-    public int getAttackDamage() {
-        return attackDamage;
-    }
-
-    @Override
-    public void setAttackDamage(int attackDamage) {
-        this.attackDamage = attackDamage;
-    }
-
-    @Override
-    public int getAttackSpeed() {
-        return attackSpeed;
-    }
-
-    @Override
-    public void setAttackSpeed(int attackSpeed) {
-        this.attackSpeed = attackSpeed;
-    }
-
-    @Override
-    public int getLuck() {
-        return luck;
-    }
-
-    @Override
-    public void setLuck(int luck) {
-        this.luck = luck;
+    public void setAllAttributes(int[] amount){
+        this.attributes = amount;
     }
 
     @Override
     public void reset() {
         skillpoints = 0;
-        health = 0;
-        hunger = 0;
-        movementSpeed = 0;
-        attackDamage = 0;
-        attackSpeed = 0;
-        luck = 0;
+        for(int i = 0; i < attributes.length; i++){
+            attributes[i] = 0;
+        }
     }
 }

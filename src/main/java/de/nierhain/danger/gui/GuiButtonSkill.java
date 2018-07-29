@@ -2,6 +2,7 @@ package de.nierhain.danger.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class GuiButtonSkill extends GuiButton {
 
@@ -21,7 +22,6 @@ public class GuiButtonSkill extends GuiButton {
         if(this.visible){
             mc.renderEngine.bindTexture(parent.getSkillButtonTexture());
             this.drawTexturedModalRect(x, y, 0,0,64,64);
-
         }
 
     }

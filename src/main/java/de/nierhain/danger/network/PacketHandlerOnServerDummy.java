@@ -20,4 +20,9 @@ public class PacketHandlerOnServerDummy {
         }
     }
 
+    public static class Levels implements IMessageHandler<PacketLevelToClient, IMessage>{
+        @Override
+        public IMessage onMessage(PacketLevelToClient message, MessageContext ctx) { return null;}
+    }
+
 }

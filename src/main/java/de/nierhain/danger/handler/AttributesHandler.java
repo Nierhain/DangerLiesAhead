@@ -2,6 +2,7 @@ package de.nierhain.danger.handler;
 
 import de.nierhain.danger.capabilities.attributes.IAttributes;
 import de.nierhain.danger.capabilities.attributes.ProviderAttributes;
+import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.event.EventLevelUp;
 import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.network.PacketSkillpointsToClient;
@@ -21,11 +22,15 @@ import static de.nierhain.danger.config.Configuration.*;
 public class AttributesHandler {
 
 
-    private static final double DEFAULT_HEALTH = 20;
-    private static final double DEFAULT_SPEED = 0.1;
-    private static final double DEFAULT_DMG = 2;
-    private static final double DEFAULT_AS = 4;
-    private static final double DEFAULT_LUCK = 0;
+    private static double[] MODIFIER = {2, 1, 0.1, 1, 1};
+    private static double[] DEFAULT = {20, 0, 0.1, 2, 4};
+    private static IAttribute[] ATTRIBUTES = {SharedMonsterAttributes.MAX_HEALTH,
+            SharedMonsterAttributes.LUCK,
+            SharedMonsterAttributes.MOVEMENT_SPEED,
+            SharedMonsterAttributes.ATTACK_DAMAGE,
+            SharedMonsterAttributes.ATTACK_SPEED};
+    private static final int INCREMENT_PER_LEVEL = 1;
+    private static double newAmount;
 
     private static IAttributes getHandler(Entity entity) {
 
@@ -57,85 +62,33 @@ public class AttributesHandler {
         final IAttributes original = getHandler(event.getOriginal());
         final IAttributes clone = getHandler(event.getEntityPlayer());
 
-        clone.setHealth(original.getHealth());
-        clone.setHunger(original.getHunger());
-        clone.setMovementSpeed(original.getMovementSpeed());
-        clone.setAttackDamage(original.getAttackDamage());
-        clone.setAttackSpeed(original.getAttackSpeed());
-        clone.setLuck(original.getLuck());
-
+        clone.setSkillpoints(original.getSkillpoints());
+        clone.setAllAttributes(original.getAllAttributes());
     }
 
     @SubscribeEvent
     public void onPlayerLevelUp(EventLevelUp event){
         EntityPlayer player = event.getPlayer();
         IAttributes skills = getHandler(player);
-        skills.setSkillpoints(skills.getSkillpoints() + 1);
+        skills.setSkillpoints(skills.getSkillpoints() + INCREMENT_PER_LEVEL);
         PacketHandler.INSTANCE.sendTo(new PacketSkillpointsToClient(skills.getSkillpoints()), (EntityPlayerMP) player);
     }
 
-    public static void removeSkillpoint(EntityPlayer player){
-        player.getCapability(CAPABILITY_SKILL, null).removeSkillpoint();
-    }
-
-    public static void addAttribute(IAttribute attribute, double newValue, EntityPlayer player){
-        player.getEntityAttribute(attribute).setBaseValue(newValue);
-        removeSkillpoint(player);
-    }
-
-    public static void skillHealth(EntityPlayer player){
-
+    public static void skill(Attribute attr, EntityPlayer player){
         if(canSkill(player)){
-            int newSkill = getHandler(player).getHealth() + 1;
-            getHandler(player).setHealth(newSkill);
+            int index = attr.getValue();
+            newAmount = getHandler(player).getAttribute(attr) * MODIFIER[index] + DEFAULT[index];
 
-            double newHealth = (getHandler(player).getHealth() * PLAYER_MODIFIER_HEALTH ) + DEFAULT_HEALTH;
-            addAttribute(SharedMonsterAttributes.MAX_HEALTH, newHealth, player);
+            player.getEntityAttribute(ATTRIBUTES[index]).setBaseValue(newAmount);
+            getHandler(player).setAttribute(attr, getHandler(player).getAttribute(attr) + INCREMENT_PER_LEVEL);
+            getHandler(player).removeSkillpoint();
 
-            // player does not get healed when his max health changes, therefore we have to do it manually
-            player.setHealth(player.getMaxHealth());
-        }
-
-    }
-
-    public static void skillMovementSpeed(EntityPlayer player){
-        if (canSkill(player)) {
-            int newSkill = getHandler(player).getMovementSpeed() + 1;
-            getHandler(player).setMovementSpeed(newSkill);
-
-            double newSpeed = getHandler(player).getMovementSpeed() * PLAYER_MODIFIER_SPEED + DEFAULT_SPEED;
-            addAttribute(SharedMonsterAttributes.MOVEMENT_SPEED, newSpeed, player);
-        }
-    }
-
-    public static void skillAttackDamage(EntityPlayer player){
-        if (canSkill(player)) {
-            int newSkill = getHandler(player).getAttackDamage() + 1;
-            getHandler(player).setAttackDamage(newSkill);
-
-            double newDmg = getHandler(player).getAttackDamage() * PLAYER_MODIFIER_DMG + DEFAULT_DMG;
-            addAttribute(SharedMonsterAttributes.ATTACK_DAMAGE, newDmg, player);
-        }
-    }
-
-    public static void skillAttackSpeed(EntityPlayer player){
-        if (canSkill(player)) {
-            int newSkill = getHandler(player).getAttackSpeed() + 1;
-            getHandler(player).setAttackSpeed(newSkill);
-
-
-            double newAS = getHandler(player).getAttackSpeed() * PLAYER_MODIFIER_AS + DEFAULT_AS;
-            addAttribute(SharedMonsterAttributes.ATTACK_SPEED, newAS, player);
-        }
-    }
-
-    public static void skillLuck(EntityPlayer player){
-        if (canSkill(player)) {
-            int newSkill = getHandler(player).getLuck() + 1;
-            getHandler(player).setLuck(newSkill);
-
-            double newLuck = getHandler(player).getLuck() * PLAYER_MODIFIER_LUCK + DEFAULT_LUCK;
-            addAttribute(SharedMonsterAttributes.LUCK, newLuck, player);
+            // player needs to be healed after max health has changed
+            if(attr == Attribute.HEALTH)
+                player.setHealth(player.getMaxHealth());
+            // velocityChanged flag needs to be enabled for Minecraft to make the change permanent
+            if(attr == Attribute.MOVEMENT_SPEED)
+                player.velocityChanged = true;
         }
     }
 

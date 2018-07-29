@@ -40,28 +40,9 @@ public class PacketAttributeToServer implements IMessage {
             EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
             IAttributes skillsObj = serverPlayer.getCapability(CAPABILITY_SKILL, null);
 
-            Attribute attribute = message.attribute;
             serverPlayer.getServerWorld().addScheduledTask(() -> {
-                switch(attribute){
-                    case HEALTH:
-                        AttributesHandler.skillHealth(serverPlayer);
-                        break;
-                    case LUCK:
-                        AttributesHandler.skillLuck(serverPlayer);
-                        break;
-                    case MOVEMENT_SPEED:
-                        AttributesHandler.skillMovementSpeed(serverPlayer);
-                        break;
-                    case ATTACK_DAMAGE:
-                        AttributesHandler.skillAttackDamage(serverPlayer);
-                        break;
-                    case ATTACK_SPEED:
-                        AttributesHandler.skillAttackSpeed(serverPlayer);
-                        break;
-                }
-                int[] abilityLevels = {skillsObj.getHealth(), skillsObj.getLuck(), skillsObj.getMovementSpeed(), skillsObj.getAttackDamage(), skillsObj.getAttackSpeed()};
-                int skillPoints = skillsObj.getSkillpoints();
-                PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(abilityLevels, skillPoints), serverPlayer);
+                AttributesHandler.skill(message.attribute, serverPlayer);
+                PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(skillsObj.getAllAttributes(), skillsObj.getSkillpoints()), serverPlayer);
             });
 
             return null;

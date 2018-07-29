@@ -178,11 +178,11 @@ public class GuiSkill extends GuiScreen {
     }
 
     private void drawSkillOverview(){
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getHealth()), centerOnHealth, skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getLuck()), centerOnLuck, skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getMovementSpeed()), centerOnMovement, skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttackDamage()), centerOnAttackDamage, skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttackSpeed()), centerOnAttackSpeed, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.HEALTH)), centerOnHealth, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.LUCK)), centerOnLuck, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.MOVEMENT_SPEED)), centerOnMovement, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.ATTACK_DAMAGE)), centerOnAttackDamage, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.ATTACK_SPEED)), centerOnAttackSpeed, skillStringOffset, fontColor );
 
     }
 

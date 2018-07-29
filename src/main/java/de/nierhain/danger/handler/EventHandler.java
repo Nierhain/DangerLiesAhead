@@ -17,7 +17,7 @@ public class EventHandler {
         if(!event.player.getEntityWorld().isRemote){
             EntityPlayerMP player = (EntityPlayerMP) event.player;
             IAttributes skillsObj = player.getCapability(CAPABILITY_SKILL, null);
-            int[] abilityLevels = {skillsObj.getHealth(), skillsObj.getLuck(), skillsObj.getMovementSpeed(), skillsObj.getAttackDamage(), skillsObj.getAttackSpeed()};
+            int[] abilityLevels = skillsObj.getAllAttributes();
             int skillPoints = skillsObj.getSkillpoints();
             PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(abilityLevels, skillPoints), player);
         }

@@ -48,11 +48,7 @@ public class PacketAttributesToClient implements IMessage {
                     EntityPlayer player = Minecraft.getMinecraft().player;
                     IAttributes skillsObj = player.getCapability(CAPABILITY_SKILL, null);
 
-                    skillsObj.setHealth(message.abilityLevels[0]);
-                    skillsObj.setLuck(message.abilityLevels[1]);
-                    skillsObj.setMovementSpeed(message.abilityLevels[2]);
-                    skillsObj.setAttackDamage(message.abilityLevels[3]);
-                    skillsObj.setAttackSpeed(message.abilityLevels[4]);
+                    skillsObj.setAllAttributes(message.abilityLevels);
                     skillsObj.setSkillpoints(message.skillPoints);
             });
             return null;

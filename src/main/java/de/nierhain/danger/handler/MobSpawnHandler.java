@@ -43,8 +43,8 @@ public class MobSpawnHandler {
 
         mob = (EntityLiving) event.getEntity();
         spawn = event.getWorld().getSpawnPoint();
-
         ISpawned isSpawned = mob.getCapability(CAPABILITY_SPAWNED, null);
+
         if(hasLevelUp() && !isSpawned.isSpawned()){
             levelStats();
             isSpawned.setSpawned(true);
