@@ -15,8 +15,6 @@ public class StorageLevel implements Capability.IStorage<ILevel> {
         final NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("xp", instance.getXP());
         tag.setInteger("level", instance.getLevel());
-        tag.setInteger("skillpointsAvailable", instance.getSkillpointsAvailable());
-        tag.setInteger("skillpointsMax", instance.getSkillpointsMax());
         return tag;
     }
 
@@ -25,7 +23,5 @@ public class StorageLevel implements Capability.IStorage<ILevel> {
         final NBTTagCompound tag = (NBTTagCompound) nbt;
         instance.setXP(tag.getInteger("xp"));
         instance.setLevel(tag.getInteger("level"));
-        instance.setSkillpointsAvailable(tag.getInteger("skillpointsAvailable"));
-        instance.setSkillpointsMax(tag.getInteger("skillpointsMax"));
     }
 }

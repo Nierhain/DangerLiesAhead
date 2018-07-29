@@ -26,6 +26,11 @@ public class PacketLevelToClient implements IMessage {
         buf.writeInt(xp);
     }
 
+    public PacketLevelToClient(int level, int xp){
+        this.level = level;
+        this.xp = xp;
+    }
+
     public static class Handler implements IMessageHandler<PacketLevelToClient, IMessage>{
 
         @Override

@@ -12,7 +12,7 @@ public class MapLevels {
 
     static {
         map = new HashMap<>();
-        for(int i = 1; i < PLAYER_MAX_LVL; i++) map.put(i, (int) Math.ceil(CONST_A * i * i + CONST_B * i));
+        for(int i = 1; i <= PLAYER_MAX_LVL; i++) map.put(i, (int) Math.ceil(CONST_A * i * i + CONST_B * i));
     }
 
     public static int getNeededXP(int level){
