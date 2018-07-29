@@ -1,11 +1,11 @@
 package de.nierhain.danger.gui;
 
 
+import de.nierhain.danger.Danger;
 import de.nierhain.danger.capabilities.attributes.IAttributes;
 import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.network.PacketAttributeToServer;
 import de.nierhain.danger.network.PacketHandler;
-import de.nierhain.danger.utils.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -21,8 +21,8 @@ import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPA
 
 public class GuiSkill extends GuiScreen {
 
-    private final ResourceLocation skills = new ResourceLocation(Reference.MODID, "textures/gui/skills.png");
-    private final ResourceLocation skillButtonTexture = new ResourceLocation(Reference.MODID, "textures/gui/skill_button.png");
+    private final ResourceLocation skills = new ResourceLocation(Danger.MODID, "textures/gui/skills.png");
+    private final ResourceLocation skillButtonTexture = new ResourceLocation(Danger.MODID, "textures/gui/skill_button.png");
 
     private int fontColor = 0xFFFFFF;
 
@@ -80,8 +80,6 @@ public class GuiSkill extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
-        fontRenderer = mc.getRenderManager().getFontRenderer();
-        skillsObj = mc.player.getCapability(CAPABILITY_SKILL, null);
 
         this.drawSkillTextures();
         this.drawSkillTitles();
@@ -145,6 +143,9 @@ public class GuiSkill extends GuiScreen {
     }
 
     private void setVariables() {
+
+        fontRenderer = mc.getRenderManager().getFontRenderer();
+        skillsObj = mc.player.getCapability(CAPABILITY_SKILL, null);
 
         centerX = width / 2 - allSkillsWidth / 2;
         centerY = height / 2 - skillHeight / 2;

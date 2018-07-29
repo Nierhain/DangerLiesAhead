@@ -15,11 +15,8 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event){
         if(!event.player.getEntityWorld().isRemote){
-            EntityPlayerMP player = (EntityPlayerMP) event.player;
-            IAttributes skillsObj = player.getCapability(CAPABILITY_SKILL, null);
-            int[] abilityLevels = skillsObj.getAllAttributes();
-            int skillPoints = skillsObj.getSkillpoints();
-            PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(abilityLevels, skillPoints), player);
+            IAttributes skills = event.player.getCapability(CAPABILITY_SKILL, null);
+            PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(skills.getAllAttributes(), skills.getSkillpoints()), (EntityPlayerMP) event.player);
         }
     }
 }

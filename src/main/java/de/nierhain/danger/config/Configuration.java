@@ -1,12 +1,14 @@
 package de.nierhain.danger.config;
 
-import de.nierhain.danger.utils.Reference;
+
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.Comment;
 import net.minecraftforge.common.config.Config.Name;
 import net.minecraftforge.common.config.Config.RangeInt;
 
-@Config(modid = Reference.MODID, name =  "dangerliesahead" ,type = Config.Type.INSTANCE, category = "general")
+import static de.nierhain.danger.Danger.MODID;
+
+@Config(modid = MODID, name =  "dangerliesahead" ,type = Config.Type.INSTANCE, category = "general")
 public class Configuration {
 
         @Comment("Changes the health modifier per level up | default: 2")

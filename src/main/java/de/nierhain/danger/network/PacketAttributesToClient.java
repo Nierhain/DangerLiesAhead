@@ -19,17 +19,21 @@ public class PacketAttributesToClient implements IMessage {
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        for(int i = 0; i < abilityLevels.length; i++){
-            abilityLevels[i] = buf.readInt();
-        }
+        abilityLevels[0] = buf.readInt();
+        abilityLevels[1] = buf.readInt();
+        abilityLevels[2] = buf.readInt();
+        abilityLevels[3] = buf.readInt();
+        abilityLevels[4] = buf.readInt();
         skillPoints = buf.readInt();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        for(int i = 0; i < abilityLevels.length; i++){
-            buf.writeInt(abilityLevels[i]);
-        }
+        buf.writeInt(abilityLevels[0]);
+        buf.writeInt(abilityLevels[1]);
+        buf.writeInt(abilityLevels[2]);
+        buf.writeInt(abilityLevels[3]);
+        buf.writeInt(abilityLevels[4]);
         buf.writeInt(skillPoints);
     }
 
