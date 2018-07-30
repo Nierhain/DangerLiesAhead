@@ -12,28 +12,28 @@ import javax.annotation.Nullable;
 public class ProviderAttributes implements ICapabilitySerializable<NBTTagCompound> {
 
     @CapabilityInject(IAttributes.class)
-    public static final Capability<IAttributes> CAPABILITY_SKILL = null;
+    public static final Capability<IAttributes> CAPABILITY_ATTRIBUTES = null;
 
-    IAttributes instance = CAPABILITY_SKILL.getDefaultInstance();
+    IAttributes instance = CAPABILITY_ATTRIBUTES.getDefaultInstance();
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CAPABILITY_SKILL;
+        return capability == CAPABILITY_ATTRIBUTES;
     }
 
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        return hasCapability(capability, facing) ? CAPABILITY_SKILL.<T>cast(instance) : null;
+        return hasCapability(capability, facing) ? CAPABILITY_ATTRIBUTES.<T>cast(instance) : null;
     }
 
     @Override
     public NBTTagCompound serializeNBT() {
-        return (NBTTagCompound) CAPABILITY_SKILL.getStorage().writeNBT(CAPABILITY_SKILL, instance, null);
+        return (NBTTagCompound) CAPABILITY_ATTRIBUTES.getStorage().writeNBT(CAPABILITY_ATTRIBUTES, instance, null);
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        CAPABILITY_SKILL.getStorage().readNBT(CAPABILITY_SKILL, instance, null, nbt);
+        CAPABILITY_ATTRIBUTES.getStorage().readNBT(CAPABILITY_ATTRIBUTES, instance, null, nbt);
     }
 }

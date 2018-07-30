@@ -8,6 +8,9 @@ danger.luck=Luck
 danger.movement.speed=Movement Speed
 danger.attack.damage=Attack Damage
 danger.attack.speed=Attack Speed
+danger.availableSkillpoints=available Skillpoints:
+danger.level=Level
+danger.experience=Experience
 
 # Buttons
 danger.button.close=close

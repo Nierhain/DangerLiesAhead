@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
 
 
 
@@ -38,7 +38,7 @@ public class PacketAttributeToServer implements IMessage {
         @Override
         public IMessage onMessage(PacketAttributeToServer message, MessageContext ctx) {
             EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
-            IAttributes skillsObj = serverPlayer.getCapability(CAPABILITY_SKILL, null);
+            IAttributes skillsObj = serverPlayer.getCapability(CAPABILITY_ATTRIBUTES, null);
 
             serverPlayer.getServerWorld().addScheduledTask(() -> {
                 AttributesHandler.skill(message.attribute, serverPlayer);

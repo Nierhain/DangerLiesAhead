@@ -5,7 +5,6 @@ import de.nierhain.danger.enums.Attribute;
 public interface IAttributes {
 
     int getSkillpoints();
-    void addSkillpoints(int skillpoints);
     void setSkillpoints(int skillpoints);
     void removeSkillpoint();
 

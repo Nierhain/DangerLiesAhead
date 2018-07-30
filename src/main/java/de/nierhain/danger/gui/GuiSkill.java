@@ -3,31 +3,40 @@ package de.nierhain.danger.gui;
 
 import de.nierhain.danger.Danger;
 import de.nierhain.danger.capabilities.attributes.IAttributes;
+import de.nierhain.danger.capabilities.level.ILevel;
 import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.network.PacketAttributeToServer;
 import de.nierhain.danger.network.PacketHandler;
+import de.nierhain.danger.util.DevEnv;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.io.IOException;
 
-import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
+import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
 
 
 public class GuiSkill extends GuiScreen {
 
     private final ResourceLocation skills = new ResourceLocation(Danger.MODID, "textures/gui/skills.png");
     private final ResourceLocation skillButtonTexture = new ResourceLocation(Danger.MODID, "textures/gui/skill_button.png");
+    private final ResourceLocation infoTexture = new ResourceLocation(Danger.MODID, "textures/gui/info.png");
 
     private int fontColor = 0xFFFFFF;
 
     private FontRenderer fontRenderer;
     private IAttributes skillsObj;
+    private ILevel levelObj;
 
     private int titleOffset;
     private int skillStringOffset = 20;
@@ -35,22 +44,15 @@ public class GuiSkill extends GuiScreen {
 
     private int skillWidth = 78;
     private int skillHeight = 120;
-    private int luckX = 78;
-    private int movementX = 78 * 2;
-    private int attackDamageX = 78 * 3;
-    private int attackSpeedX = 78 * 4;
-
     private int allSkillsWidth = 78 * 5;
 
 
     private int centerX;
     private int centerY;
+    
+    private int[] attributeX = new int[5];
 
-    private int centerOnHealth;
-    private int centerOnLuck;
-    private int centerOnMovement;
-    private int centerOnAttackDamage;
-    private int centerOnAttackSpeed;
+    private int[] centerOnAttribute = new int[5];
 
     private GuiButtonExt close;
     private GuiButtonSkill skill_health,
@@ -80,10 +82,16 @@ public class GuiSkill extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
+        fontRenderer = mc.getRenderManager().getFontRenderer();
+        skillsObj = mc.player.getCapability(CAPABILITY_ATTRIBUTES, null);
+        levelObj = mc.player.getCapability(CAPABILITY_LEVEL, null);
+
 
         this.drawSkillTextures();
         this.drawSkillTitles();
         this.drawSkillOverview();
+        this.drawSkillpointsAvailable();
+        this.drawPlayerOverview();
         this.updateButtons();
 
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -121,7 +129,7 @@ public class GuiSkill extends GuiScreen {
     }
 
     public void updateButtons() {
-        if(mc.player.getCapability(CAPABILITY_SKILL, null).getSkillpoints() <= 0){
+        if(mc.player.getCapability(CAPABILITY_ATTRIBUTES, null).getSkillpoints() <= 0){
             skill_health.visible = false;
             skill_luck.visible = false;
             skill_movement_speed.visible = false;
@@ -144,9 +152,6 @@ public class GuiSkill extends GuiScreen {
 
     private void setVariables() {
 
-        fontRenderer = mc.getRenderManager().getFontRenderer();
-        skillsObj = mc.player.getCapability(CAPABILITY_SKILL, null);
-
         centerX = width / 2 - allSkillsWidth / 2;
         centerY = height / 2 - skillHeight / 2;
 
@@ -154,47 +159,76 @@ public class GuiSkill extends GuiScreen {
         skillStringOffset = centerY + 20;
         skillButtonOffset = height / 2 + skillHeight / 4;
 
-        centerOnHealth = centerX + skillWidth / 2;
-        centerOnLuck = centerX + skillWidth / 2 + luckX;
-        centerOnMovement = centerX + skillWidth / 2 + movementX;
-        centerOnAttackDamage = centerX + skillWidth / 2 + attackDamageX;
-        centerOnAttackSpeed = centerX + skillWidth / 2 + attackSpeedX;
+        for(int i = 0; i < attributeX.length; i++){
+            attributeX[i] = centerX + skillWidth * i;
+        }
+
+        for(int i = 0; i < centerOnAttribute.length; i++){
+            centerOnAttribute[i] = attributeX[i] + skillWidth / 2;
+        }
+
     }
 
     private void drawSkillTextures() {
         Minecraft.getMinecraft().getTextureManager().bindTexture(skills);
-        drawTexturedModalRect(centerX, centerY, 0, 0, skillWidth, skillHeight);
-        drawTexturedModalRect(centerX + luckX, centerY, skillWidth, 0, skillWidth, skillHeight);
-        drawTexturedModalRect(centerX + movementX, centerY, skillWidth + skillWidth, 0, skillWidth, skillHeight);
-        drawTexturedModalRect(centerX + attackDamageX, centerY, 0, skillHeight, skillWidth, skillHeight);
-        drawTexturedModalRect(centerX + attackSpeedX, centerY, skillWidth, skillHeight, skillWidth, skillHeight);
+        drawTexturedModalRect(attributeX[0], centerY, 0, 0, skillWidth, skillHeight);
+        drawTexturedModalRect(attributeX[1], centerY, skillWidth, 0, skillWidth, skillHeight);
+        drawTexturedModalRect(attributeX[2], centerY, skillWidth + skillWidth, 0, skillWidth, skillHeight);
+        drawTexturedModalRect(attributeX[3], centerY, 0, skillHeight, skillWidth, skillHeight);
+        drawTexturedModalRect(attributeX[4], centerY, skillWidth, skillHeight, skillWidth, skillHeight);
     }
 
     private void drawSkillTitles(){
-        drawCenteredString(fontRenderer, I18n.format("danger.health"), centerOnHealth, titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.luck"), centerOnLuck,  titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.movement.speed"), centerOnMovement,  titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.attack.damage"), centerOnAttackDamage, titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.attack.speed"), centerOnAttackSpeed,  titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.health"), centerOnAttribute[Attribute.HEALTH.getValue()], titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.luck"), centerOnAttribute[Attribute.LUCK.getValue()],  titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.movement.speed"), centerOnAttribute[Attribute.MOVEMENT_SPEED.getValue()],  titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.attack.damage"), centerOnAttribute[Attribute.ATTACK_DAMAGE.getValue()], titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.attack.speed"), centerOnAttribute[Attribute.ATTACK_SPEED.getValue()],  titleOffset, fontColor);
     }
 
     private void drawSkillOverview(){
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.HEALTH)), centerOnHealth, skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.LUCK)), centerOnLuck, skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.MOVEMENT_SPEED)), centerOnMovement, skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.ATTACK_DAMAGE)), centerOnAttackDamage, skillStringOffset, fontColor );
-        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.ATTACK_SPEED)), centerOnAttackSpeed, skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.HEALTH)), centerOnAttribute[Attribute.HEALTH.getValue()], skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.LUCK)), centerOnAttribute[Attribute.LUCK.getValue()], skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.MOVEMENT_SPEED)), centerOnAttribute[Attribute.MOVEMENT_SPEED.getValue()], skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.ATTACK_DAMAGE)), centerOnAttribute[Attribute.ATTACK_DAMAGE.getValue()], skillStringOffset, fontColor );
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getAttribute(Attribute.ATTACK_SPEED)), centerOnAttribute[Attribute.ATTACK_SPEED.getValue()], skillStringOffset, fontColor );
 
+    }
+
+    private void drawPlayerOverview(){
+        String playerName = mc.player.getDisplayNameString();
+        ItemStack itemStack = new ItemStack(Items.SKULL, 1, 3);
+        itemStack.setTagCompound(new NBTTagCompound());
+        itemStack.getTagCompound().setTag("SkullOwner", new NBTTagString(playerName));
+
+        Minecraft.getMinecraft().getTextureManager().bindTexture(infoTexture);
+        drawTexturedModalRect(attributeX[0],  centerY - 40, 0,20,140,20);
+        drawTexturedModalRect(attributeX[2], centerY - 40, 0, 0, 234, 20);
+
+        if(!DevEnv.isDevEnv()){
+            Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, attributeX[0] + 5, centerY - 40);
+        }
+
+        drawString(fontRenderer, playerName, attributeX[0] + 26, centerY - 35, fontColor);
+        drawString(fontRenderer, I18n.format("danger.level") + " : " + Integer.toString(levelObj.getLevel()), attributeX[2] + 15, centerY - 35, fontColor);
+        drawString(fontRenderer, I18n.format("danger.experience") + " : " + Integer.toString(levelObj.getXP()), attributeX[3] + 15, centerY - 35, fontColor);
+    }
+
+    private void drawSkillpointsAvailable(){
+        Minecraft.getMinecraft().getTextureManager().bindTexture(infoTexture);
+        drawTexturedModalRect(attributeX[0], centerY + 140, 0,0,234,20);
+        drawString(fontRenderer, I18n.format("danger.availableSkillpoints"), attributeX[0] + 10, centerY + 146, fontColor);
+        drawCenteredString(fontRenderer, Integer.toString(skillsObj.getSkillpoints()), attributeX[2] + 20, centerY + 146, fontColor);
     }
 
     private void setButtons() {
         buttonList.clear();
-        buttonList.add(close = new GuiButtonExt(BUTTON_CLOSE, width / 2 - 25, height - 40, 50, 20, I18n.format("danger.button.close")));
-        buttonList.add(skill_health = new GuiButtonSkill(this, BUTTON_SKILL_HEALTH, centerOnHealth, skillButtonOffset));
-        buttonList.add(skill_luck = new GuiButtonSkill(this, BUTTON_SKILL_LUCK, centerOnLuck, skillButtonOffset));
-        buttonList.add(skill_movement_speed = new GuiButtonSkill(this, BUTTON_SKILL_MOVEMENT_SPEED, centerOnMovement, skillButtonOffset));
-        buttonList.add(skill_attack_damage = new GuiButtonSkill(this, BUTTON_SKILL_ATTACK_DAMAGE, centerOnAttackDamage, skillButtonOffset));
-        buttonList.add(skill_attack_speed = new GuiButtonSkill(this, BUTTON_SKILL_ATTACK_SPEED, centerOnAttackSpeed, skillButtonOffset));
+        buttonList.add(close = new GuiButtonExt(BUTTON_CLOSE, width - 120, height - 40, 100, 20, I18n.format("danger.button.close")));
+        buttonList.add(skill_health = new GuiButtonSkill(this, BUTTON_SKILL_HEALTH, centerOnAttribute[Attribute.HEALTH.getValue()], skillButtonOffset));
+        buttonList.add(skill_luck = new GuiButtonSkill(this, BUTTON_SKILL_LUCK, centerOnAttribute[Attribute.LUCK.getValue()], skillButtonOffset));
+        buttonList.add(skill_movement_speed = new GuiButtonSkill(this, BUTTON_SKILL_MOVEMENT_SPEED, centerOnAttribute[Attribute.MOVEMENT_SPEED.getValue()], skillButtonOffset));
+        buttonList.add(skill_attack_damage = new GuiButtonSkill(this, BUTTON_SKILL_ATTACK_DAMAGE, centerOnAttribute[Attribute.ATTACK_DAMAGE.getValue()], skillButtonOffset));
+        buttonList.add(skill_attack_speed = new GuiButtonSkill(this, BUTTON_SKILL_ATTACK_SPEED, centerOnAttribute[Attribute.ATTACK_SPEED.getValue()], skillButtonOffset));
     }
 
     public ResourceLocation getSkillButtonTexture(){

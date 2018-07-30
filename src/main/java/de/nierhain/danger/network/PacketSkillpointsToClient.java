@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
 
 public class PacketSkillpointsToClient implements IMessage {
 
@@ -35,7 +35,7 @@ public class PacketSkillpointsToClient implements IMessage {
         @Override
         public IMessage onMessage(PacketSkillpointsToClient message, MessageContext ctx) {
             EntityPlayer player = Minecraft.getMinecraft().player;
-            IAttributes attrObj = player.getCapability(CAPABILITY_SKILL, null);
+            IAttributes attrObj = player.getCapability(CAPABILITY_ATTRIBUTES, null);
             attrObj.setSkillpoints(message.toSend);
             return null;
         }

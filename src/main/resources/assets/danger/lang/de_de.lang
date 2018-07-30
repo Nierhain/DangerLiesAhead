@@ -1,0 +1,17 @@
+# Keybindings
+key.danger.category=Danger Lies Ahead
+key.gui.desc=Öffne GUI
+
+# GUI
+danger.health=Leben
+danger.luck=Glück
+danger.movement.speed=Geschwindigkeit
+danger.attack.damage=Angriffsschaden
+danger.attack.speed=Angriffsgeschwindigkeit
+danger.availableSkillpoints=verfügbare Skillpunkte:
+danger.level=Stufe
+danger.experience=Erfahrung
+
+# Buttons
+danger.button.close=schließen
+danger.button.skill=skillen

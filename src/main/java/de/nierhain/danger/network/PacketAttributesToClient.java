@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_SKILL;
+import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
 
 
 public class PacketAttributesToClient implements IMessage {
@@ -50,7 +50,7 @@ public class PacketAttributesToClient implements IMessage {
             Minecraft minecraft = Minecraft.getMinecraft();
             minecraft.addScheduledTask(() -> {
                     EntityPlayer player = Minecraft.getMinecraft().player;
-                    IAttributes skillsObj = player.getCapability(CAPABILITY_SKILL, null);
+                    IAttributes skillsObj = player.getCapability(CAPABILITY_ATTRIBUTES, null);
 
                     skillsObj.setAllAttributes(message.abilityLevels);
                     skillsObj.setSkillpoints(message.skillPoints);
