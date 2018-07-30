@@ -12,7 +12,8 @@ danger.attack=Attack
 danger.availableSkillpoints=available Skillpoints:
 danger.level=Level
 danger.experience=Experience
-danger.levelup=Level Up!
+danger.levelup=You're now a danger Level %d!
+danger.ismaxlvl=You are max level
 
 # Buttons
 danger.button.close=close

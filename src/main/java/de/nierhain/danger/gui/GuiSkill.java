@@ -24,6 +24,7 @@ import java.io.IOException;
 
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
 import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
+import static de.nierhain.danger.config.Configuration.PLAYER_MAX_LVL;
 
 
 public class GuiSkill extends GuiScreen {
@@ -219,7 +220,13 @@ public class GuiSkill extends GuiScreen {
 
         drawString(fontRenderer, playerName, attributeX[0] + 26, centerY - 35, fontColor);
         drawString(fontRenderer, I18n.format("danger.level") + " : " + Integer.toString(levelObj.getLevel()), attributeX[2] + 15, centerY - 35, fontColor);
-        drawString(fontRenderer, I18n.format("danger.experience") + " : " + Integer.toString(levelObj.getXP()) + " / " + Integer.toString(MapLevels.getNeededXP(levelObj.getLevel() + 1)), attributeX[3] + 15, centerY - 35, fontColor);
+        String str;
+        if(levelObj.getLevel() != PLAYER_MAX_LVL){
+            str = I18n.format("danger.experience") + " : " + Integer.toString(levelObj.getXP()) + " / " + Integer.toString(MapLevels.getNeededXP(levelObj.getLevel() + 1));
+        } else {
+            str = I18n.format("danger.ismaxlvl");
+        }
+        drawString(fontRenderer, str, attributeX[3] + 15, centerY - 35, fontColor);
     }
 
     private void drawSkillpointsAvailable(){

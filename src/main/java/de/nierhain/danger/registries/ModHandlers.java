@@ -17,6 +17,6 @@ public class ModHandlers {
 
     public static void registerClientHandlers(Minecraft mc) {
         MinecraftForge.EVENT_BUS.register(new KeyHandler(mc));
-        MinecraftForge.EVENT_BUS.register(new NotificationLevelUp());
+        MinecraftForge.EVENT_BUS.register(new NotificationHandler());
     }
 }

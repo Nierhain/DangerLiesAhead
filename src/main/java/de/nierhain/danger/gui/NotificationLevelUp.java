@@ -1,27 +1,32 @@
 package de.nierhain.danger.gui;
 
-import de.nierhain.danger.event.EventLevelUp;
-import de.nierhain.danger.event.EventNotifyPlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
 
 public class NotificationLevelUp extends Gui {
 
-    Minecraft mc;
-    ScaledResolution sr;
-    int width;
-    int height;
+    public NotificationLevelUp(Minecraft mc){
+        ScaledResolution scaled = new ScaledResolution(mc);
+        int width = scaled.getScaledWidth();
+        int height = scaled.getScaledHeight();
 
-    @SubscribeEvent
-    public void onLevelUp(EventNotifyPlayer event){
-        System.out.println("Level UP");
-        this.mc = Minecraft.getMinecraft();
-        this.sr = new ScaledResolution(mc);
-        this.width = sr.getScaledWidth();
-        this.height = sr.getScaledHeight();
-        mc.fontRenderer.drawStringWithShadow(I18n.format("danger.levelup"), width / 2, height / 2, 0xFFFFFF);
+        String str = I18n.format("danger.levelup", mc.player.getCapability(CAPABILITY_LEVEL, null).getLevel());
+        int strWidth = mc.fontRenderer.getStringWidth(str);
+
+        GlStateManager.pushMatrix();
+        {
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.DST_ALPHA);
+            GlStateManager.scale(1.4, 1.4, 1.4);
+            mc.fontRenderer.drawString(str, (int) (width / (2 * 1.4) - strWidth / 2), (int) (height / (2 * 1.4) - 30), 0x00FF96);
+            GlStateManager.scale(1, 1, 1);
+            GlStateManager.disableBlend();
+        }
+        GlStateManager.popMatrix();
     }
 }
