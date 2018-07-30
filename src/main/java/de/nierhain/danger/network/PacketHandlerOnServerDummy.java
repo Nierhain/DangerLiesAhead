@@ -25,4 +25,12 @@ public class PacketHandlerOnServerDummy {
         public IMessage onMessage(PacketLevelToClient message, MessageContext ctx) { return null;}
     }
 
+    public static class Notification implements IMessageHandler<PacketLevelUpToClient, IMessage>{
+
+        @Override
+        public IMessage onMessage(PacketLevelUpToClient message, MessageContext ctx) {
+            return null;
+        }
+    }
+
 }

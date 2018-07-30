@@ -4,6 +4,7 @@ import de.nierhain.danger.capabilities.attributes.IAttributes;
 import de.nierhain.danger.capabilities.attributes.ProviderAttributes;
 import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.event.EventLevelUp;
+import de.nierhain.danger.gui.NotificationLevelUp;
 import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.network.PacketSkillpointsToClient;
 import net.minecraft.entity.Entity;
