@@ -4,6 +4,7 @@ package de.nierhain.danger.gui;
 import de.nierhain.danger.Danger;
 import de.nierhain.danger.capabilities.attributes.IAttributes;
 import de.nierhain.danger.capabilities.level.ILevel;
+import de.nierhain.danger.capabilities.level.MapLevels;
 import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.network.PacketAttributeToServer;
 import de.nierhain.danger.network.PacketHandler;
@@ -211,7 +212,7 @@ public class GuiSkill extends GuiScreen {
 
         drawString(fontRenderer, playerName, attributeX[0] + 26, centerY - 35, fontColor);
         drawString(fontRenderer, I18n.format("danger.level") + " : " + Integer.toString(levelObj.getLevel()), attributeX[2] + 15, centerY - 35, fontColor);
-        drawString(fontRenderer, I18n.format("danger.experience") + " : " + Integer.toString(levelObj.getXP()), attributeX[3] + 15, centerY - 35, fontColor);
+        drawString(fontRenderer, I18n.format("danger.experience") + " : " + Integer.toString(levelObj.getXP()) + " / " + Integer.toString(MapLevels.getNeededXP(levelObj.getLevel() + 1)), attributeX[3] + 15, centerY - 35, fontColor);
     }
 
     private void drawSkillpointsAvailable(){
