@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -73,6 +74,8 @@ public class LevelHandler {
             cap.addLevel(1);
             cap.setXP(cap.getXP() - MapLevels.getNeededXP(nextLevel));
             MinecraftForge.EVENT_BUS.post(new EventLevelUp(player));
+            int particleNumber = 4;
+            ((EntityPlayerMP) player).getServerWorld().spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, player.posX, player.posY, player.posZ, 1, 1,1);
         }
 
         PacketHandler.INSTANCE.sendTo(new PacketLevelToClient(cap.getLevel(), cap.getXP()), (EntityPlayerMP) player);

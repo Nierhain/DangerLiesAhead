@@ -5,9 +5,10 @@ key.gui.desc=Open GUI
 # GUI
 danger.health=Health
 danger.luck=Luck
-danger.movement.speed=Movement Speed
-danger.attack.damage=Attack Damage
-danger.attack.speed=Attack Speed
+danger.movement=Movement
+danger.speed=Speed
+danger.damage=Damage
+danger.attack=Attack
 danger.availableSkillpoints=available Skillpoints:
 danger.level=Level
 danger.experience=Experience

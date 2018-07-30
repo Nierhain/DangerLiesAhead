@@ -8,11 +8,11 @@ public class GuiButtonSkill extends GuiButton {
 
     private GuiSkill parent;
 
-    private static int buttonWidth = 64,
-    buttonHeight = 64;
+    private static int buttonWidth = 48,
+    buttonHeight = 48;
 
     public GuiButtonSkill(GuiSkill parent, int id, int x, int y){
-        super(id, x - buttonWidth / 2, y - 48, buttonWidth, buttonHeight, "");
+        super(id, x -12, y - buttonHeight / 2, buttonWidth, buttonHeight, "");
         this.parent = parent;
     }
 
@@ -21,7 +21,7 @@ public class GuiButtonSkill extends GuiButton {
 
         if(this.visible){
             mc.renderEngine.bindTexture(parent.getSkillButtonTexture());
-            this.drawTexturedModalRect(x, y, 0,0,64,64);
+            this.drawTexturedModalRect(x-12, y - 24, 0,0,48,48);
         }
 
     }

@@ -19,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.io.IOException;
 
@@ -40,6 +39,7 @@ public class GuiSkill extends GuiScreen {
     private ILevel levelObj;
 
     private int titleOffset;
+    private int titleSecondLineOffset;
     private int skillStringOffset = 20;
     private int skillButtonOffset;
 
@@ -55,7 +55,7 @@ public class GuiSkill extends GuiScreen {
 
     private int[] centerOnAttribute = new int[5];
 
-    private GuiButtonExt close;
+    private GuiButtonClose close;
     private GuiButtonSkill skill_health,
     skill_luck,
     skill_movement_speed,
@@ -157,8 +157,9 @@ public class GuiSkill extends GuiScreen {
         centerY = height / 2 - skillHeight / 2;
 
         titleOffset = centerY + 10;
-        skillStringOffset = centerY + 20;
-        skillButtonOffset = height / 2 + skillHeight / 4;
+        titleSecondLineOffset = titleOffset + 10;
+        skillStringOffset = titleSecondLineOffset + 15;
+        skillButtonOffset = skillStringOffset + 64;
 
         for(int i = 0; i < attributeX.length; i++){
             attributeX[i] = centerX + skillWidth * i;
@@ -182,9 +183,15 @@ public class GuiSkill extends GuiScreen {
     private void drawSkillTitles(){
         drawCenteredString(fontRenderer, I18n.format("danger.health"), centerOnAttribute[Attribute.HEALTH.getValue()], titleOffset, fontColor);
         drawCenteredString(fontRenderer, I18n.format("danger.luck"), centerOnAttribute[Attribute.LUCK.getValue()],  titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.movement.speed"), centerOnAttribute[Attribute.MOVEMENT_SPEED.getValue()],  titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.attack.damage"), centerOnAttribute[Attribute.ATTACK_DAMAGE.getValue()], titleOffset, fontColor);
-        drawCenteredString(fontRenderer, I18n.format("danger.attack.speed"), centerOnAttribute[Attribute.ATTACK_SPEED.getValue()],  titleOffset, fontColor);
+
+        drawCenteredString(fontRenderer, I18n.format("danger.movement"), centerOnAttribute[Attribute.MOVEMENT_SPEED.getValue()],  titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.speed"), centerOnAttribute[Attribute.MOVEMENT_SPEED.getValue()], titleSecondLineOffset, fontColor);
+
+        drawCenteredString(fontRenderer, I18n.format("danger.attack"), centerOnAttribute[Attribute.ATTACK_DAMAGE.getValue()], titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.damage"), centerOnAttribute[Attribute.ATTACK_DAMAGE.getValue()], titleSecondLineOffset, fontColor);
+
+        drawCenteredString(fontRenderer, I18n.format("danger.attack"), centerOnAttribute[Attribute.ATTACK_SPEED.getValue()],  titleOffset, fontColor);
+        drawCenteredString(fontRenderer, I18n.format("danger.speed"), centerOnAttribute[Attribute.ATTACK_SPEED.getValue()],  titleSecondLineOffset, fontColor);
     }
 
     private void drawSkillOverview(){
@@ -224,7 +231,7 @@ public class GuiSkill extends GuiScreen {
 
     private void setButtons() {
         buttonList.clear();
-        buttonList.add(close = new GuiButtonExt(BUTTON_CLOSE, width - 120, height - 40, 100, 20, I18n.format("danger.button.close")));
+        buttonList.add(close = new GuiButtonClose(this, BUTTON_CLOSE, width - 120, height - 40, 100, 20, I18n.format("danger.button.close")));
         buttonList.add(skill_health = new GuiButtonSkill(this, BUTTON_SKILL_HEALTH, centerOnAttribute[Attribute.HEALTH.getValue()], skillButtonOffset));
         buttonList.add(skill_luck = new GuiButtonSkill(this, BUTTON_SKILL_LUCK, centerOnAttribute[Attribute.LUCK.getValue()], skillButtonOffset));
         buttonList.add(skill_movement_speed = new GuiButtonSkill(this, BUTTON_SKILL_MOVEMENT_SPEED, centerOnAttribute[Attribute.MOVEMENT_SPEED.getValue()], skillButtonOffset));
@@ -235,4 +242,5 @@ public class GuiSkill extends GuiScreen {
     public ResourceLocation getSkillButtonTexture(){
         return this.skillButtonTexture;
     }
+    public ResourceLocation getCloseButtonTexture() { return  this.infoTexture; }
 }
