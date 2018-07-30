@@ -6,6 +6,7 @@
 - added level up notification / particles / effects
 - fixed mobs getting levels by relogging into the world
 - sync levels between client and server
+- added german translation
 
 ## 0.2.1
 
