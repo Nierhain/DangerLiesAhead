@@ -73,7 +73,8 @@ public class LevelHandler {
             cap.addLevel(1);
             cap.setXP(cap.getXP() - MapLevels.getNeededXP(nextLevel));
             MinecraftForge.EVENT_BUS.post(new EventLevelUp(player));
-            PacketHandler.INSTANCE.sendTo(new PacketLevelToClient(cap.getLevel(), cap.getXP()), (EntityPlayerMP) player);
         }
+
+        PacketHandler.INSTANCE.sendTo(new PacketLevelToClient(cap.getLevel(), cap.getXP()), (EntityPlayerMP) player);
     }
 }
