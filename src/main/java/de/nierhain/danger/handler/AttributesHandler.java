@@ -108,9 +108,6 @@ public class AttributesHandler {
             // player needs to be healed after max health has changed
             if(attr == Attribute.HEALTH)
                 player.setHealth(player.getMaxHealth());
-            // velocityChanged flag needs to be enabled for Minecraft to make the change permanent
-            //if(attr == Attribute.MOVEMENT_SPEED)
-            //   player.velocityChanged = true;
         }
     }
 

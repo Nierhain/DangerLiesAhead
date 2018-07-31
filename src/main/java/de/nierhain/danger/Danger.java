@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 @Mod(modid = Danger.MODID, name = Danger.NAME, version = Danger.VERSION, certificateFingerprint = "3b024834bcbc5c9badb97afe9e26ed9ab7182a7d")
 public class Danger {
     public static final String MODID = "danger";

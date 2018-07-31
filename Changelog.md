@@ -2,6 +2,7 @@
 
 - rewrote attribute system
 - rewrote configuration
+- changed mob distance per level to 15 from 20
 - removed skillpoints from level capability
 - finished first version of skill gui
 - added level up notification

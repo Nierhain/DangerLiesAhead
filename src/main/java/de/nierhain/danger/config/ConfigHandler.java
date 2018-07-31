@@ -91,8 +91,8 @@ public class ConfigHandler {
         Property propPlayerModAs = config.get(CATEGORY_NAME_PLAYER, "PLAYER_MODIFIER_AS", defPModAS, "Changes the attack speed modifier per level up | default: 1");
 
         Property propDisableMobLeveling = config.get(CATEGORY_NAME_MOBS, "DISABLE_MOB_LEVELING", defMobSpawn, "Disables leveling of mobs | default: false");
-        Property propMobMaxLvl = config.get(CATEGORY_NAME_MOBS, "MOB_MAX_LEVEL", defMobMaxLvl, "Changes the max level a player can reach | default: 15");
-        Property propMobDistance = config.get(CATEGORY_NAME_MOBS, "DISTANCE_PER_LEVEL", defMobDist, "Number of chunks between mob and spawn to level the mob | default: 20");
+        Property propMobMaxLvl = config.get(CATEGORY_NAME_MOBS, "MOB_MAX_LEVEL", defMobMaxLvl, "Changes the max level a mob can reach | default: 15");
+        Property propMobDistance = config.get(CATEGORY_NAME_MOBS, "DISTANCE_PER_LEVEL", defMobDist, "Number of chunks between mob and spawn to level the mob | default: 15");
         Property propMobModHealth = config.get(CATEGORY_NAME_MOBS, "MOB_MODIFIER_HEALTH", defMMobH, "Changes the health a mob gets per level | default: 1");
         Property propMobModDmg = config.get(CATEGORY_NAME_MOBS, "MOB_MODIFIER_ATTACK_DAMAGE", defMMobAD, "Changes the amount of attack damage a mob gets per level | default: 0.3");
 

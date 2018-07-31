@@ -5,7 +5,7 @@ import de.nierhain.danger.capabilities.spawned.ProviderSpawned;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.UUID;
 
 import static de.nierhain.danger.capabilities.spawned.ProviderSpawned.CAPABILITY_SPAWNED;
 import static de.nierhain.danger.config.ConfigHandler.*;
@@ -22,10 +24,10 @@ public class MobSpawnHandler {
 
     private static BlockPos spawn;
     private EntityLiving mob;
+    private static UUID[] uuid = {UUID.fromString("d057381d-3e42-4e35-bc98-00857e3691b8"), UUID.fromString("d057381d-3e42-4e35-bc98-00857e3691b8")};
 
     @SubscribeEvent
     public void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-
         if (event.getObject() instanceof IMob) {
             event.addCapability(new ResourceLocation("danger", "spawned"), new ProviderSpawned());
         }
@@ -40,8 +42,8 @@ public class MobSpawnHandler {
         if(event.getWorld().isRemote)
             return;
 
-        mob = (EntityLiving) event.getEntity();
-        spawn = event.getWorld().getSpawnPoint();
+        this.mob = (EntityLiving) event.getEntity();
+        this.spawn = new BlockPos(event.getWorld().getWorldInfo().getSpawnX(), event.getWorld().getWorldInfo().getSpawnY(), event.getWorld().getWorldInfo().getSpawnZ());
         ISpawned isSpawned = mob.getCapability(CAPABILITY_SPAWNED, null);
 
         if(hasLevelUp() && !isSpawned.isSpawned()){
@@ -51,27 +53,27 @@ public class MobSpawnHandler {
     }
 
     private void levelStats(){
-        IAttributeInstance healthAttribute = mob.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
         double healthAmount = getLevel() * MOB_MODIFIER_HEALTH;
-        setAttribute(healthAttribute, healthAmount);
+        double dmgAmount = getLevel() * MOB_MODIFIER_ATTACK_DAMAGE;
 
-        IAttributeInstance dmgAttribute = mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-
-        //slimes and shulkers do not have attack damage. throws error if left unchecked
-        if(dmgAttribute != null){
-            double dmgAmount = getLevel() * MOB_MODIFIER_ATTACK_DAMAGE;
-            setAttribute(dmgAttribute, dmgAmount);
-        }
-    }
-
-    private void setAttribute(IAttributeInstance attribute, double amount){
-
-        double newAmount = attribute.getAttributeValue() + amount;
-        attribute.setBaseValue(newAmount);
-
-        // Heal to full health as the mobs current health does not get changed; even on full health
-        if(attribute.getAttribute().equals(SharedMonsterAttributes.MAX_HEALTH)){
+        if(mob.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getModifier(uuid[0]) == null){
+            mob.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier(uuid[0],"Mob Health Mod", healthAmount, 0));
             mob.setHealth(mob.getMaxHealth());
+        }
+        if(mob.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getModifier(uuid[0]).getAmount() != healthAmount){
+            mob.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeModifier(mob.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getModifier(uuid[0]));
+            mob.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier(uuid[0],"Mob Health Mod", healthAmount, 0));
+            mob.setHealth(mob.getMaxHealth());
+        }
+
+        if(mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE) != null){
+            if(mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getModifier(uuid[1]) == null){
+                mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(new AttributeModifier(uuid[1],"Mob Attack Mod", dmgAmount, 0));
+            }
+            if(mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getModifier(uuid[1]).getAmount() != dmgAmount){
+                mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).removeModifier(mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getModifier(uuid[1]));
+                mob.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(new AttributeModifier(uuid[1],"Mob Attack Mod", dmgAmount, 0));
+            }
         }
     }
 
@@ -80,10 +82,18 @@ public class MobSpawnHandler {
     }
 
     private int getLevel(){
-        return getDistance() / DISTANCE_PER_LEVEL == MOB_MAX_LEVEL ? (int) getDistance() / DISTANCE_PER_LEVEL : MOB_MAX_LEVEL ;
+        int level = (int) (getDistance() / (DISTANCE_PER_LEVEL * 16));
+        if(level >= MOB_MAX_LEVEL) {
+            level = MOB_MAX_LEVEL;
+        }
+        System.out.println("Level: " + level);
+        return level;
     }
 
     private double getDistance(){
-        return spawn.getDistance(mob.chunkCoordX, mob.chunkCoordY, mob.chunkCoordZ);
+        double xDist = (int) (mob.posX - spawn.getX());
+        double zDist = (int) (mob.posZ - spawn.getZ());
+        System.out.println((Math.sqrt(xDist * xDist + zDist * zDist)));
+        return Math.sqrt(xDist * xDist + zDist * zDist);
     }
 }
