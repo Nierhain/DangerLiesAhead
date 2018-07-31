@@ -1,6 +1,8 @@
 package de.nierhain.danger;
 
 import de.nierhain.danger.proxy.CommonProxy;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -15,6 +17,9 @@ public class Danger {
     public static final String VERSION = "v1.0";
 
     public static Logger logger = LogManager.getLogger(MODID);
+
+    public static ResourceLocation levelUpSoundLocation = new ResourceLocation(MODID, "level_up");
+    public static SoundEvent levelUpSound = new SoundEvent(levelUpSoundLocation);
 
     @SidedProxy(serverSide = "de.nierhain.danger.proxy.CommonProxy", clientSide = "de.nierhain.danger.proxy.ClientProxy")
     public static CommonProxy proxy;
@@ -31,24 +36,20 @@ public class Danger {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
         proxy.preInit(event);
-        logger.info("DLA preInit over");
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event){
         proxy.init(event);
-        logger.info("DLA init over");
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event){
         proxy.postInit(event);
-        logger.info("DLA postInit over");
     }
 
     @EventHandler
     public void serverLoad(FMLServerStartingEvent event){
         proxy.serverLoad(event);
-        logger.info("DLA Server started");
     }
 }

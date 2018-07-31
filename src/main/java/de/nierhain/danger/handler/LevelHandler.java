@@ -1,5 +1,6 @@
 package de.nierhain.danger.handler;
 
+import de.nierhain.danger.Danger;
 import de.nierhain.danger.capabilities.level.ILevel;
 import de.nierhain.danger.capabilities.level.MapLevels;
 import de.nierhain.danger.capabilities.level.ProviderLevel;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -73,6 +75,7 @@ public class LevelHandler {
         if(MapLevels.isLevelUp(nextLevel, cap.getXP())) {
             cap.addLevel(1);
             cap.setXP(cap.getXP() - MapLevels.getNeededXP(nextLevel));
+            player.getEntityWorld().playSound(null,player.posX, player.posY, player.posZ, Danger.levelUpSound, SoundCategory.PLAYERS, 1.0f, 1.0f);
             MinecraftForge.EVENT_BUS.post(new EventLevelUp(player));
             PacketHandler.INSTANCE.sendTo(new PacketLevelUpToClient(), (EntityPlayerMP) player);
         }
