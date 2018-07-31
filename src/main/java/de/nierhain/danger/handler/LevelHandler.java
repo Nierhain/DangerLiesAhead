@@ -21,7 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
-import static de.nierhain.danger.config.Configuration.PLAYER_MAX_LVL;
+import static de.nierhain.danger.config.ConfigHandler.PLAYER_MAX_LVL;
 
 public class LevelHandler {
 
@@ -75,7 +75,9 @@ public class LevelHandler {
         if(MapLevels.isLevelUp(nextLevel, cap.getXP())) {
             cap.addLevel(1);
             cap.setXP(cap.getXP() - MapLevels.getNeededXP(nextLevel));
-            player.getEntityWorld().playSound(null,player.posX, player.posY, player.posZ, Danger.levelUpSound, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            if(player.getEntityWorld().isRemote){
+                player.getEntityWorld().playSound(player,player.posX, player.posY, player.posZ, Danger.levelUpSound, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            }
             MinecraftForge.EVENT_BUS.post(new EventLevelUp(player));
             PacketHandler.INSTANCE.sendTo(new PacketLevelUpToClient(), (EntityPlayerMP) player);
         }

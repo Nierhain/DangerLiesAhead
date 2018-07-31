@@ -1,5 +1,6 @@
 package de.nierhain.danger.proxy;
 
+import de.nierhain.danger.config.ConfigHandler;
 import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.registries.ModCapabilities;
 import de.nierhain.danger.registries.ModCommands;
@@ -13,6 +14,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event){
         ModCapabilities.registerCapabilities();
+        ConfigHandler.preInit();
     }
 
     public void init(FMLInitializationEvent event){

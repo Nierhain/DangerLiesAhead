@@ -7,6 +7,7 @@ import de.nierhain.danger.network.PacketAttributesToClient;
 import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.network.PacketLevelToClient;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 

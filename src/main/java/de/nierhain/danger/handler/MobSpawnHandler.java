@@ -1,6 +1,5 @@
 package de.nierhain.danger.handler;
 
-import de.nierhain.danger.capabilities.attributes.ProviderAttributes;
 import de.nierhain.danger.capabilities.spawned.ISpawned;
 import de.nierhain.danger.capabilities.spawned.ProviderSpawned;
 import net.minecraft.entity.Entity;
@@ -16,7 +15,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static de.nierhain.danger.capabilities.spawned.ProviderSpawned.CAPABILITY_SPAWNED;
-import static de.nierhain.danger.config.Configuration.*;
+import static de.nierhain.danger.config.ConfigHandler.*;
 
 public class MobSpawnHandler {
 
@@ -81,7 +80,7 @@ public class MobSpawnHandler {
     }
 
     private int getLevel(){
-        return (int) getDistance() / DISTANCE_PER_LEVEL;
+        return getDistance() / DISTANCE_PER_LEVEL == MOB_MAX_LEVEL ? (int) getDistance() / DISTANCE_PER_LEVEL : MOB_MAX_LEVEL ;
     }
 
     private double getDistance(){

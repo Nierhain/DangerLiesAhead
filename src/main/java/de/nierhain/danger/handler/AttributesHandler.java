@@ -23,11 +23,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.UUID;
 
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
+import static de.nierhain.danger.config.ConfigHandler.*;
 
 public class AttributesHandler {
 
 
-    private static double[] MODIFIER = {2, 1, 0.01, 1, 1};
+    private static double[] MODIFIER = {PLAYER_MODIFIER_HEALTH, PLAYER_MODIFIER_LUCK, PLAYER_MODIFIER_SPEED, PLAYER_MODIFIER_DMG, PLAYER_MODIFIER_AS};
     private static IAttribute[] ATTRIBUTES = {SharedMonsterAttributes.MAX_HEALTH,
             SharedMonsterAttributes.LUCK,
             SharedMonsterAttributes.MOVEMENT_SPEED,

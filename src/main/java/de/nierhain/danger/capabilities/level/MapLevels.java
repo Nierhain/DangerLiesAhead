@@ -2,7 +2,9 @@ package de.nierhain.danger.capabilities.level;
 
 import java.util.HashMap;
 
-import static de.nierhain.danger.config.Configuration.*;
+import static de.nierhain.danger.config.ConfigHandler.CONST_A;
+import static de.nierhain.danger.config.ConfigHandler.CONST_B;
+import static de.nierhain.danger.config.ConfigHandler.PLAYER_MAX_LVL;
 
 
 public class MapLevels {

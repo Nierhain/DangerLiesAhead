@@ -16,3 +16,18 @@ danger.experience=Erfahrung
 # Buttons
 danger.button.close=schließen
 danger.button.skill=skillen
+
+# Config
+danger.config.consta=der erste Koeffizient
+danger.config.constb=der zweite Koeffizient
+danger.config.player.maxlvl=das höchste Level, das ein Spieler erreichen kann
+danger.config.player.healthmod=Lebensmodifikator pro Level ( 2 ist ein ganzes Herz)
+danger.config.player.luckmod=Glücksmodifikator pro Level
+danger.config.player.speed=Tempomodifikator pro Level
+danger.config.player.dmgmod=Angriffsschadensmodifikator pro Level
+danger.config.player.asmod=Angriffstempomodifikator pro Level
+danger.config.mob.disable=deaktiviere Mob-Leveln
+danger.config.mob.maxlvl=maximale Level für einen Mob
+danger.config.mob.distance=Die Entfernung zum Weltspawn pro Level eines Mobs
+danger.config.mob.healthmod=Mob-Lebensmodifikator pro Level (2 ist ein ganzes Herz)
+danger.config.mob.dmgmod=Mob-Schadensmodifikator pro Level

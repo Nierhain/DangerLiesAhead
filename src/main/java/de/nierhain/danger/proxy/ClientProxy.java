@@ -1,5 +1,6 @@
 package de.nierhain.danger.proxy;
 
+import de.nierhain.danger.config.ConfigHandler;
 import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.registries.ModHandlers;
 import net.minecraft.client.Minecraft;
@@ -15,6 +16,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event){
 
         ModHandlers.registerClientHandlers(mc);
+        ConfigHandler.clientPreInit();
         super.preInit(event);
     }
 

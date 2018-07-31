@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -24,7 +25,7 @@ import java.io.IOException;
 
 import static de.nierhain.danger.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
 import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
-import static de.nierhain.danger.config.Configuration.PLAYER_MAX_LVL;
+import static de.nierhain.danger.config.ConfigHandler.PLAYER_MAX_LVL;
 
 
 public class GuiSkill extends GuiScreen {
@@ -214,9 +215,11 @@ public class GuiSkill extends GuiScreen {
         drawTexturedModalRect(attributeX[0],  centerY - 40, 0,20,140,20);
         drawTexturedModalRect(attributeX[2], centerY - 40, 0, 0, 234, 20);
 
-        if(!DevEnv.isDevEnv()){
-            Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, attributeX[0] + 5, centerY - 40);
-        }
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(1.5,1.5,1.5);
+        Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, (int)(centerX / 1.5 + 1) , (int)(centerY / 1.5 - 28));
+        GlStateManager.scale(1,1,1);
+        GlStateManager.popMatrix();
 
         drawString(fontRenderer, playerName, attributeX[0] + 26, centerY - 35, fontColor);
         drawString(fontRenderer, I18n.format("danger.level") + " : " + Integer.toString(levelObj.getLevel()), attributeX[2] + 15, centerY - 35, fontColor);

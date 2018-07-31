@@ -1,7 +1,5 @@
 package de.nierhain.danger.registries;
 
-import de.nierhain.danger.gui.GuiLevelUp;
-import de.nierhain.danger.gui.NotificationLevelUp;
 import de.nierhain.danger.handler.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
