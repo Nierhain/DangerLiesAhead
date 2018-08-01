@@ -1,3 +1,8 @@
+## 1.0.1
+
+- removed debug message from release version that was spamming the log
+- added curseforge url to mcmod.info
+
 ## 1.0
 
 - rewrote attribute system

@@ -86,14 +86,12 @@ public class MobSpawnHandler {
         if(level >= MOB_MAX_LEVEL) {
             level = MOB_MAX_LEVEL;
         }
-        System.out.println("Level: " + level);
         return level;
     }
 
     private double getDistance(){
         double xDist = (int) (mob.posX - spawn.getX());
         double zDist = (int) (mob.posZ - spawn.getZ());
-        System.out.println((Math.sqrt(xDist * xDist + zDist * zDist)));
         return Math.sqrt(xDist * xDist + zDist * zDist);
     }
 }

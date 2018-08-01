@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 public class Danger {
     public static final String MODID = "danger";
     public static final String NAME = "Danger Lies Ahead";
-    public static final String VERSION = "v1.0";
+    public static final String VERSION = "v1.0.1";
 
     public static Logger logger = LogManager.getLogger(MODID);
 
