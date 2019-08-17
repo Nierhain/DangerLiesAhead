@@ -1,15 +1,15 @@
 [
 {
-  "modid": "danger",
+  "modid": "dangerliesahead",
   "name": "Danger Lies Ahead",
-  "description": "Makes the world more dangerous",
-  "version": "v1.0.1",
-  "mcversion": "1.12.2",
-  "url": "https://minecraft.curseforge.com/projects/danger-lies-ahead",
+  "description": "Minecraft mod making the world more dangerous",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
   "updateUrl": "",
   "authorList": ["Nierhain"],
   "credits": "",
-  "logoFile": "",
+  "logoFile": "danger/logo.png",
   "screenshots": [],
   "dependencies": []
 }
