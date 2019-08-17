@@ -1,6 +1,0 @@
-{
-  "level_up":{
-    "category": "player",
-    "sounds": ["danger:level_up"]
-  }
-}
