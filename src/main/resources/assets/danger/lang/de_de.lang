@@ -1,0 +1,34 @@
+# Keybindings
+key.danger.category=Danger Lies Ahead
+key.gui.desc=Öffne GUI
+
+# GUI
+danger.health=Leben
+danger.luck=Glück
+danger.movementspeed=Bewegungsgeschwindigkeit
+danger.attackdamage=Angriffsschaden
+danger.attackspeed=Angriffsgeschwindigkeit
+danger.level=Level
+danger.experience=Erfahrung
+danger.levelup=Du bist jetzt ein Gefahr auf Level %d!
+danger.ismaxlvl=Maximallevel
+danger.remainingpoints=Verbleibende Skillpunkte
+
+# Buttons
+danger.button.close=Schließen
+danger.button.skill=skill
+
+# Config
+danger.config.consta=Koeffizient a
+danger.config.constb=Koeffizient b
+danger.config.player.maxlvl=Maximal Level des Spielers | default: 20
+danger.config.player.healthmod=Ändert die Steigerung des Lebens pro Level | default: 2
+danger.config.player.luckmod=Ändert die Steigerung des Glücks pro Level | default: 1
+danger.config.player.speed=Ändert die Steigerung der Bewegungsgeschwindigkeit pro Level | default: 0.01
+danger.config.player.dmgmod=Ändert die Steigerung des Angriffsschadens pro Level | default: 1
+danger.config.player.asmod=Ändert die Steigerung der Angriffsgeschwindigkeit pro Level | default: 1
+danger.config.mob.disable=Deaktiviert das Leveln von Gegnern | default: false
+danger.config.mob.maxlvl=Ändert das maximale Level der Gegner | default: 15
+danger.config.mob.distance=Anzahl der Chunkentfernung pro Level eines Mobs| default: 20
+danger.config.mob.healthmod=Ändert die Steigerung des Lebens eines Mobs pro Level | default: 1
+danger.config.mob.dmgmod=Ändert die Steigerung des Angriffsschadens eines Mobs pro Level | default: 0.3
