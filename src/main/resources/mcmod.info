@@ -2,7 +2,7 @@
 {
   "modid": "danger",
   "name": "DangerLiesAhead",
-  "description": "Example placeholder mod.",
+  "description": "Danger Lies Ahead is a mod primarily aimed at increasing the difficulty as you explore and travel through your world trying to constantly give you a challenge. You can also earn levels and increase your own stats like health, speed or damage.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

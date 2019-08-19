@@ -5,7 +5,9 @@ Also please report any bugs or suggestions on the issues page.**
 
 Tired of weak zombies? Tired of oneshotting Creeper? Tired of having the same stats day in, day out? Then this mod is for you!
 
-![Danger Lies Ahead Logo](logo.png)
+<div style="text-align:center">
+  <img src="logo.png"/>
+</div>
 
 Danger Lies Ahead is a mod primarily aimed at increasing the difficulty as you explore and travel through your world trying to constantly give you a challenge. You can also earn levels and increase your own stats like health, speed or damage.
 
