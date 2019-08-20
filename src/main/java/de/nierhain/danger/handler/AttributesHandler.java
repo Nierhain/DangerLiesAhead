@@ -5,7 +5,9 @@ import de.nierhain.danger.capabilities.attributes.ProviderAttributes;
 import de.nierhain.danger.enums.Attribute;
 import de.nierhain.danger.event.EventLevelUp;
 import de.nierhain.danger.gui.NotificationLevelUp;
+import de.nierhain.danger.network.PacketAttributesToClient;
 import de.nierhain.danger.network.PacketHandler;
+import de.nierhain.danger.network.PacketLevelToClient;
 import de.nierhain.danger.network.PacketSkillpointsToClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -85,9 +87,7 @@ public class AttributesHandler {
     }
 
     public static void purge(EntityPlayer player){
-        for(int i = 0; i < ATTRIBUTES.length; i++){
-            player.getEntityAttribute(ATTRIBUTES[i]).removeAllModifiers();
-        }
+        for (IAttribute ATTRIBUTE : ATTRIBUTES) player.getEntityAttribute(ATTRIBUTE).removeAllModifiers();
     }
 
     public static void skill(Attribute attr, EntityPlayer player){
