@@ -1,0 +1,34 @@
+# Keybindings
+key.danger.category=警告！前方危险
+key.gui.desc=打开 GUI
+
+# GUI
+danger.health=生命
+danger.luck=运气
+danger.movementspeed=移动速度
+danger.attackdamage=攻击伤害
+danger.attackspeed=攻击速度
+danger.level=等级
+danger.experience=经验
+danger.levelup=你现在升到级了 %d!
+danger.ismaxlvl=你满级了
+danger.remainingpoints=未分配的技能点
+
+# Buttons
+danger.button.close=关闭
+danger.button.skill=技能
+
+# Config
+danger.config.xpmultiplier=改变获得经验倍数 | default: 1
+danger.config.player.maxlvl=改变最大等级 | default: 20
+danger.config.player.healthmod=改变每升1级增加的生命 | default: 2
+danger.config.player.luckmod=改变每升1级增加的运气 | default: 1
+danger.config.player.speed=改变每升1级增加的移动速度 | default: 0.01
+danger.config.player.dmgmod=改变每升1级增加的攻击伤害 | default: 1
+danger.config.player.asmod=改变每升1级增加的攻击速度 | default: 1
+danger.config.mob.disable=禁止怪物升级 | default: false
+danger.config.mob.maxlvl=改变怪物最大等级 | default: 15
+danger.config.mob.distance=每多少个区块怪物升一级 | default: 20
+danger.config.mob.healthmod=改变每个等级怪物增加的血量 | default: 1
+danger.config.mob.dmgmod=改变每个等级怪物增加的攻击伤害 | default: 0.3
+
