@@ -13,7 +13,7 @@ Danger Lies Ahead is a mod primarily aimed at increasing the difficulty as you e
 
  
 # Current state of development
-check [Trello](https://trello.com/b/OG3rbZSn/danger-lies-ahead) to see what I'm currently working on and to get hyped for new features (hopefully)
+check [the Glo board](https://app.gitkraken.com/glo/board/XXFy09aSlAAPAZQO) to see what I'm currently working on and to get hyped for new features (hopefully)
 
 # Features
 - Mobs health and attack damage scale depending on their distance to the world spawn
