@@ -39,7 +39,6 @@ public class MobSpawnHandler {
     }
 
     private void levelStats(EntityLiving mob){
-        System.out.println("leveled: " + mob.getName());
         double healthAmount = getLevel(mob) * MOB_MODIFIER_HEALTH;
         double dmgAmount = getLevel(mob) * MOB_MODIFIER_ATTACK_DAMAGE;
 
