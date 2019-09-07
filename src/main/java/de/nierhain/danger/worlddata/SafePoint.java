@@ -21,6 +21,10 @@ public class SafePoint extends WorldSavedData {
         safepoint = world.getSpawnPoint();
     }
 
+    public BlockPos getSafePoint(){
+        return safepoint;
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         safepoint.add(nbt.getInteger("x"), nbt.getInteger("y"), nbt.getInteger("z"));
