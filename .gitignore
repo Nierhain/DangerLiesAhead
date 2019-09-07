@@ -30,6 +30,7 @@
 
 ## DLA edit
 config
+crash-reports
 logs
 mods
 saves
