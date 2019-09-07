@@ -24,7 +24,7 @@ public class MobSpawnHandler {
 
     @SubscribeEvent
     public void onMobSpawn(EntityJoinWorldEvent event){
-        checkAllegibility(event);
+        if(notAllegeable(event)) return;
 
         SafePoint point = SafePoint.get(event.getWorld());
         safePointPos = point.getSafePoint();
@@ -35,7 +35,7 @@ public class MobSpawnHandler {
         }
     }
 
-    private boolean checkAllegibility(EntityJoinWorldEvent event){
+    private boolean notAllegeable(EntityJoinWorldEvent event){
         if(event.getWorld().isRemote) return false;
         if(DISABLE_MOB_LEVELING) return false;
         if(!(event.getEntity() instanceof IMob) || PASSIVES_LEVELING) return false;
