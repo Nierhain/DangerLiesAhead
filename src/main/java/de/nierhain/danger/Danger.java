@@ -1,6 +1,9 @@
 package de.nierhain.danger;
 
 import de.nierhain.danger.proxy.CommonProxy;
+import de.nierhain.danger.registries.ModItems;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -11,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-@Mod(modid = Danger.MODID, name = Danger.NAME, version = Danger.VERSION, certificateFingerprint = "3b024834bcbc5c9badb97afe9e26ed9ab7182a7d")
+@Mod(modid = Danger.MODID, name = Danger.NAME, version = Danger.VERSION)
 public class Danger {
     public static final String MODID = "danger";
     public static final String NAME = "Danger Lies Ahead";
@@ -25,14 +28,19 @@ public class Danger {
     @SidedProxy(serverSide = "de.nierhain.danger.proxy.CommonProxy", clientSide = "de.nierhain.danger.proxy.ClientProxy")
     public static CommonProxy proxy;
 
+    public static CreativeTabs tabDangerLiesAhead = new CreativeTabs("DangerLiesAhead") {
+        @Override
+        public ItemStack getTabIconItem() {
+            return new ItemStack(ModItems.creatureCompound);
+        }
+    };
     @Mod.Instance(MODID)
     public static Danger instance;
 
-    @EventHandler
-    public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-
-        logger.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the author and you should get a valid copy ASAP!");
-    }
+//    @EventHandler
+//    public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+//        logger.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the author and you should get a valid copy ASAP!");
+//    }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
