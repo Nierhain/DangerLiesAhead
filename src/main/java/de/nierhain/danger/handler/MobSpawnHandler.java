@@ -1,13 +1,11 @@
 package de.nierhain.danger.handler;
 
-import net.minecraft.entity.Entity;
+import de.nierhain.danger.worlddata.SafePoint;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -21,21 +19,30 @@ import static de.nierhain.danger.config.ConfigHandler.ModifierCategory.MOB_MODIF
 public class MobSpawnHandler {
 
 
-    private static BlockPos spawn;
+    private static BlockPos safePointPos;
     private static UUID[] uuid = {UUID.fromString("d057381d-3e42-4e35-bc98-00857e3691b8"), UUID.fromString("d057381d-3e42-4e35-bc98-00857e3691b8")};
 
     @SubscribeEvent
     public void onMobSpawn(EntityJoinWorldEvent event){
-        if(event.getWorld().isRemote) return;
-        if(DISABLE_MOB_LEVELING) return;
-        if(!(event.getEntity() instanceof IMob) || PASSIVES_LEVELING) return;
-        if(LOCK_DIMENSIONS && !Arrays.stream(ENABLED_DIMENSIONS).anyMatch(i -> i == event.getEntity().dimension)) return;
-        if(event.getEntity().ticksExisted > 0) return;
+        checkAllegibility(event);
 
-        spawn = new BlockPos(event.getWorld().getWorldInfo().getSpawnX(), event.getWorld().getWorldInfo().getSpawnY(), event.getWorld().getWorldInfo().getSpawnZ());
-        if(hasLevelUp((EntityLiving) event.getEntity())){
-            levelStats((EntityLiving) event.getEntity());
+        SafePoint point = SafePoint.get(event.getWorld());
+        safePointPos = point.getSafePoint();
+
+        EntityLiving mob = (EntityLiving) event.getEntity();
+        if(hasLevelUp(mob)){
+            levelStats(mob);
         }
+    }
+
+    private boolean checkAllegibility(EntityJoinWorldEvent event){
+        if(event.getWorld().isRemote) return false;
+        if(DISABLE_MOB_LEVELING) return false;
+        if(!(event.getEntity() instanceof IMob) || PASSIVES_LEVELING) return false;
+        if(LOCK_DIMENSIONS && Arrays.stream(ENABLED_DIMENSIONS).noneMatch(i -> i == event.getEntity().dimension)) return false;
+        if(event.getEntity().ticksExisted > 0) return false;
+
+        return true;
     }
 
     private void levelStats(EntityLiving mob){
@@ -76,8 +83,8 @@ public class MobSpawnHandler {
     }
 
     private double getDistance(EntityLiving mob){
-        double xDist = (int) (mob.posX - spawn.getX());
-        double zDist = (int) (mob.posZ - spawn.getZ());
+        double xDist = (int) (mob.posX - safePointPos.getX());
+        double zDist = (int) (mob.posZ - safePointPos.getZ());
         return Math.sqrt(xDist * xDist + zDist * zDist);
     }
 }
