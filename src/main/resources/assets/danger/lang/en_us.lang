@@ -2,6 +2,15 @@
 key.danger.category=Danger Lies Ahead
 key.gui.desc=Open GUI
 
+# Menus
+itemGroup.DangerLiesAhead=Danger Lies Ahead
+
+# Blocks
+tile.danger.safe_beacon.name=Safe Beacon
+
+# Items
+item.danger.creature_compound.name=Creature Compound
+
 # GUI
 danger.health=Health
 danger.luck=Luck
