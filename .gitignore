@@ -27,3 +27,11 @@
 
 ## gedit
 *~
+
+## DLA edit
+config
+logs
+saves
+options.txt
+usercache.json
+usernamecache.json
