@@ -1,14 +1,17 @@
 package de.nierhain.danger.blocks;
 
 import de.nierhain.danger.Danger;
+import de.nierhain.danger.worlddata.SafePoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,7 +29,14 @@ public class BlockSafeBeacon extends Block {
     @Override
     public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
         super.onBlockAdded(world, pos, state);
-        int dimension = world.provider.getDimension();
+        SafePoint safePoint = SafePoint.get(world);
+        safePoint.markDirty();
+        safePoint.setSafePoint(pos);
+
+        TextComponentString safeMessage = new TextComponentString(String.format("You feel safer around: %d, %d, %d", pos.getX(), pos.getY(), pos.getZ()));
+        for (Entity player : world.playerEntities) {
+            player.sendMessage(safeMessage);
+        }
     }
 
     @SideOnly(Side.CLIENT)
