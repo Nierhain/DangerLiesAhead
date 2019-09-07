@@ -31,7 +31,7 @@ public class SafePoint extends WorldSavedData {
         compound.setInteger("x", safepoint.getX());
         compound.setInteger("y", safepoint.getY());
         compound.setInteger("z", safepoint.getZ());
-        return null;
+        return compound;
     }
 
     public void setSafePoint(BlockPos pos){
