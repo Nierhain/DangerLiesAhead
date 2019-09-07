@@ -8,7 +8,7 @@ import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
 
 public class SafePoint extends WorldSavedData {
-    private static final String DATA_NAME = Danger.MODID + "safePoint";
+    public static final String DATA_NAME = Danger.MODID + "_safePoint";
 
     private static BlockPos safepoint;
 
