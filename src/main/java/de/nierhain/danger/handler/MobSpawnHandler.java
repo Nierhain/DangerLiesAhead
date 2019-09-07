@@ -36,13 +36,13 @@ public class MobSpawnHandler {
     }
 
     private boolean notAllegeable(EntityJoinWorldEvent event){
-        if(event.getWorld().isRemote) return false;
-        if(DISABLE_MOB_LEVELING) return false;
-        if(!(event.getEntity() instanceof IMob) || PASSIVES_LEVELING) return false;
-        if(LOCK_DIMENSIONS && Arrays.stream(ENABLED_DIMENSIONS).noneMatch(i -> i == event.getEntity().dimension)) return false;
-        if(event.getEntity().ticksExisted > 0) return false;
+        if(event.getWorld().isRemote) return true;
+        if(DISABLE_MOB_LEVELING) return true;
+        if(!(event.getEntity() instanceof IMob) || PASSIVES_LEVELING) return true;
+        if(LOCK_DIMENSIONS && Arrays.stream(ENABLED_DIMENSIONS).noneMatch(i -> i == event.getEntity().dimension)) return true;
+        if(event.getEntity().ticksExisted > 0) return true;
 
-        return true;
+        return false;
     }
 
     private void levelStats(EntityLiving mob){
