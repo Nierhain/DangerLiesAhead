@@ -31,6 +31,8 @@ public class EventHandler {
         if(!player.getEntityWorld().isRemote && !event.isEndConquered()) synchronize(player);
     }
 
+
+
     private void synchronize(EntityPlayer player){
         IAttributes skills = player.getCapability(CAPABILITY_ATTRIBUTES, null);
         ILevel levels = player.getCapability(CAPABILITY_LEVEL, null);

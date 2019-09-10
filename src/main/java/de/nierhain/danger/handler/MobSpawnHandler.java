@@ -9,25 +9,28 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 
 import static de.nierhain.danger.config.ConfigHandler.*;
+import static de.nierhain.danger.config.ConfigHandler.BeaconCategory.ONLY_ONE_BEACON;
 import static de.nierhain.danger.config.ConfigHandler.ModifierCategory.MOB_MODIFIER_ATTACK_DAMAGE;
 import static de.nierhain.danger.config.ConfigHandler.ModifierCategory.MOB_MODIFIER_HEALTH;
 
 public class MobSpawnHandler {
 
 
-    private static BlockPos safePointPos;
+    private static ArrayList<BlockPos> safePoints;
     private static UUID[] uuid = {UUID.fromString("d057381d-3e42-4e35-bc98-00857e3691b8"), UUID.fromString("d057381d-3e42-4e35-bc98-00857e3691b8")};
 
     @SubscribeEvent
     public void onMobSpawn(EntityJoinWorldEvent event){
         if(notAllegeable(event)) return;
 
-        SafePoint point = SafePoint.get(event.getWorld());
-        safePointPos = point.getSafePoint();
+        SafePoint points = SafePoint.get(event.getWorld());
+        safePoints = points.getSafePoint();
 
         EntityLiving mob = (EntityLiving) event.getEntity();
         if(hasLevelUp(mob)){
@@ -71,20 +74,32 @@ public class MobSpawnHandler {
     }
 
     private boolean hasLevelUp(EntityLiving mob){
-        return getDistance(mob) >= DISTANCE_PER_LEVEL;
+        return getLowestDistance(mob) >= DISTANCE_PER_LEVEL;
     }
 
     private int getLevel(EntityLiving mob){
-        int level = (int) (getDistance(mob) / (DISTANCE_PER_LEVEL * 16));
+        int level = (int) (getLowestDistance(mob) / (DISTANCE_PER_LEVEL * 16));
         if(level >= MOB_MAX_LEVEL) {
             level = MOB_MAX_LEVEL;
         }
         return level;
     }
 
-    private double getDistance(EntityLiving mob){
-        double xDist = (int) (mob.posX - safePointPos.getX());
-        double zDist = (int) (mob.posZ - safePointPos.getZ());
+    private double getLowestDistance(EntityLiving mob){
+        if(ONLY_ONE_BEACON) return calcDistance(mob, safePoints.get(safePoints.size() - 1));
+
+        ArrayList<Double> distances = new ArrayList<>();
+        safePoints.forEach(blockPos -> {
+            distances.add(calcDistance(mob, blockPos));
+        });
+        Collections.sort(distances);
+
+        return distances.get(0);
+    }
+
+    private double calcDistance(EntityLiving mob, BlockPos blockPos){
+        double xDist = (int) (mob.posX - blockPos.getX());
+        double zDist = (int) (mob.posZ - blockPos.getY());
         return Math.sqrt(xDist * xDist + zDist * zDist);
     }
 }

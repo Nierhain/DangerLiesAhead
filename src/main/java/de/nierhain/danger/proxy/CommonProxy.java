@@ -2,6 +2,7 @@ package de.nierhain.danger.proxy;
 
 import de.nierhain.danger.Danger;
 import de.nierhain.danger.blocks.BlockSafeBeacon;
+import de.nierhain.danger.handler.RecipeHandler;
 import de.nierhain.danger.items.ItemCreatureCompound;
 import de.nierhain.danger.network.PacketHandler;
 import de.nierhain.danger.registries.ModBlocks;
@@ -28,6 +29,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event){
         ModHandlers.registerHandlers();
+        RecipeHandler.loadRecipes();
     }
 
     public void postInit(FMLPostInitializationEvent event){

@@ -31,7 +31,7 @@ public class BlockSafeBeacon extends Block {
         super.onBlockAdded(world, pos, state);
         SafePoint safePoint = SafePoint.get(world);
         safePoint.markDirty();
-        safePoint.setSafePoint(pos);
+        safePoint.addSafePoint(pos);
 
         TextComponentString safeMessage = new TextComponentString(String.format("You feel safer around: %d, %d, %d", pos.getX(), pos.getY(), pos.getZ()));
         for (Entity player : world.playerEntities) {
