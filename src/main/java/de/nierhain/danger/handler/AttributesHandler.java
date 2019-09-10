@@ -71,6 +71,15 @@ public class AttributesHandler {
 
         clone.setSkillpoints(original.getSkillpoints());
         clone.setAllAttributes(original.getAllAttributes());
+
+    }
+
+    @SubscribeEvent
+    public void onPlayerRespawn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent event){
+        EntityPlayer player = event.player;
+        for(int i = 0; i < 5; i++){
+            increaseAttribute(Attribute.valueOf(i), player);
+        }
     }
 
     @SubscribeEvent
@@ -87,23 +96,27 @@ public class AttributesHandler {
 
     public static void skill(Attribute attr, EntityPlayer player){
         if(canSkill(player)){
-            int index = attr.getValue();
             getHandler(player).setAttribute(attr, getHandler(player).getAttribute(attr) + INCREMENT_PER_LEVEL);
+            increaseAttribute(attr, player);
             getHandler(player).removeSkillpoint();
-            newAmount = getHandler(player).getAttribute(attr) * MODIFIER[index];
-
-            if(player.getEntityAttribute(ATTRIBUTES[index]).getModifier(DANGER_UUID[index]) == null){
-                player.getEntityAttribute(ATTRIBUTES[index]).applyModifier(new AttributeModifier(DANGER_UUID[index], ATTRIBUTES[index].getName(), newAmount, 0));
-            }
-            else if(player.getEntityAttribute(ATTRIBUTES[index]).getModifier(DANGER_UUID[index]).getAmount() != newAmount){
-                player.getEntityAttribute(ATTRIBUTES[index]).removeModifier(player.getEntityAttribute(ATTRIBUTES[index]).getModifier(DANGER_UUID[index]));
-                player.getEntityAttribute(ATTRIBUTES[index]).applyModifier(new AttributeModifier(DANGER_UUID[index], ATTRIBUTES[index].getName(), newAmount, 0));
-            }
-
-            // player needs to be healed after max health has changed
-            if(attr == Attribute.HEALTH)
-                player.setHealth(player.getMaxHealth());
         }
+    }
+
+    private static void increaseAttribute(Attribute attr, EntityPlayer player){
+        int attributeIndex = attr.getValue();
+        newAmount = getHandler(player).getAttribute(attr) * MODIFIER[attributeIndex];
+
+        if(player.getEntityAttribute(ATTRIBUTES[attributeIndex]).getModifier(DANGER_UUID[attributeIndex]) == null){
+            player.getEntityAttribute(ATTRIBUTES[attributeIndex]).applyModifier(new AttributeModifier(DANGER_UUID[attributeIndex], ATTRIBUTES[attributeIndex].getName(), newAmount, 0));
+        }
+        else if(player.getEntityAttribute(ATTRIBUTES[attributeIndex]).getModifier(DANGER_UUID[attributeIndex]).getAmount() != newAmount){
+            player.getEntityAttribute(ATTRIBUTES[attributeIndex]).removeModifier(player.getEntityAttribute(ATTRIBUTES[attributeIndex]).getModifier(DANGER_UUID[attributeIndex]));
+            player.getEntityAttribute(ATTRIBUTES[attributeIndex]).applyModifier(new AttributeModifier(DANGER_UUID[attributeIndex], ATTRIBUTES[attributeIndex].getName(), newAmount, 0));
+        }
+
+        // player needs to be healed after max health has changed
+        if(attr == Attribute.HEALTH)
+            player.setHealth(player.getMaxHealth());
     }
 
 }
