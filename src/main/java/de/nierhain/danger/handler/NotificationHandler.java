@@ -11,7 +11,7 @@ public class NotificationHandler {
 
     private boolean draw = false;
     private int time = 0;
-    private final int MAX_TIME_PER_NOTIFICATION = 200;
+    private final int MAX_TIME_PER_NOTIFICATION = 250;
 
     @SubscribeEvent
     public void onRenderGui(RenderGameOverlayEvent.Post event){

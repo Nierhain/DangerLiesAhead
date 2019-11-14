@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 
 import static de.nierhain.danger.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
+import static de.nierhain.danger.config.ConfigHandler.LEVEL_TEXT;
 
 public class NotificationLevelUp extends Gui {
 
@@ -17,7 +18,7 @@ public class NotificationLevelUp extends Gui {
         int width = scaled.getScaledWidth();
         int height = scaled.getScaledHeight();
 
-        String str = I18n.format("danger.levelup", mc.player.getCapability(CAPABILITY_LEVEL, null).getLevel());
+        String str = String.format(LEVEL_TEXT, mc.player.getCapability(CAPABILITY_LEVEL, null).getLevel());
         int strWidth = mc.fontRenderer.getStringWidth(str);
 
         GlStateManager.pushMatrix();

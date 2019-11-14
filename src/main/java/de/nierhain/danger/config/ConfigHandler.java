@@ -18,6 +18,10 @@ public class ConfigHandler {
         }
     }
 
+    @Config.LangKey("danger.config.leveltext")
+    @Config.Comment("Changes the text displayed when a player levels up / %d = level placeholder | default: Youre now a level %d threat")
+    public static String LEVEL_TEXT = "You're now a level %d threat";
+
     @Config.LangKey("danger.config.xpmultiplier")
     @Config.Comment("Changes the experience multiplier | default: 1")
     public static double XP_MULTIPLIER = 1;
