@@ -36,6 +36,8 @@ public class DangerLiesAhead
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
     public static ModSetup setup = new ModSetup();
 
+    public static final String MODID = "dangerliesahead";
+
     public DangerLiesAhead() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);

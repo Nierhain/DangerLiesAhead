@@ -4,6 +4,6 @@ import de.nierhain.dangerliesahead.blocks.BlockSafeBeacon;
 import net.minecraftforge.registries.ObjectHolder;
 
 public class ModBlocks {
-    @ObjectHolder("mytutorial:firstblock")
+    @ObjectHolder("dangerliesahead:safe_beacon")
     public static BlockSafeBeacon SAFEBEACON;
 }

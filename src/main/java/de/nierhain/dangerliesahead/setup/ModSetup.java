@@ -1,8 +1,11 @@
 package de.nierhain.dangerliesahead.setup;
 
+import de.nierhain.dangerliesahead.capabilities.CapabilityLevel;
+import de.nierhain.dangerliesahead.capabilities.ILevel;
 import de.nierhain.dangerliesahead.registry.ModBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 
 public class ModSetup {
 
@@ -14,7 +17,7 @@ public class ModSetup {
         }
     };
 
-    public void init() {
-
+    public static void init() {
+        CapabilityManager.INSTANCE.register(ILevel.class, new CapabilityLevel.LevelStorage(), CapabilityLevel::new);
     }
 }
