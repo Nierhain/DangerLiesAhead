@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "danger:blocks/safe_beacon"
+      "all": "dangerliesahead:blocks/safebeacon"
     }
   },
   "variants": {
