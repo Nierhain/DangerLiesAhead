@@ -50,6 +50,7 @@ public class CommandPurge extends CommandBase {
 
         PacketHandler.INSTANCE.sendTo(new PacketLevelToClient(level.getLevel(), level.getXP()), (EntityPlayerMP) player);
         PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(attr.getAllAttributes(), attr.getSkillpoints()), (EntityPlayerMP) player);
+        player.sendMessage(new TextComponentString("DangerLiesAhead: Your threat has been reset"));
     }
 
     @Override
