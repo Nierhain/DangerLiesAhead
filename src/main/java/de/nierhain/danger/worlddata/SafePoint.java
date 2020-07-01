@@ -34,6 +34,10 @@ public class SafePoint extends WorldSavedData {
         safePoints.add(pos);
     }
 
+    public void removeSafePoint(BlockPos pos){
+        safePoints.remove(pos);
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         int[] x = nbt.getIntArray("x");
