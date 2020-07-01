@@ -98,5 +98,9 @@ public class ConfigHandler {
         @Config.LangKey("danger.config.beacon.one")
         @Config.Comment("Enables if only one beacon can be active per dimension | default: false")
         public static boolean ONLY_ONE_BEACON = false;
+
+        @Config.LangKey("danger.config.beacon.radius")
+        @Config.Comment("Sets the radius in which players are safe | default: 16")
+        public static int SAFE_POINT_RADIUS = 16;
     }
 }

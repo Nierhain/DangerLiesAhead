@@ -16,6 +16,7 @@ import java.util.UUID;
 
 import static de.nierhain.danger.config.ConfigHandler.*;
 import static de.nierhain.danger.config.ConfigHandler.BeaconCategory.ONLY_ONE_BEACON;
+import static de.nierhain.danger.config.ConfigHandler.BeaconCategory.SAFE_POINT_RADIUS;
 import static de.nierhain.danger.config.ConfigHandler.ModifierCategory.MOB_MODIFIER_ATTACK_DAMAGE;
 import static de.nierhain.danger.config.ConfigHandler.ModifierCategory.MOB_MODIFIER_HEALTH;
 
@@ -78,7 +79,7 @@ public class MobSpawnHandler {
     }
 
     private int getLevel(EntityLiving mob){
-        int level = (int) (getLowestDistance(mob) / (DISTANCE_PER_LEVEL * 16));
+        int level = (int) (getLowestDistance(mob) / ((DISTANCE_PER_LEVEL * 16) - SAFE_POINT_RADIUS));
         if(level >= MOB_MAX_LEVEL) {
             level = MOB_MAX_LEVEL;
         }
