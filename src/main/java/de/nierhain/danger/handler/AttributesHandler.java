@@ -94,6 +94,11 @@ public class AttributesHandler {
         for (IAttribute ATTRIBUTE : ATTRIBUTES) player.getEntityAttribute(ATTRIBUTE).removeAllModifiers();
     }
 
+    public static void reload(EntityPlayer player){
+        purge(player);
+        for(Attribute attr : Attribute.values()) increaseAttribute(attr, player);
+    }
+
     public static void skill(Attribute attr, EntityPlayer player){
         if(canSkill(player)){
             getHandler(player).setAttribute(attr, getHandler(player).getAttribute(attr) + INCREMENT_PER_LEVEL);

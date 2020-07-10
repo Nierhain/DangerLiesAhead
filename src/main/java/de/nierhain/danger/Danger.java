@@ -20,7 +20,7 @@ public class Danger {
     public static final String NAME = "Danger Lies Ahead";
     public static final String VERSION = "v1.2.1";
 
-    public static Logger logger = LogManager.getLogger(MODID);
+    public static Logger dangerLogger = LogManager.getLogger(MODID);
 
     public static ResourceLocation levelUpSoundLocation = new ResourceLocation(MODID, "level_up");
     public static SoundEvent levelUpSound = new SoundEvent(levelUpSoundLocation);
@@ -39,7 +39,7 @@ public class Danger {
 
 //    @EventHandler
 //    public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-//        logger.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the author and you should get a valid copy ASAP!");
+//        logger.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This jar file will NOT be supported by the author and you should get a valid copy ASAP!");
 //    }
 
     @EventHandler
