@@ -1,7 +1,6 @@
 # DangerLiesAhead
 
-**This mod is still in active development and might cause strange issues or corrupt your world. Backup your world before using to completely be on the safe side. You have been warned.
-Also please report any bugs or suggestions on the issues page.**
+**I'm focusing on 1.16, don't expect 1.15 or lower to get any updates**
 
 Tired of weak zombies? Tired of oneshotting Creeper? Tired of having the same stats day in, day out? Then this mod is for you!
 
