@@ -19,8 +19,8 @@ import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static de.nierhain.dangerliesahead.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
-import static de.nierhain.dangerliesahead.config.ConfigHandler.PLAYER_MAX_LVL;
-import static de.nierhain.dangerliesahead.config.ConfigHandler.XP_MULTIPLIER;
+import static de.nierhain.dangerliesahead.config.ConfigHandler.GeneralCategory.PLAYER_MAX_LVL;
+import static de.nierhain.dangerliesahead.config.ConfigHandler.GeneralCategory.XP_MULTIPLIER;
 
 public class LevelHandler {
 

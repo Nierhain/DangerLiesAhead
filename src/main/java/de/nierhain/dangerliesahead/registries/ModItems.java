@@ -6,7 +6,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModItems {
-    @GameRegistry.ObjectHolder("danger:creature_compound")
+    @GameRegistry.ObjectHolder("dangerliesahead:creature_compound")
     public static ItemCreatureCompound creatureCompound;
 
     @SideOnly(Side.CLIENT)

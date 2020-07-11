@@ -3,7 +3,7 @@ package de.nierhain.dangerliesahead.network;
 
 import de.nierhain.dangerliesahead.capabilities.attributes.IAttributes;
 import de.nierhain.dangerliesahead.enums.Attribute;
-import de.nierhain.dangerliesahead.handler.AttributesHandler;
+import de.nierhain.dangerliesahead.handler.PlayerHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -41,7 +41,7 @@ public class PacketAttributeToServer implements IMessage {
             IAttributes skillsObj = serverPlayer.getCapability(CAPABILITY_ATTRIBUTES, null);
 
             serverPlayer.getServerWorld().addScheduledTask(() -> {
-                AttributesHandler.skill(message.attribute, serverPlayer);
+                PlayerHandler.skill(message.attribute, serverPlayer);
                 PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(skillsObj.getAllAttributes(), skillsObj.getSkillpoints()), serverPlayer);
             });
 

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
-import static de.nierhain.dangerliesahead.config.ConfigHandler.*;
+import static de.nierhain.dangerliesahead.config.ConfigHandler.GeneralCategory.*;
 import static de.nierhain.dangerliesahead.config.ConfigHandler.BeaconCategory.ONLY_ONE_BEACON;
 import static de.nierhain.dangerliesahead.config.ConfigHandler.BeaconCategory.SAFE_POINT_RADIUS;
 import static de.nierhain.dangerliesahead.config.ConfigHandler.ModifierCategory.MOB_MODIFIER_ATTACK_DAMAGE;

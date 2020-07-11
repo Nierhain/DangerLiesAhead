@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(modid = DangerLiesAhead.MODID, name = DangerLiesAhead.NAME, version = DangerLiesAhead.VERSION)
 public class DangerLiesAhead {
-    public static final String MODID = "danger";
+    public static final String MODID = "dangerliesahead";
     public static final String NAME = "Danger Lies Ahead";
     public static final String VERSION = "v1.2.1";
 
@@ -25,7 +25,7 @@ public class DangerLiesAhead {
     public static ResourceLocation levelUpSoundLocation = new ResourceLocation(MODID, "level_up");
     public static SoundEvent levelUpSound = new SoundEvent(levelUpSoundLocation);
 
-    @SidedProxy(serverSide = "de.nierhain.danger.proxy.CommonProxy", clientSide = "de.nierhain.danger.proxy.ClientProxy")
+    @SidedProxy(serverSide = "de.nierhain.dangerliesahead.proxy.CommonProxy", clientSide = "de.nierhain.dangerliesahead.proxy.ClientProxy")
     public static CommonProxy proxy;
 
     public static CreativeTabs tabDangerLiesAhead = new CreativeTabs("DangerLiesAhead") {

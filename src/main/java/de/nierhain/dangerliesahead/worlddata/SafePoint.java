@@ -31,10 +31,12 @@ public class SafePoint extends WorldSavedData {
     }
 
     public void addSafePoint(BlockPos pos){
+        markDirty();
         safePoints.add(pos);
     }
 
     public void removeSafePoint(BlockPos pos){
+        markDirty();
         safePoints.remove(pos);
     }
 

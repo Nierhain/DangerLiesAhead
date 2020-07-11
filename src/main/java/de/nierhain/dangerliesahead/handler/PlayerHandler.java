@@ -22,7 +22,7 @@ import java.util.UUID;
 import static de.nierhain.dangerliesahead.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
 import static de.nierhain.dangerliesahead.config.ConfigHandler.ModifierCategory.*;
 
-public class AttributesHandler {
+public class PlayerHandler {
 
 
     private static double[] MODIFIER = {PLAYER_MODIFIER_HEALTH, PLAYER_MODIFIER_LUCK, PLAYER_MODIFIER_SPEED, PLAYER_MODIFIER_DMG, PLAYER_MODIFIER_AS};

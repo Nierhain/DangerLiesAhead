@@ -6,7 +6,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModBlocks {
-    @GameRegistry.ObjectHolder("danger:safe_beacon")
+    @GameRegistry.ObjectHolder("dangerliesahead:safe_beacon")
     public static BlockSafeBeacon blockSafeBeacon;
 
     @SideOnly(Side.CLIENT)

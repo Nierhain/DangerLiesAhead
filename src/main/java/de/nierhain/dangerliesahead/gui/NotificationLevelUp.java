@@ -6,7 +6,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 
 import static de.nierhain.dangerliesahead.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
-import static de.nierhain.dangerliesahead.config.ConfigHandler.LEVEL_TEXT;
+import static de.nierhain.dangerliesahead.config.ConfigHandler.ClientCategory.LEVEL_TEXT;
 
 public class NotificationLevelUp extends Gui {
 

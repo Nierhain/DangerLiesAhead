@@ -2,7 +2,7 @@ package de.nierhain.dangerliesahead.commands;
 
 import de.nierhain.dangerliesahead.capabilities.attributes.IAttributes;
 import de.nierhain.dangerliesahead.capabilities.level.ILevel;
-import de.nierhain.dangerliesahead.handler.AttributesHandler;
+import de.nierhain.dangerliesahead.handler.PlayerHandler;
 import de.nierhain.dangerliesahead.network.PacketAttributesToClient;
 import de.nierhain.dangerliesahead.network.PacketHandler;
 import de.nierhain.dangerliesahead.network.PacketLevelToClient;
@@ -46,7 +46,7 @@ public class CommandPurge extends CommandBase {
 
         level.reset();
         attr.reset();
-        AttributesHandler.purge(player);
+        PlayerHandler.purge(player);
 
         PacketHandler.INSTANCE.sendTo(new PacketLevelToClient(level.getLevel(), level.getXP()), (EntityPlayerMP) player);
         PacketHandler.INSTANCE.sendTo(new PacketAttributesToClient(attr.getAllAttributes(), attr.getSkillpoints()), (EntityPlayerMP) player);

@@ -3,7 +3,7 @@ package de.nierhain.dangerliesahead.capabilities.level;
 import java.util.HashMap;
 
 
-import static de.nierhain.dangerliesahead.config.ConfigHandler.PLAYER_MAX_LVL;
+import static de.nierhain.dangerliesahead.config.ConfigHandler.GeneralCategory.PLAYER_MAX_LVL;
 
 
 public class MapLevels {

@@ -1,0 +1,46 @@
+# Keybindings
+key.dangerliesahead.category=Danger Lies Ahead
+key.gui.desc=Open GUI
+
+# Menus
+itemGroup.DangerLiesAhead=Danger Lies Ahead
+
+# Blocks
+tile.dangerliesahead.safe_beacon.name=Safe Beacon
+
+# Items
+item.dangerliesahead.creature_compound.name=Creature Compound
+
+# GUI
+dangerliesahead.health=Health
+dangerliesahead.luck=Luck
+dangerliesahead.movementspeed=Movement speed
+dangerliesahead.attackdamage=Attack damage
+dangerliesahead.attackspeed=Attack speed
+dangerliesahead.level=dangerliesahead level
+dangerliesahead.experience=Experience
+dangerliesahead.levelup=You're now a dangerliesahead Level %d!
+dangerliesahead.ismaxlvl=You are max level
+dangerliesahead.remainingpoints=Remaining skill points
+
+# Buttons
+dangerliesahead.button.close=close
+dangerliesahead.button.skill=skill
+
+# Config
+dangerliesahead.config.xpmultiplier=Changes the experience multiplier | default: 1
+dangerliesahead.config.player.maxlvl=Changes the max level a player can reach | default: 20
+dangerliesahead.config.player.healthmod=Changes the health modifier per level up | default: 2
+dangerliesahead.config.player.luckmod=Changes the luck modifier per level up | default: 1
+dangerliesahead.config.player.speed=Changes the movement speed modifier per level up | default: 0.01
+dangerliesahead.config.player.dmgmod=Changes the attack damage modifier per level up | default: 1
+dangerliesahead.config.player.asmod=Changes the attack speed modifier per level up | default: 1
+dangerliesahead.config.mob.disable=Disables leveling of mobs | default: false
+dangerliesahead.config.mob.maxlvl=Changes the max level a mob can reach | default: 15
+dangerliesahead.config.mob.distance=Number of chunks between mob and spawn to level the mob | default: 20
+dangerliesahead.config.mob.healthmod=Changes the health a mob gets per level | default: 1
+dangerliesahead.config.mob.dmgmod=Changes the amount of attack damage a mob gets per level | default: 0.3
+dangerliesahead.config.beacon.enable=Enables beacons to move the safe point | default: true
+dangerliesahead.config.beacon.craftable=Enables whether beacons are craftable | default: true
+dangerliesahead.config.beacon.one=Enables if only one beacon can be active per dimension | default: false
+dangerliesahead.config.beacon.radius=Sets the radius in which players are safe | default: 16

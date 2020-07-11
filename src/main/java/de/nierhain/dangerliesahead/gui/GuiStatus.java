@@ -22,7 +22,7 @@ import java.io.IOException;
 
 import static de.nierhain.dangerliesahead.capabilities.attributes.ProviderAttributes.CAPABILITY_ATTRIBUTES;
 import static de.nierhain.dangerliesahead.capabilities.level.ProviderLevel.CAPABILITY_LEVEL;
-import static de.nierhain.dangerliesahead.config.ConfigHandler.PLAYER_MAX_LVL;
+import static de.nierhain.dangerliesahead.config.ConfigHandler.GeneralCategory.PLAYER_MAX_LVL;
 
 public class GuiStatus extends GuiScreen {
 

@@ -10,7 +10,7 @@ public class ModHandlers {
     public static void registerHandlers(){
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new LevelHandler());
-        MinecraftForge.EVENT_BUS.register(new AttributesHandler());
+        MinecraftForge.EVENT_BUS.register(new PlayerHandler());
         MinecraftForge.EVENT_BUS.register(new MobSpawnHandler());
         MinecraftForge.EVENT_BUS.register(new ConfigHandler());
     }
