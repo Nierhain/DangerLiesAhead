@@ -1,6 +1,6 @@
 # DangerLiesAhead
 
-**I'm focusing on 1.16, don't expect 1.15 or lower to get any updates**
+# **I'm focusing on 1.16, don't expect 1.15 or lower to get any updates**
 
 Tired of weak zombies? Tired of oneshotting Creeper? Tired of having the same stats day in, day out? Then this mod is for you!
 
