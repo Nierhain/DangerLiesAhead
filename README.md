@@ -1,5 +1,7 @@
 # DangerLiesAhead
 
+# Right now, with everything going on in the world and also my private life, I decided to 'abandon' the mod for now or at least stop actively working on it (I didn't wrote a single line of code in like months to be honest). 
+
 **This mod is still in active development and might cause strange issues or corrupt your world. Backup your world before using to completely be on the safe side. You have been warned.
 Also please report any bugs or suggestions on the issues page.**
 
