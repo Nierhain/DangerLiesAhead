@@ -29,7 +29,7 @@ public class MobSpawnHandler {
     @SubscribeEvent
     public void onMobSpawn(EntityJoinWorldEvent event){
         if(notAllegeable(event)) return;
-
+        if(!event.getEntity() instanceof EntityLiving) return;
         SafePoint points = SafePoint.get(event.getWorld());
         safePoints = points.getSafePoint();
 
